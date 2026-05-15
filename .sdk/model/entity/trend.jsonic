@@ -1,0 +1,59 @@
+# Entity: trend
+
+main: kit: entity: trend: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "no_of_comment"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "sentiment"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "sentiment_score"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "ticker"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "trend_score"
+      req: false
+      type: "`$NUMBER`"
+    }
+  ]
+
+  name: "trend"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/apps/reddit/trend"
+          parts: [
+            "apps"
+            "reddit"
+            "trend"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

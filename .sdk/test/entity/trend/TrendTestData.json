@@ -1,0 +1,38 @@
+{
+  "existing": {
+    "trend": {
+      "TREND00": {
+        "no_of_comment": "s32",
+        "sentiment": "s33",
+        "sentiment_score": 52,
+        "ticker": "s35",
+        "trend_score": 54
+      },
+      "TREND01": {
+        "no_of_comment": "s64",
+        "sentiment": "s65",
+        "sentiment_score": 102,
+        "ticker": "s67",
+        "trend_score": 104
+      },
+      "TREND02": {
+        "no_of_comment": "s96",
+        "sentiment": "s97",
+        "sentiment_score": 152,
+        "ticker": "s99",
+        "trend_score": 154
+      }
+    }
+  },
+  "new": {
+    "trend": {
+      "trend_ref01": {
+        "no_of_comment": "sc8",
+        "sentiment": "sc9",
+        "sentiment_score": 202,
+        "ticker": "scb",
+        "trend_score": 204
+      }
+    }
+  }
+}

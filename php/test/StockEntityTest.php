@@ -1,0 +1,119 @@
+<?php
+declare(strict_types=1);
+
+// Stock entity test
+
+require_once __DIR__ . '/../redditstocks_sdk.php';
+require_once __DIR__ . '/Runner.php';
+
+use PHPUnit\Framework\TestCase;
+use Voxgig\Struct\Struct as Vs;
+
+class StockEntityTest extends TestCase
+{
+    public function test_create_instance(): void
+    {
+        $testsdk = RedditStocksSDK::test(null, null);
+        $ent = $testsdk->Stock(null);
+        $this->assertNotNull($ent);
+    }
+
+    public function test_basic_flow(): void
+    {
+        $setup = stock_basic_setup(null);
+        // Per-op sdk-test-control.json skip.
+        $_live = !empty($setup["live"]);
+        foreach (["list"] as $_op) {
+            [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "stock." . $_op, $_live ? "live" : "unit");
+            if ($_shouldSkip) {
+                $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
+                return;
+            }
+        }
+        // The basic flow consumes synthetic IDs from the fixture. In live mode
+        // without an *_ENTID env override, those IDs hit the live API and 4xx.
+        if (!empty($setup["synthetic_only"])) {
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set REDDITSTOCKS_TEST_STOCK_ENTID JSON to run live");
+            return;
+        }
+        $client = $setup["client"];
+
+        // Bootstrap entity data from existing test data.
+        $stock_ref01_data_raw = Vs::items(Helpers::to_map(
+            Vs::getpath($setup["data"], "existing.stock")));
+        $stock_ref01_data = null;
+        if (count($stock_ref01_data_raw) > 0) {
+            $stock_ref01_data = Helpers::to_map($stock_ref01_data_raw[0][1]);
+        }
+
+        // LIST
+        $stock_ref01_ent = $client->Stock(null);
+        $stock_ref01_match = [];
+
+        [$stock_ref01_list_result, $err] = $stock_ref01_ent->list($stock_ref01_match, null);
+        $this->assertNull($err);
+        $this->assertIsArray($stock_ref01_list_result);
+
+    }
+}
+
+function stock_basic_setup($extra)
+{
+    Runner::load_env_local();
+
+    $entity_data_file = __DIR__ . '/../../.sdk/test/entity/stock/StockTestData.json';
+    $entity_data_source = file_get_contents($entity_data_file);
+    $entity_data = json_decode($entity_data_source, true);
+
+    $options = [];
+    $options["entity"] = $entity_data["existing"];
+
+    $client = RedditStocksSDK::test($options, $extra);
+
+    // Generate idmap.
+    $idmap = [];
+    foreach (["stock01", "stock02", "stock03"] as $k) {
+        $idmap[$k] = strtoupper($k);
+    }
+
+    // Detect ENTID env override before envOverride consumes it. When live
+    // mode is on without a real override, the basic test runs against synthetic
+    // IDs from the fixture and 4xx's. Surface this so the test can skip.
+    $entid_env_raw = getenv("REDDITSTOCKS_TEST_STOCK_ENTID");
+    $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
+
+    $env = Runner::env_override([
+        "REDDITSTOCKS_TEST_STOCK_ENTID" => $idmap,
+        "REDDITSTOCKS_TEST_LIVE" => "FALSE",
+        "REDDITSTOCKS_TEST_EXPLAIN" => "FALSE",
+        "REDDITSTOCKS_APIKEY" => "NONE",
+    ]);
+
+    $idmap_resolved = Helpers::to_map(
+        $env["REDDITSTOCKS_TEST_STOCK_ENTID"]);
+    if ($idmap_resolved === null) {
+        $idmap_resolved = Helpers::to_map($idmap);
+    }
+
+    if ($env["REDDITSTOCKS_TEST_LIVE"] === "TRUE") {
+        $merged_opts = Vs::merge([
+            [
+                "apikey" => $env["REDDITSTOCKS_APIKEY"],
+            ],
+            $extra ?? [],
+        ]);
+        $client = new RedditStocksSDK(Helpers::to_map($merged_opts));
+    }
+
+    $live = $env["REDDITSTOCKS_TEST_LIVE"] === "TRUE";
+    return [
+        "client" => $client,
+        "data" => $entity_data,
+        "idmap" => $idmap_resolved,
+        "env" => $env,
+        "explain" => $env["REDDITSTOCKS_TEST_EXPLAIN"] === "TRUE",
+        "live" => $live,
+        "synthetic_only" => $live && !$idmap_overridden,
+        "now" => (int)(microtime(true) * 1000),
+    ];
+}

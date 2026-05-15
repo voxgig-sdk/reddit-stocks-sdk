@@ -1,0 +1,32 @@
+# BasicStockDetailFlow
+
+main: kit: flow: BasicStockDetailFlow:
+{
+  entity: "stock_detail",
+  kind: "basic",
+  name: "BasicStockDetailFlow",
+  step: [
+    {
+      input: {
+        ref: "stock_detail_ref01",
+        srcdatavar: "stock_detail_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "stock_detail01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-stock_detail_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicStockDetailFlow"
+}

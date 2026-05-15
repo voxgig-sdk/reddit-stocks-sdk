@@ -1,0 +1,53 @@
+# Entity: stock
+
+main: kit: entity: stock: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "no_of_comment"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "sentiment"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "sentiment_score"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "ticker"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "stock"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/apps/reddit"
+          parts: [
+            "apps"
+            "reddit"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

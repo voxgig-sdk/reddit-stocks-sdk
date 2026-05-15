@@ -1,0 +1,42 @@
+{
+  "existing": {
+    "stock_detail": {
+      "STOCK_DETAIL00": {
+        "mention": "s3c",
+        "no_of_comment": "s3d",
+        "rank": "s3e",
+        "sentiment": "s3f",
+        "sentiment_score": 64,
+        "ticker": "s41"
+      },
+      "STOCK_DETAIL01": {
+        "mention": "s78",
+        "no_of_comment": "s79",
+        "rank": "s7a",
+        "sentiment": "s7b",
+        "sentiment_score": 124,
+        "ticker": "s7d"
+      },
+      "STOCK_DETAIL02": {
+        "mention": "sb4",
+        "no_of_comment": "sb5",
+        "rank": "sb6",
+        "sentiment": "sb7",
+        "sentiment_score": 184,
+        "ticker": "sb9"
+      }
+    }
+  },
+  "new": {
+    "stock_detail": {
+      "stock_detail_ref01": {
+        "mention": "sf0",
+        "no_of_comment": "sf1",
+        "rank": "sf2",
+        "sentiment": "sf3",
+        "sentiment_score": 244,
+        "ticker": "sf5"
+      }
+    }
+  }
+}

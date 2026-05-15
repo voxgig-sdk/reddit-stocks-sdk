@@ -1,0 +1,286 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Reddit Stocks",
+    "description": "Get top 50 stocks discussed on Reddit subreddit - Wallstreetbets",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://tradestie.com/apps/reddit/api/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://tradestie.com/api/v1",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/apps/reddit": {
+      "get": {
+        "summary": "Get top stocks from r/wallstreetbets",
+        "description": "Returns the top 50 stocks most discussed on the Reddit subreddit Wallstreetbets",
+        "operationId": "getTopStocks",
+        "tags": [
+          "Stocks"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of top stocks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Stock"
+                  }
+                },
+                "example": [
+                  {
+                    "no_of_comments": 523,
+                    "sentiment": "Bullish",
+                    "sentiment_score": 0.234,
+                    "ticker": "TSLA"
+                  },
+                  {
+                    "no_of_comments": 412,
+                    "sentiment": "Bearish",
+                    "sentiment_score": -0.123,
+                    "ticker": "AAPL"
+                  }
+                ]
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/reddit/trend": {
+      "get": {
+        "summary": "Get trending stocks from r/wallstreetbets",
+        "description": "Returns trending stocks based on recent discussions and momentum on the Wallstreetbets subreddit",
+        "operationId": "getTrendingStocks",
+        "tags": [
+          "Stocks"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with trending stocks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TrendingStock"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/reddit/{ticker}": {
+      "get": {
+        "summary": "Get stock details by ticker",
+        "description": "Returns detailed information about a specific stock ticker from Wallstreetbets discussions",
+        "operationId": "getStockByTicker",
+        "tags": [
+          "Stocks"
+        ],
+        "parameters": [
+          {
+            "name": "ticker",
+            "in": "path",
+            "description": "Stock ticker symbol (e.g., TSLA, AAPL, GME)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "TSLA"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with stock details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StockDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Stock ticker not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Stock": {
+        "type": "object",
+        "properties": {
+          "no_of_comments": {
+            "type": "integer",
+            "description": "Number of comments mentioning this stock",
+            "example": 523
+          },
+          "sentiment": {
+            "type": "string",
+            "description": "Overall sentiment for the stock",
+            "enum": [
+              "Bullish",
+              "Bearish",
+              "Neutral"
+            ],
+            "example": "Bullish"
+          },
+          "sentiment_score": {
+            "type": "number",
+            "format": "float",
+            "description": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
+            "example": 0.234
+          },
+          "ticker": {
+            "type": "string",
+            "description": "Stock ticker symbol",
+            "example": "TSLA"
+          }
+        }
+      },
+      "TrendingStock": {
+        "type": "object",
+        "properties": {
+          "ticker": {
+            "type": "string",
+            "description": "Stock ticker symbol",
+            "example": "GME"
+          },
+          "no_of_comments": {
+            "type": "integer",
+            "description": "Number of comments mentioning this stock",
+            "example": 892
+          },
+          "sentiment": {
+            "type": "string",
+            "description": "Overall sentiment for the stock",
+            "enum": [
+              "Bullish",
+              "Bearish",
+              "Neutral"
+            ],
+            "example": "Bullish"
+          },
+          "sentiment_score": {
+            "type": "number",
+            "format": "float",
+            "description": "Sentiment score",
+            "example": 0.456
+          },
+          "trend_score": {
+            "type": "number",
+            "format": "float",
+            "description": "Trending momentum score",
+            "example": 8.5
+          }
+        }
+      },
+      "StockDetail": {
+        "type": "object",
+        "properties": {
+          "ticker": {
+            "type": "string",
+            "description": "Stock ticker symbol",
+            "example": "TSLA"
+          },
+          "no_of_comments": {
+            "type": "integer",
+            "description": "Total number of comments",
+            "example": 523
+          },
+          "sentiment": {
+            "type": "string",
+            "description": "Overall sentiment",
+            "example": "Bullish"
+          },
+          "sentiment_score": {
+            "type": "number",
+            "format": "float",
+            "description": "Sentiment score",
+            "example": 0.234
+          },
+          "mentions": {
+            "type": "integer",
+            "description": "Number of times mentioned",
+            "example": 678
+          },
+          "rank": {
+            "type": "integer",
+            "description": "Current rank among discussed stocks",
+            "example": 3
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message",
+            "example": "An error occurred"
+          },
+          "message": {
+            "type": "string",
+            "description": "Detailed error message",
+            "example": "Unable to fetch stock data"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Stocks",
+      "description": "Operations related to stocks discussed on r/wallstreetbets"
+    }
+  ]
+}

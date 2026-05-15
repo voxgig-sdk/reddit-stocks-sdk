@@ -1,0 +1,22 @@
+# BasicTrendFlow
+
+main: kit: flow: BasicTrendFlow:
+{
+  entity: "trend",
+  kind: "basic",
+  name: "BasicTrendFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "trend_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicTrendFlow"
+}

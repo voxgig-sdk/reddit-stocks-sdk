@@ -1,0 +1,22 @@
+# BasicStockFlow
+
+main: kit: flow: BasicStockFlow:
+{
+  entity: "stock",
+  kind: "basic",
+  name: "BasicStockFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "stock_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicStockFlow"
+}

@@ -1,0 +1,23 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        url: "https://tradestie.com/apps/reddit/api/"
+      }
+      description: "Get top 50 stocks discussed on Reddit subreddit - Wallstreetbets"
+      servers: [
+        {
+          description: "Production server"
+          url: "https://tradestie.com/api/v1"
+        }
+      ]
+      title: "Reddit Stocks"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

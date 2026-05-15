@@ -1,0 +1,89 @@
+# Entity: stock_detail
+
+main: kit: entity: stock_detail: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "mention"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "no_of_comment"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "rank"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "sentiment"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "sentiment_score"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "ticker"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "stock_detail"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "TSLA"
+                kind: "param"
+                name: "ticker"
+                orig: "ticker"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/apps/reddit/{ticker}"
+          parts: [
+            "apps"
+            "reddit"
+            "{ticker}"
+          ]
+          select: {
+            exist: [
+              "ticker"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "reddit"
+      ]
+    ]
+  }
+
+
+
+}
