@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/reddit-stocks-sdk"
-	"github.com/voxgig-sdk/reddit-stocks-sdk/core"
+	sdk "github.com/voxgig-sdk/reddit-stocks-sdk/go"
+	"github.com/voxgig-sdk/reddit-stocks-sdk/go/core"
 )
 
 func TestTrendDirect(t *testing.T) {

@@ -1,10 +1,10 @@
 package voxgigredditstockssdk
 
 import (
-	"github.com/voxgig-sdk/reddit-stocks-sdk/core"
-	"github.com/voxgig-sdk/reddit-stocks-sdk/entity"
-	"github.com/voxgig-sdk/reddit-stocks-sdk/feature"
-	_ "github.com/voxgig-sdk/reddit-stocks-sdk/utility"
+	"github.com/voxgig-sdk/reddit-stocks-sdk/go/core"
+	"github.com/voxgig-sdk/reddit-stocks-sdk/go/entity"
+	"github.com/voxgig-sdk/reddit-stocks-sdk/go/feature"
+	_ "github.com/voxgig-sdk/reddit-stocks-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

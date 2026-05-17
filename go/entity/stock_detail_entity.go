@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/reddit-stocks-sdk/core"
+	"github.com/voxgig-sdk/reddit-stocks-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/reddit-stocks-sdk/go/utility/struct"
 )
 
 type StockDetailEntity struct {

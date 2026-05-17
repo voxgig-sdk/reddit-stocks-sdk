@@ -7,7 +7,8 @@
         "rank": "s3e",
         "sentiment": "s3f",
         "sentiment_score": 64,
-        "ticker": "s41"
+        "ticker": "s41",
+        "id": "STOCK_DETAIL00"
       },
       "STOCK_DETAIL01": {
         "mention": "s78",
@@ -15,7 +16,8 @@
         "rank": "s7a",
         "sentiment": "s7b",
         "sentiment_score": 124,
-        "ticker": "s7d"
+        "ticker": "s7d",
+        "id": "STOCK_DETAIL01"
       },
       "STOCK_DETAIL02": {
         "mention": "sb4",
@@ -23,7 +25,8 @@
         "rank": "sb6",
         "sentiment": "sb7",
         "sentiment_score": 184,
-        "ticker": "sb9"
+        "ticker": "sb9",
+        "id": "STOCK_DETAIL02"
       }
     }
   },

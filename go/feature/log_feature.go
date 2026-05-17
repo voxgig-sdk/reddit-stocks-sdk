@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/voxgig-sdk/reddit-stocks-sdk/core"
+	"github.com/voxgig-sdk/reddit-stocks-sdk/go/core"
 )
 
 type LogFeature struct {

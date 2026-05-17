@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/reddit-stocks-sdk"
-	"github.com/voxgig-sdk/reddit-stocks-sdk/core"
+	sdk "github.com/voxgig-sdk/reddit-stocks-sdk/go"
+	"github.com/voxgig-sdk/reddit-stocks-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/reddit-stocks-sdk/go/utility/struct"
 )
 
 func TestTrendEntity(t *testing.T) {

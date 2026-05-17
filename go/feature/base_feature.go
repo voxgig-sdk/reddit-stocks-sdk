@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/reddit-stocks-sdk/core"
+	"github.com/voxgig-sdk/reddit-stocks-sdk/go/core"
 )
 
 type BaseFeature struct {
