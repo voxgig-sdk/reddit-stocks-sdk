@@ -66,14 +66,12 @@ def _stock_detail_direct_setup(mockres):
     env = runner.env_override({
         "REDDITSTOCKS_TEST_STOCK_DETAIL_ENTID": {},
         "REDDITSTOCKS_TEST_LIVE": "FALSE",
-        "REDDITSTOCKS_APIKEY": "NONE",
     })
 
     live = env.get("REDDITSTOCKS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("REDDITSTOCKS_APIKEY"),
         }
         client = RedditStocksSDK(merged_opts)
         return {

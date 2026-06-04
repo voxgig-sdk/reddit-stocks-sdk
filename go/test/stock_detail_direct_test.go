@@ -110,14 +110,12 @@ func stock_detailDirectSetup(mockres any) *stock_detailDirectSetupResult {
 	env := envOverride(map[string]any{
 		"REDDITSTOCKS_TEST_STOCK_DETAIL_ENTID": map[string]any{},
 		"REDDITSTOCKS_TEST_LIVE":    "FALSE",
-		"REDDITSTOCKS_APIKEY":       "NONE",
 	})
 
 	live := env["REDDITSTOCKS_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["REDDITSTOCKS_APIKEY"],
 		}
 		client := sdk.NewRedditStocksSDK(mergedOpts)
 
