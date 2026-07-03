@@ -38,6 +38,10 @@ class Config {
   options = {
     base: 'https://tradestie.com/api/v1',
 
+    auth: {
+      prefix: 'Bearer',
+    },
+
     headers: {
       "content-type": "application/json"
     },
@@ -61,57 +65,57 @@ class Config {
     "stock": {
       "fields": [
         {
+          "active": true,
           "name": "no_of_comment",
           "req": false,
           "type": "`$INTEGER`",
-          "active": true,
           "index$": 0
         },
         {
+          "active": true,
           "name": "sentiment",
           "req": false,
           "type": "`$STRING`",
-          "active": true,
           "index$": 1
         },
         {
+          "active": true,
           "name": "sentiment_score",
           "req": false,
           "type": "`$NUMBER`",
-          "active": true,
           "index$": 2
         },
         {
+          "active": true,
           "name": "ticker",
           "req": false,
           "type": "`$STRING`",
-          "active": true,
           "index$": 3
         }
       ],
       "name": "stock",
       "op": {
         "list": {
+          "input": "data",
           "name": "list",
           "points": [
             {
+              "active": true,
+              "args": {},
               "method": "GET",
               "orig": "/apps/reddit",
               "parts": [
                 "apps",
                 "reddit"
               ],
+              "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "active": true,
-              "args": {},
-              "select": {},
               "index$": 0
             }
           ],
-          "input": "data",
           "key$": "list"
         }
       },
@@ -122,64 +126,66 @@ class Config {
     "stock_detail": {
       "fields": [
         {
+          "active": true,
           "name": "mention",
           "req": false,
           "type": "`$INTEGER`",
-          "active": true,
           "index$": 0
         },
         {
+          "active": true,
           "name": "no_of_comment",
           "req": false,
           "type": "`$INTEGER`",
-          "active": true,
           "index$": 1
         },
         {
+          "active": true,
           "name": "rank",
           "req": false,
           "type": "`$INTEGER`",
-          "active": true,
           "index$": 2
         },
         {
+          "active": true,
           "name": "sentiment",
           "req": false,
           "type": "`$STRING`",
-          "active": true,
           "index$": 3
         },
         {
+          "active": true,
           "name": "sentiment_score",
           "req": false,
           "type": "`$NUMBER`",
-          "active": true,
           "index$": 4
         },
         {
+          "active": true,
           "name": "ticker",
           "req": false,
           "type": "`$STRING`",
-          "active": true,
           "index$": 5
         }
       ],
       "name": "stock_detail",
       "op": {
         "load": {
+          "input": "data",
           "name": "load",
           "points": [
             {
+              "active": true,
               "args": {
                 "params": [
                   {
+                    "active": true,
                     "example": "TSLA",
                     "kind": "param",
                     "name": "ticker",
                     "orig": "ticker",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -199,11 +205,9 @@ class Config {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "active": true,
               "index$": 0
             }
           ],
-          "input": "data",
           "key$": "load"
         }
       },
@@ -218,47 +222,50 @@ class Config {
     "trend": {
       "fields": [
         {
+          "active": true,
           "name": "no_of_comment",
           "req": false,
           "type": "`$INTEGER`",
-          "active": true,
           "index$": 0
         },
         {
+          "active": true,
           "name": "sentiment",
           "req": false,
           "type": "`$STRING`",
-          "active": true,
           "index$": 1
         },
         {
+          "active": true,
           "name": "sentiment_score",
           "req": false,
           "type": "`$NUMBER`",
-          "active": true,
           "index$": 2
         },
         {
+          "active": true,
           "name": "ticker",
           "req": false,
           "type": "`$STRING`",
-          "active": true,
           "index$": 3
         },
         {
+          "active": true,
           "name": "trend_score",
           "req": false,
           "type": "`$NUMBER`",
-          "active": true,
           "index$": 4
         }
       ],
       "name": "trend",
       "op": {
         "list": {
+          "input": "data",
           "name": "list",
           "points": [
             {
+              "active": true,
+              "args": {},
               "method": "GET",
               "orig": "/apps/reddit/trend",
               "parts": [
@@ -266,17 +273,14 @@ class Config {
                 "reddit",
                 "trend"
               ],
+              "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "active": true,
-              "args": {},
-              "select": {},
               "index$": 0
             }
           ],
-          "input": "data",
           "key$": "list"
         }
       },

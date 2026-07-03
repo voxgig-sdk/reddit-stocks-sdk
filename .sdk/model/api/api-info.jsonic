@@ -16,28 +16,7 @@ main: {
       ]
       title: "Reddit Stocks"
       version: "1.0.0"
-      tagline: "Top 50 stocks discussed on the r/WallStreetBets subreddit, refreshed daily"
-      homepage: "https://tradestie.com/api/v1"
-      docs_url: "https://tradestie.com/apps/reddit/api/"
-      license_short: "No licence published by the provider; treat data as for personal / non-commercial use unless you confirm otherwise with Tradestie."
-      license_md: `- The provider ([Tradestie](https://tradestie.com)) does not publish an explicit data licence.
-- The community catalogue page on [freepublicapis.com](https://freepublicapis.com/reddit-stocks) lists no licence either.
-- Treat the data as informational only and confirm permitted use with Tradestie before commercial reuse.`
-      about_md: `[Reddit Stocks](https://tradestie.com/apps/reddit/) is a small public endpoint published by [Tradestie](https://tradestie.com) that surfaces the most-talked-about tickers on the r/WallStreetBets subreddit. The API powers Tradestie's own dashboards and is exposed for free use by other developers.
-
-What you get from the API:
-
-- A ranked list of up to 50 stock tickers most frequently discussed on r/WallStreetBets.
-- Per-ticker discussion volume and sentiment signal so you can see what retail traders are focused on.
-- An optional \`date\` query parameter to retrieve the snapshot for a specific past day (format \`MM-DD-YYYY\`).
-
-Operational notes: no API key or authentication is required, and the endpoints are documented as public. The catalogue page on freepublicapis.com notes that CORS is disabled, so browser-side calls may need a proxy. No rate limit is published, so be polite with request volume.`
-      entity_desc: {
-        stock: "A single ticker entry from the Reddit Stocks ranking, returned from `GET /apps/reddit` as part of the top-50 list."
-        stock_detail: "Per-ticker detail for an individual symbol in the WallStreetBets ranking — typically the ticker plus its discussion count and sentiment score."
-        trend: "Historical ranking snapshot for a given day, accessed by passing `?date=MM-DD-YYYY` to `GET /apps/reddit` to see how mentions changed over time."
-      }
-      auth: false
     }
   }
 }
+

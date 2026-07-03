@@ -92,6 +92,7 @@ def _trend_basic_setup(extra):
         "REDDITSTOCKS_TEST_TREND_ENTID": idmap,
         "REDDITSTOCKS_TEST_LIVE": "FALSE",
         "REDDITSTOCKS_TEST_EXPLAIN": "FALSE",
+        "REDDITSTOCKS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,6 +103,7 @@ def _trend_basic_setup(extra):
     if env.get("REDDITSTOCKS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
+                "apikey": env.get("REDDITSTOCKS_APIKEY"),
             },
             extra or {},
         ])

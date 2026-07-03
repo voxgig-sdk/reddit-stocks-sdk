@@ -14,6 +14,9 @@ func MakeConfig() map[string]any {
 		},
 		"options": map[string]any{
 			"base": "https://tradestie.com/api/v1",
+			"auth": map[string]any{
+				"prefix": "Bearer",
+			},
 			"headers": map[string]any{
 				"content-type": "application/json",
 			},
@@ -27,57 +30,57 @@ func MakeConfig() map[string]any {
 			"stock": map[string]any{
 				"fields": []any{
 					map[string]any{
+						"active": true,
 						"name": "no_of_comment",
 						"req": false,
 						"type": "`$INTEGER`",
-						"active": true,
 						"index$": 0,
 					},
 					map[string]any{
+						"active": true,
 						"name": "sentiment",
 						"req": false,
 						"type": "`$STRING`",
-						"active": true,
 						"index$": 1,
 					},
 					map[string]any{
+						"active": true,
 						"name": "sentiment_score",
 						"req": false,
 						"type": "`$NUMBER`",
-						"active": true,
 						"index$": 2,
 					},
 					map[string]any{
+						"active": true,
 						"name": "ticker",
 						"req": false,
 						"type": "`$STRING`",
-						"active": true,
 						"index$": 3,
 					},
 				},
 				"name": "stock",
 				"op": map[string]any{
 					"list": map[string]any{
+						"input": "data",
 						"name": "list",
 						"points": []any{
 							map[string]any{
+								"active": true,
+								"args": map[string]any{},
 								"method": "GET",
 								"orig": "/apps/reddit",
 								"parts": []any{
 									"apps",
 									"reddit",
 								},
+								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"active": true,
-								"args": map[string]any{},
-								"select": map[string]any{},
 								"index$": 0,
 							},
 						},
-						"input": "data",
 						"key$": "list",
 					},
 				},
@@ -88,64 +91,66 @@ func MakeConfig() map[string]any {
 			"stock_detail": map[string]any{
 				"fields": []any{
 					map[string]any{
+						"active": true,
 						"name": "mention",
 						"req": false,
 						"type": "`$INTEGER`",
-						"active": true,
 						"index$": 0,
 					},
 					map[string]any{
+						"active": true,
 						"name": "no_of_comment",
 						"req": false,
 						"type": "`$INTEGER`",
-						"active": true,
 						"index$": 1,
 					},
 					map[string]any{
+						"active": true,
 						"name": "rank",
 						"req": false,
 						"type": "`$INTEGER`",
-						"active": true,
 						"index$": 2,
 					},
 					map[string]any{
+						"active": true,
 						"name": "sentiment",
 						"req": false,
 						"type": "`$STRING`",
-						"active": true,
 						"index$": 3,
 					},
 					map[string]any{
+						"active": true,
 						"name": "sentiment_score",
 						"req": false,
 						"type": "`$NUMBER`",
-						"active": true,
 						"index$": 4,
 					},
 					map[string]any{
+						"active": true,
 						"name": "ticker",
 						"req": false,
 						"type": "`$STRING`",
-						"active": true,
 						"index$": 5,
 					},
 				},
 				"name": "stock_detail",
 				"op": map[string]any{
 					"load": map[string]any{
+						"input": "data",
 						"name": "load",
 						"points": []any{
 							map[string]any{
+								"active": true,
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
+											"active": true,
 											"example": "TSLA",
 											"kind": "param",
 											"name": "ticker",
 											"orig": "ticker",
 											"reqd": true,
 											"type": "`$STRING`",
-											"active": true,
 										},
 									},
 								},
@@ -165,11 +170,9 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"active": true,
 								"index$": 0,
 							},
 						},
-						"input": "data",
 						"key$": "load",
 					},
 				},
@@ -184,47 +187,50 @@ func MakeConfig() map[string]any {
 			"trend": map[string]any{
 				"fields": []any{
 					map[string]any{
+						"active": true,
 						"name": "no_of_comment",
 						"req": false,
 						"type": "`$INTEGER`",
-						"active": true,
 						"index$": 0,
 					},
 					map[string]any{
+						"active": true,
 						"name": "sentiment",
 						"req": false,
 						"type": "`$STRING`",
-						"active": true,
 						"index$": 1,
 					},
 					map[string]any{
+						"active": true,
 						"name": "sentiment_score",
 						"req": false,
 						"type": "`$NUMBER`",
-						"active": true,
 						"index$": 2,
 					},
 					map[string]any{
+						"active": true,
 						"name": "ticker",
 						"req": false,
 						"type": "`$STRING`",
-						"active": true,
 						"index$": 3,
 					},
 					map[string]any{
+						"active": true,
 						"name": "trend_score",
 						"req": false,
 						"type": "`$NUMBER`",
-						"active": true,
 						"index$": 4,
 					},
 				},
 				"name": "trend",
 				"op": map[string]any{
 					"list": map[string]any{
+						"input": "data",
 						"name": "list",
 						"points": []any{
 							map[string]any{
+								"active": true,
+								"args": map[string]any{},
 								"method": "GET",
 								"orig": "/apps/reddit/trend",
 								"parts": []any{
@@ -232,17 +238,14 @@ func MakeConfig() map[string]any {
 									"reddit",
 									"trend",
 								},
+								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"active": true,
-								"args": map[string]any{},
-								"select": map[string]any{},
 								"index$": 0,
 							},
 						},
-						"input": "data",
 						"key$": "list",
 					},
 				},

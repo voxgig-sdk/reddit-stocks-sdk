@@ -86,6 +86,7 @@ function trend_basic_setup($extra)
         "REDDITSTOCKS_TEST_TREND_ENTID" => $idmap,
         "REDDITSTOCKS_TEST_LIVE" => "FALSE",
         "REDDITSTOCKS_TEST_EXPLAIN" => "FALSE",
+        "REDDITSTOCKS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,6 +98,7 @@ function trend_basic_setup($extra)
     if ($env["REDDITSTOCKS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
+                "apikey" => $env["REDDITSTOCKS_APIKEY"],
             ],
             $extra ?? [],
         ]);

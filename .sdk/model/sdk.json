@@ -1,41 +1,13 @@
 {
-  "name": "reddit-stocks",
-  "origin": "voxgig-sdk",
   "def": "reddit-stocks_0.1.0.json",
   "main": {
+    "def": {
+      "desc": ""
+    },
     "kit": {
-      "info": {
-        "contact": {
-          "url": "https://tradestie.com/apps/reddit/api/"
-        },
-        "description": "Get top 50 stocks discussed on Reddit subreddit - Wallstreetbets",
-        "servers": [
-          {
-            "description": "Production server",
-            "url": "https://tradestie.com/api/v1"
-          }
-        ],
-        "title": "Reddit Stocks",
-        "version": "1.0.0",
-        "tagline": "Top 50 stocks discussed on the r/WallStreetBets subreddit, refreshed daily",
-        "homepage": "https://tradestie.com/api/v1",
-        "docs_url": "https://tradestie.com/apps/reddit/api/",
-        "license_short": "No licence published by the provider; treat data as for personal / non-commercial use unless you confirm otherwise with Tradestie.",
-        "license_md": "- The provider ([Tradestie](https://tradestie.com)) does not publish an explicit data licence.\n- The community catalogue page on [freepublicapis.com](https://freepublicapis.com/reddit-stocks) lists no licence either.\n- Treat the data as informational only and confirm permitted use with Tradestie before commercial reuse.",
-        "about_md": "[Reddit Stocks](https://tradestie.com/apps/reddit/) is a small public endpoint published by [Tradestie](https://tradestie.com) that surfaces the most-talked-about tickers on the r/WallStreetBets subreddit. The API powers Tradestie's own dashboards and is exposed for free use by other developers.\n\nWhat you get from the API:\n\n- A ranked list of up to 50 stock tickers most frequently discussed on r/WallStreetBets.\n- Per-ticker discussion volume and sentiment signal so you can see what retail traders are focused on.\n- An optional `date` query parameter to retrieve the snapshot for a specific past day (format `MM-DD-YYYY`).\n\nOperational notes: no API key or authentication is required, and the endpoints are documented as public. The catalogue page on freepublicapis.com notes that CORS is disabled, so browser-side calls may need a proxy. No rate limit is published, so be polite with request volume.",
-        "entity_desc": {
-          "stock": "A single ticker entry from the Reddit Stocks ranking, returned from `GET /apps/reddit` as part of the top-50 list.",
-          "stock_detail": "Per-ticker detail for an individual symbol in the WallStreetBets ranking — typically the ticker plus its discussion count and sentiment score.",
-          "trend": "Historical ranking snapshot for a given day, accessed by passing `?date=MM-DD-YYYY` to `GET /apps/reddit` to see how mentions changed over time."
-        },
-        "auth": false
-      },
       "config": {
         "auth": {
           "prefix": "Bearer"
-        },
-        "headers": {
-          "content-type": "application/json"
         },
         "docs_order": [
           "ts",
@@ -44,126 +16,132 @@
           "go",
           "rb",
           "lua"
-        ]
+        ],
+        "headers": {
+          "content-type": "application/json"
+        }
       },
       "entity": {
         "stock": {
+          "active": true,
           "alias": {
             "field": {}
           },
           "fields": [
             {
+              "active": true,
               "name": "no_of_comment",
               "req": false,
-              "type": "`$INTEGER`",
-              "active": true
+              "type": "`$INTEGER`"
             },
             {
+              "active": true,
               "name": "sentiment",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "sentiment_score",
               "req": false,
-              "type": "`$NUMBER`",
-              "active": true
+              "type": "`$NUMBER`"
             },
             {
+              "active": true,
               "name": "ticker",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             }
           ],
           "name": "stock",
           "op": {
             "list": {
+              "input": "data",
               "name": "list",
               "points": [
                 {
+                  "active": true,
+                  "args": {},
                   "method": "GET",
                   "orig": "/apps/reddit",
                   "parts": [
                     "apps",
                     "reddit"
                   ],
+                  "select": {},
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true,
-                  "args": {},
-                  "select": {}
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
-          "active": true,
           "relations": {
             "ancestors": []
           }
         },
         "stock_detail": {
+          "active": true,
           "alias": {
             "field": {}
           },
           "fields": [
             {
+              "active": true,
               "name": "mention",
               "req": false,
-              "type": "`$INTEGER`",
-              "active": true
+              "type": "`$INTEGER`"
             },
             {
+              "active": true,
               "name": "no_of_comment",
               "req": false,
-              "type": "`$INTEGER`",
-              "active": true
+              "type": "`$INTEGER`"
             },
             {
+              "active": true,
               "name": "rank",
               "req": false,
-              "type": "`$INTEGER`",
-              "active": true
+              "type": "`$INTEGER`"
             },
             {
+              "active": true,
               "name": "sentiment",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "sentiment_score",
               "req": false,
-              "type": "`$NUMBER`",
-              "active": true
+              "type": "`$NUMBER`"
             },
             {
+              "active": true,
               "name": "ticker",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             }
           ],
           "name": "stock_detail",
           "op": {
             "load": {
+              "input": "data",
               "name": "load",
               "points": [
                 {
+                  "active": true,
                   "args": {
                     "params": [
                       {
+                        "active": true,
                         "example": "TSLA",
                         "kind": "param",
                         "name": "ticker",
                         "orig": "ticker",
                         "reqd": true,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -182,11 +160,9 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
           "relations": {
@@ -195,51 +171,54 @@
                 "reddit"
               ]
             ]
-          },
-          "active": true
+          }
         },
         "trend": {
+          "active": true,
           "alias": {
             "field": {}
           },
           "fields": [
             {
+              "active": true,
               "name": "no_of_comment",
               "req": false,
-              "type": "`$INTEGER`",
-              "active": true
+              "type": "`$INTEGER`"
             },
             {
+              "active": true,
               "name": "sentiment",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "sentiment_score",
               "req": false,
-              "type": "`$NUMBER`",
-              "active": true
+              "type": "`$NUMBER`"
             },
             {
+              "active": true,
               "name": "ticker",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "trend_score",
               "req": false,
-              "type": "`$NUMBER`",
-              "active": true
+              "type": "`$NUMBER`"
             }
           ],
           "name": "trend",
           "op": {
             "list": {
+              "input": "data",
               "name": "list",
               "points": [
                 {
+                  "active": true,
+                  "args": {},
                   "method": "GET",
                   "orig": "/apps/reddit/trend",
                   "parts": [
@@ -247,19 +226,15 @@
                     "reddit",
                     "trend"
                   ],
+                  "select": {},
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true,
-                  "args": {},
-                  "select": {}
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
-          "active": true,
           "relations": {
             "ancestors": []
           }
@@ -267,9 +242,6 @@
       },
       "feature": {
         "test": {
-          "name": "test",
-          "title": "In-memory mock transport for testing without a live server",
-          "version": "0.0.1",
           "active": true,
           "config": {
             "options": {
@@ -277,6 +249,14 @@
             }
           },
           "hook": {
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
             "PostConstruct": {
               "active": true,
               "await": false
@@ -285,25 +265,11 @@
               "active": true,
               "await": false
             },
-            "SetData": {
-              "active": true,
-              "await": false
-            },
-            "GetData": {
-              "active": true,
-              "await": false
-            },
-            "SetMatch": {
-              "active": true
-            },
-            "GetMatch": {
-              "active": true,
+            "PostOperation": {
+              "active": false,
               "await": false
             },
             "PrePoint": {
-              "active": true
-            },
-            "PreSpec": {
               "active": true,
               "await": false
             },
@@ -319,20 +285,32 @@
               "active": true,
               "await": false
             },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
             "PreTarget": {
               "active": false,
               "await": false
             },
-            "PostOperation": {
-              "active": false,
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true,
               "await": false
             }
           },
+          "name": "test",
           "target": {
-            "ts": {
+            "go": {
               "deps": {}
             },
-            "go": {
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
               "deps": {}
             },
             "lua": {
@@ -347,22 +325,26 @@
             "rb": {
               "deps": {}
             },
-            "go-cli": {
-              "deps": {}
-            },
-            "go-mcp": {
+            "ts": {
               "deps": {}
             }
-          }
+          },
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1"
         }
       },
       "flow": {
         "BasicStockDetailFlow": {
+          "active": true,
           "entity": "stock_detail",
+          "key$": "BasicStockDetailFlow",
           "kind": "basic",
           "name": "BasicStockDetailFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
               "input": {
                 "ref": "stock_detail_ref01",
                 "srcdatavar": "stock_detail_ref01_data",
@@ -372,6 +354,7 @@
                 "id": "stock_detail01"
               },
               "op": "load",
+              "spec": [],
               "valid": [
                 {
                   "apply": "TextFieldMark",
@@ -379,23 +362,25 @@
                     "mark": "Mark01-stock_detail_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "data": {},
-              "spec": []
+              ]
             }
-          ],
-          "key$": "BasicStockDetailFlow",
-          "active": true,
-          "param": {}
+          ]
         },
         "BasicStockFlow": {
+          "active": true,
           "entity": "stock",
+          "key$": "BasicStockFlow",
           "kind": "basic",
           "name": "BasicStockFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {},
               "op": "list",
+              "spec": [],
               "valid": [
                 {
                   "apply": "ItemExists",
@@ -403,25 +388,25 @@
                     "ref": "stock_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "match": {},
-              "data": {},
-              "input": {},
-              "spec": []
+              ]
             }
-          ],
-          "key$": "BasicStockFlow",
-          "active": true,
-          "param": {}
+          ]
         },
         "BasicTrendFlow": {
+          "active": true,
           "entity": "trend",
+          "key$": "BasicTrendFlow",
           "kind": "basic",
           "name": "BasicTrendFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {},
               "op": "list",
+              "spec": [],
               "valid": [
                 {
                   "apply": "ItemExists",
@@ -429,29 +414,52 @@
                     "ref": "trend_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "match": {},
-              "data": {},
-              "input": {},
-              "spec": []
+              ]
             }
-          ],
-          "key$": "BasicTrendFlow",
-          "active": true,
-          "param": {}
+          ]
         }
       },
+      "info": {
+        "contact": {
+          "url": "https://tradestie.com/apps/reddit/api/"
+        },
+        "description": "Get top 50 stocks discussed on Reddit subreddit - Wallstreetbets",
+        "servers": [
+          {
+            "description": "Production server",
+            "url": "https://tradestie.com/api/v1"
+          }
+        ],
+        "title": "Reddit Stocks",
+        "version": "1.0.0"
+      },
+      "option": {},
       "target": {
-        "go-cli": {
-          "title": "Go CLI",
-          "ext": "go",
+        "go": {
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "go",
           "module": {
             "name": "reddit-stocks"
           },
+          "name": "go",
+          "srcfeature": false,
+          "title": "Golang"
+        },
+        "go-cli": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "reddit-stocks"
+          },
+          "name": "go-cli",
           "phase": {
             "entity": {
               "active": false
@@ -466,19 +474,19 @@
               "active": false
             }
           },
-          "deps": {},
-          "name": "go-cli",
-          "active": true
+          "title": "Go CLI"
         },
         "go-mcp": {
-          "title": "Go MCP server",
-          "ext": "go",
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "go",
           "module": {
             "name": "reddit-stocks"
           },
+          "name": "go-mcp",
           "phase": {
             "entity": {
               "active": false
@@ -493,138 +501,120 @@
               "active": false
             }
           },
-          "deps": {},
-          "name": "go-mcp",
-          "active": true
-        },
-        "ts": {
-          "title": "TypeScript",
-          "ext": "ts",
-          "comment": {
-            "line": "//"
-          },
-          "module": {
-            "name": "reddit-stocks"
-          },
-          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
-          "deps": {
-            "dotenv": {
-              "active": true,
-              "version": "^17.4.2",
-              "kind": "dev"
-            },
-            "typescript": {
-              "active": true,
-              "version": "^5.9.3",
-              "kind": "dev"
-            },
-            "@types/node": {
-              "active": true,
-              "version": "^25.6.0",
-              "kind": "dev"
-            }
-          },
-          "name": "ts",
-          "active": true
-        },
-        "go": {
-          "title": "Golang",
-          "ext": "go",
-          "comment": {
-            "line": "//"
-          },
-          "module": {
-            "name": "reddit-stocks"
-          },
-          "srcfeature": false,
-          "deps": {},
-          "name": "go",
-          "active": true
+          "title": "Go MCP server"
         },
         "lua": {
-          "title": "Lua",
-          "ext": "lua",
+          "active": true,
           "comment": {
             "line": "--"
           },
-          "module": {
-            "name": "reddit-stocks"
-          },
-          "srcfeature": false,
           "deps": {
             "dkjson": {
               "active": true,
-              "version": "2.5",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "2.5"
             }
           },
+          "ext": "lua",
+          "module": {
+            "name": "reddit-stocks"
+          },
           "name": "lua",
-          "active": true
+          "srcfeature": false,
+          "title": "Lua"
         },
         "php": {
-          "title": "PHP",
-          "ext": "php",
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "php",
           "module": {
             "name": "reddit-stocks"
           },
-          "srcfeature": false,
-          "deps": {},
           "name": "php",
-          "active": true
+          "srcfeature": false,
+          "title": "PHP"
         },
         "py": {
-          "title": "Python",
-          "ext": "py",
+          "active": true,
           "comment": {
             "line": "#"
           },
-          "module": {
-            "name": "reddit-stocks"
-          },
-          "srcfeature": false,
           "deps": {
             "requests": {
               "active": true,
-              "version": "2.33",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "2.33"
             }
           },
-          "name": "py",
-          "active": true
-        },
-        "rb": {
-          "title": "Ruby",
-          "ext": "rb",
-          "comment": {
-            "line": "#"
-          },
+          "ext": "py",
           "module": {
             "name": "reddit-stocks"
           },
+          "name": "py",
           "srcfeature": false,
+          "title": "Python"
+        },
+        "rb": {
+          "active": true,
+          "comment": {
+            "line": "#"
+          },
           "deps": {
-            "voxgig-struct": {
-              "active": true,
-              "version": "0.0.10",
-              "kind": "prod"
-            },
             "json": {
               "active": true,
-              "version": "0",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "0"
+            },
+            "voxgig-struct": {
+              "active": true,
+              "kind": "prod",
+              "version": "0.0.10"
             }
           },
+          "ext": "rb",
+          "module": {
+            "name": "reddit-stocks"
+          },
           "name": "rb",
-          "active": true
+          "srcfeature": false,
+          "title": "Ruby"
+        },
+        "ts": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {
+            "@types/node": {
+              "active": true,
+              "kind": "dev",
+              "version": "^25.6.0"
+            },
+            "dotenv": {
+              "active": true,
+              "kind": "dev",
+              "version": "^17.4.2"
+            },
+            "typescript": {
+              "active": true,
+              "kind": "dev",
+              "version": "^5.9.3"
+            }
+          },
+          "ext": "ts",
+          "module": {
+            "name": "reddit-stocks"
+          },
+          "name": "ts",
+          "title": "TypeScript"
         }
-      },
-      "option": {}
-    },
-    "def": {
-      "desc": ""
+      }
     }
-  }
+  },
+  "name": "reddit-stocks",
+  "origin": "voxgig-sdk"
 }

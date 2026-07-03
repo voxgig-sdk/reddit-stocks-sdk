@@ -14,6 +14,9 @@ local function make_config()
     },
     options = {
       base = "https://tradestie.com/api/v1",
+      auth = {
+        prefix = "Bearer",
+      },
       headers = {
         ["content-type"] = "application/json",
       },
@@ -27,57 +30,57 @@ local function make_config()
       ["stock"] = {
         ["fields"] = {
           {
+            ["active"] = true,
             ["name"] = "no_of_comment",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
-            ["active"] = true,
             ["index$"] = 0,
           },
           {
+            ["active"] = true,
             ["name"] = "sentiment",
             ["req"] = false,
             ["type"] = "`$STRING`",
-            ["active"] = true,
             ["index$"] = 1,
           },
           {
+            ["active"] = true,
             ["name"] = "sentiment_score",
             ["req"] = false,
             ["type"] = "`$NUMBER`",
-            ["active"] = true,
             ["index$"] = 2,
           },
           {
+            ["active"] = true,
             ["name"] = "ticker",
             ["req"] = false,
             ["type"] = "`$STRING`",
-            ["active"] = true,
             ["index$"] = 3,
           },
         },
         ["name"] = "stock",
         ["op"] = {
           ["list"] = {
+            ["input"] = "data",
             ["name"] = "list",
             ["points"] = {
               {
+                ["active"] = true,
+                ["args"] = {},
                 ["method"] = "GET",
                 ["orig"] = "/apps/reddit",
                 ["parts"] = {
                   "apps",
                   "reddit",
                 },
+                ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["active"] = true,
-                ["args"] = {},
-                ["select"] = {},
                 ["index$"] = 0,
               },
             },
-            ["input"] = "data",
             ["key$"] = "list",
           },
         },
@@ -88,64 +91,66 @@ local function make_config()
       ["stock_detail"] = {
         ["fields"] = {
           {
+            ["active"] = true,
             ["name"] = "mention",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
-            ["active"] = true,
             ["index$"] = 0,
           },
           {
+            ["active"] = true,
             ["name"] = "no_of_comment",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
-            ["active"] = true,
             ["index$"] = 1,
           },
           {
+            ["active"] = true,
             ["name"] = "rank",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
-            ["active"] = true,
             ["index$"] = 2,
           },
           {
+            ["active"] = true,
             ["name"] = "sentiment",
             ["req"] = false,
             ["type"] = "`$STRING`",
-            ["active"] = true,
             ["index$"] = 3,
           },
           {
+            ["active"] = true,
             ["name"] = "sentiment_score",
             ["req"] = false,
             ["type"] = "`$NUMBER`",
-            ["active"] = true,
             ["index$"] = 4,
           },
           {
+            ["active"] = true,
             ["name"] = "ticker",
             ["req"] = false,
             ["type"] = "`$STRING`",
-            ["active"] = true,
             ["index$"] = 5,
           },
         },
         ["name"] = "stock_detail",
         ["op"] = {
           ["load"] = {
+            ["input"] = "data",
             ["name"] = "load",
             ["points"] = {
               {
+                ["active"] = true,
                 ["args"] = {
                   ["params"] = {
                     {
+                      ["active"] = true,
                       ["example"] = "TSLA",
                       ["kind"] = "param",
                       ["name"] = "ticker",
                       ["orig"] = "ticker",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
-                      ["active"] = true,
                     },
                   },
                 },
@@ -165,11 +170,9 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["active"] = true,
                 ["index$"] = 0,
               },
             },
-            ["input"] = "data",
             ["key$"] = "load",
           },
         },
@@ -184,47 +187,50 @@ local function make_config()
       ["trend"] = {
         ["fields"] = {
           {
+            ["active"] = true,
             ["name"] = "no_of_comment",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
-            ["active"] = true,
             ["index$"] = 0,
           },
           {
+            ["active"] = true,
             ["name"] = "sentiment",
             ["req"] = false,
             ["type"] = "`$STRING`",
-            ["active"] = true,
             ["index$"] = 1,
           },
           {
+            ["active"] = true,
             ["name"] = "sentiment_score",
             ["req"] = false,
             ["type"] = "`$NUMBER`",
-            ["active"] = true,
             ["index$"] = 2,
           },
           {
+            ["active"] = true,
             ["name"] = "ticker",
             ["req"] = false,
             ["type"] = "`$STRING`",
-            ["active"] = true,
             ["index$"] = 3,
           },
           {
+            ["active"] = true,
             ["name"] = "trend_score",
             ["req"] = false,
             ["type"] = "`$NUMBER`",
-            ["active"] = true,
             ["index$"] = 4,
           },
         },
         ["name"] = "trend",
         ["op"] = {
           ["list"] = {
+            ["input"] = "data",
             ["name"] = "list",
             ["points"] = {
               {
+                ["active"] = true,
+                ["args"] = {},
                 ["method"] = "GET",
                 ["orig"] = "/apps/reddit/trend",
                 ["parts"] = {
@@ -232,17 +238,14 @@ local function make_config()
                   "reddit",
                   "trend",
                 },
+                ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["active"] = true,
-                ["args"] = {},
-                ["select"] = {},
                 ["index$"] = 0,
               },
             },
-            ["input"] = "data",
             ["key$"] = "list",
           },
         },

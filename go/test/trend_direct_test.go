@@ -93,12 +93,14 @@ func trendDirectSetup(mockres any) *trendDirectSetupResult {
 	env := envOverride(map[string]any{
 		"REDDITSTOCKS_TEST_TREND_ENTID": map[string]any{},
 		"REDDITSTOCKS_TEST_LIVE":    "FALSE",
+		"REDDITSTOCKS_APIKEY":       "NONE",
 	})
 
 	live := env["REDDITSTOCKS_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["REDDITSTOCKS_APIKEY"],
 		}
 		client := sdk.NewRedditStocksSDK(mergedOpts)
 

@@ -111,6 +111,7 @@ function basicSetup(extra?: any) {
     'REDDIT_STOCKS_TEST_STOCK_DETAIL_ENTID': idmap,
     'REDDIT_STOCKS_TEST_LIVE': 'FALSE',
     'REDDIT_STOCKS_TEST_EXPLAIN': 'FALSE',
+    'REDDIT_STOCKS_APIKEY': 'NONE',
   })
 
   idmap = env['REDDIT_STOCKS_TEST_STOCK_DETAIL_ENTID']
@@ -120,6 +121,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new RedditStocksSDK(merge([
       {
+        apikey: env.REDDIT_STOCKS_APIKEY,
       },
       extra
     ]))

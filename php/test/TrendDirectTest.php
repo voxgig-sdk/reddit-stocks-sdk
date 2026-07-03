@@ -68,12 +68,14 @@ function trend_direct_setup($mockres)
     $env = Runner::env_override([
         "REDDITSTOCKS_TEST_TREND_ENTID" => [],
         "REDDITSTOCKS_TEST_LIVE" => "FALSE",
+        "REDDITSTOCKS_APIKEY" => "NONE",
     ]);
 
     $live = $env["REDDITSTOCKS_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
+            "apikey" => $env["REDDITSTOCKS_APIKEY"],
         ];
         $client = new RedditStocksSDK($merged_opts);
         return [

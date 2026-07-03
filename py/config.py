@@ -15,6 +15,9 @@ def make_config():
         },
         "options": {
             "base": "https://tradestie.com/api/v1",
+            "auth": {
+                "prefix": "Bearer",
+            },
             "headers": {
         "content-type": "application/json",
       },
@@ -28,57 +31,57 @@ def make_config():
       "stock": {
         "fields": [
           {
+            "active": True,
             "name": "no_of_comment",
             "req": False,
             "type": "`$INTEGER`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "sentiment",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "sentiment_score",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 2,
           },
           {
+            "active": True,
             "name": "ticker",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 3,
           },
         ],
         "name": "stock",
         "op": {
           "list": {
+            "input": "data",
             "name": "list",
             "points": [
               {
+                "active": True,
+                "args": {},
                 "method": "GET",
                 "orig": "/apps/reddit",
                 "parts": [
                   "apps",
                   "reddit",
                 ],
+                "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
-                "args": {},
-                "select": {},
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "list",
           },
         },
@@ -89,64 +92,66 @@ def make_config():
       "stock_detail": {
         "fields": [
           {
+            "active": True,
             "name": "mention",
             "req": False,
             "type": "`$INTEGER`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "no_of_comment",
             "req": False,
             "type": "`$INTEGER`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "rank",
             "req": False,
             "type": "`$INTEGER`",
-            "active": True,
             "index$": 2,
           },
           {
+            "active": True,
             "name": "sentiment",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 3,
           },
           {
+            "active": True,
             "name": "sentiment_score",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 4,
           },
           {
+            "active": True,
             "name": "ticker",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 5,
           },
         ],
         "name": "stock_detail",
         "op": {
           "load": {
+            "input": "data",
             "name": "load",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "example": "TSLA",
                       "kind": "param",
                       "name": "ticker",
                       "orig": "ticker",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -166,11 +171,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "load",
           },
         },
@@ -185,47 +188,50 @@ def make_config():
       "trend": {
         "fields": [
           {
+            "active": True,
             "name": "no_of_comment",
             "req": False,
             "type": "`$INTEGER`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "sentiment",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "sentiment_score",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 2,
           },
           {
+            "active": True,
             "name": "ticker",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 3,
           },
           {
+            "active": True,
             "name": "trend_score",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 4,
           },
         ],
         "name": "trend",
         "op": {
           "list": {
+            "input": "data",
             "name": "list",
             "points": [
               {
+                "active": True,
+                "args": {},
                 "method": "GET",
                 "orig": "/apps/reddit/trend",
                 "parts": [
@@ -233,17 +239,14 @@ def make_config():
                   "reddit",
                   "trend",
                 ],
+                "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
-                "args": {},
-                "select": {},
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "list",
           },
         },

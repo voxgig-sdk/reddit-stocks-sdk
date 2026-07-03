@@ -79,12 +79,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'REDDITSTOCKS_TEST_STOCK_DETAIL_ENTID': {},
     'REDDITSTOCKS_TEST_LIVE': 'FALSE',
+    'REDDITSTOCKS_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.REDDITSTOCKS_TEST_LIVE
 
   if (live) {
     const client = new RedditStocksSDK({
+      apikey: env.REDDITSTOCKS_APIKEY,
     })
 
     let idmap: any = env['REDDITSTOCKS_TEST_STOCK_DETAIL_ENTID']

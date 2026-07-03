@@ -63,12 +63,14 @@ function trend_direct_setup(mockres)
   local env = runner.env_override({
     ["REDDITSTOCKS_TEST_TREND_ENTID"] = {},
     ["REDDITSTOCKS_TEST_LIVE"] = "FALSE",
+    ["REDDITSTOCKS_APIKEY"] = "NONE",
   })
 
   local live = env["REDDITSTOCKS_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["REDDITSTOCKS_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

@@ -119,6 +119,7 @@ func stockBasicSetup(extra map[string]any) *entityTestSetup {
 		"REDDITSTOCKS_TEST_STOCK_ENTID": idmap,
 		"REDDITSTOCKS_TEST_LIVE":      "FALSE",
 		"REDDITSTOCKS_TEST_EXPLAIN":   "FALSE",
+		"REDDITSTOCKS_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["REDDITSTOCKS_TEST_STOCK_ENTID"])
@@ -129,6 +130,7 @@ func stockBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["REDDITSTOCKS_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["REDDITSTOCKS_APIKEY"],
 			},
 			extra,
 		})

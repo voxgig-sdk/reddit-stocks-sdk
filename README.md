@@ -1,20 +1,8 @@
 # RedditStocks SDK
 
-Top 50 stocks discussed on the r/WallStreetBets subreddit, refreshed daily
+Reddit Stocks client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Reddit Stocks
-
-[Reddit Stocks](https://tradestie.com/apps/reddit/) is a small public endpoint published by [Tradestie](https://tradestie.com) that surfaces the most-talked-about tickers on the r/WallStreetBets subreddit. The API powers Tradestie's own dashboards and is exposed for free use by other developers.
-
-What you get from the API:
-
-- A ranked list of up to 50 stock tickers most frequently discussed on r/WallStreetBets.
-- Per-ticker discussion volume and sentiment signal so you can see what retail traders are focused on.
-- An optional `date` query parameter to retrieve the snapshot for a specific past day (format `MM-DD-YYYY`).
-
-Operational notes: no API key or authentication is required, and the endpoints are documented as public. The catalogue page on freepublicapis.com notes that CORS is disabled, so browser-side calls may need a proxy. No rate limit is published, so be polite with request volume.
 
 ## Try it
 
@@ -48,29 +36,31 @@ gem install reddit-stocks-sdk
 luarocks install reddit-stocks-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { RedditStocksSDK } from 'reddit-stocks'
 
-const client = new RedditStocksSDK({})
+const client = new RedditStocksSDK({
+  apikey: process.env.REDDIT-STOCKS_APIKEY,
+})
 
 // List all stocks
 const stocks = await client.Stock().list()
+console.log(stocks.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -100,9 +90,9 @@ The API exposes 3 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Stock** | A single ticker entry from the Reddit Stocks ranking, returned from `GET /apps/reddit` as part of the top-50 list. | `/apps/reddit` |
-| **StockDetail** | Per-ticker detail for an individual symbol in the WallStreetBets ranking — typically the ticker plus its discussion count and sentiment score. | `/apps/reddit/{ticker}` |
-| **Trend** | Historical ranking snapshot for a given day, accessed by passing `?date=MM-DD-YYYY` to `GET /apps/reddit` to see how mentions changed over time. | `/apps/reddit/trend` |
+| **Stock** |  | `/apps/reddit` |
+| **StockDetail** |  | `/apps/reddit/{ticker}` |
+| **Trend** |  | `/apps/reddit/trend` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -112,12 +102,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from redditstocks_sdk import RedditStocksSDK
 
-client = RedditStocksSDK({})
+client = RedditStocksSDK({
+    "apikey": os.environ.get("REDDIT-STOCKS_APIKEY"),
+})
 
 # List all stocks
-stocks, err = client.Stock(None).list(None, None)
+stocks, err = client.Stock().list()
+print(stocks)
 ```
 
 ### PHP
@@ -126,10 +120,13 @@ stocks, err = client.Stock(None).list(None, None)
 <?php
 require_once 'redditstocks_sdk.php';
 
-$client = new RedditStocksSDK([]);
+$client = new RedditStocksSDK([
+    "apikey" => getenv("REDDIT-STOCKS_APIKEY"),
+]);
 
 // List all stocks
-[$stocks, $err] = $client->Stock(null)->list(null, null);
+[$stocks, $err] = $client->Stock()->list();
+print_r($stocks);
 ```
 
 ### Golang
@@ -137,10 +134,13 @@ $client = new RedditStocksSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/reddit-stocks-sdk/go"
 
-client := sdk.NewRedditStocksSDK(map[string]any{})
+client := sdk.NewRedditStocksSDK(map[string]any{
+    "apikey": os.Getenv("REDDIT-STOCKS_APIKEY"),
+})
 
 // List all stocks
 stocks, err := client.Stock(nil).List(nil, nil)
+fmt.Println(stocks)
 ```
 
 ### Ruby
@@ -148,10 +148,13 @@ stocks, err := client.Stock(nil).List(nil, nil)
 ```ruby
 require_relative "RedditStocks_sdk"
 
-client = RedditStocksSDK.new({})
+client = RedditStocksSDK.new({
+  "apikey" => ENV["REDDIT-STOCKS_APIKEY"],
+})
 
 # List all stocks
-stocks, err = client.Stock(nil).list(nil, nil)
+stocks, err = client.Stock().list
+puts stocks
 ```
 
 ### Lua
@@ -159,10 +162,13 @@ stocks, err = client.Stock(nil).list(nil, nil)
 ```lua
 local sdk = require("reddit-stocks_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("REDDIT-STOCKS_APIKEY"),
+})
 
 -- List all stocks
-local stocks, err = client:Stock(nil):list(nil, nil)
+local stocks, err = client:Stock():list()
+print(stocks)
 ```
 
 ## Unit testing in offline mode
@@ -181,25 +187,21 @@ const result = await client.Stock().load({ id: 'test01' })
 ### Python
 
 ```python
-client = RedditStocksSDK.test(None, None)
-result, err = client.Stock(None).load(
-    {"id": "test01"}, None
-)
+client = RedditStocksSDK.test()
+result, err = client.Stock().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = RedditStocksSDK::test(null, null);
-[$result, $err] = $client->Stock(null)->load(
-    ["id" => "test01"], null
-);
+$client = RedditStocksSDK::test();
+[$result, $err] = $client->Stock()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Stock(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -208,19 +210,15 @@ result, err := client.Stock(nil).Load(
 ### Ruby
 
 ```ruby
-client = RedditStocksSDK.test(nil, nil)
-result, err = client.Stock(nil).load(
-  { "id" => "test01" }, nil
-)
+client = RedditStocksSDK.test
+result, err = client.Stock().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Stock(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Stock():load({ id = "test01" })
 ```
 
 ## How it works
@@ -324,15 +322,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Reddit Stocks
-
-- Upstream: [https://tradestie.com/api/v1](https://tradestie.com/api/v1)
-- API docs: [https://tradestie.com/apps/reddit/api/](https://tradestie.com/apps/reddit/api/)
-
-- The provider ([Tradestie](https://tradestie.com)) does not publish an explicit data licence.
-- The community catalogue page on [freepublicapis.com](https://freepublicapis.com/reddit-stocks) lists no licence either.
-- Treat the data as informational only and confirm permitted use with Tradestie before commercial reuse.
 
 ---
 
