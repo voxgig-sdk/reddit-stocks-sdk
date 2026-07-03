@@ -10,7 +10,7 @@ The TypeScript SDK for the RedditStocks API — a type-safe, entity-oriented cli
 
 ## Install
 ```bash
-npm install reddit-stocks
+npm install @voxgig-sdk/reddit-stocks
 ```
 ## Tutorial: your first API call
 

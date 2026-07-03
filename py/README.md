@@ -10,7 +10,7 @@ The Python SDK for the RedditStocks API — an entity-oriented client following 
 
 ## Install
 ```bash
-pip install reddit-stocks-sdk
+pip install voxgig-sdk-reddit-stocks
 ```
 
 Or install from source:

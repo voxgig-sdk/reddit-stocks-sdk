@@ -10,13 +10,13 @@ The Ruby SDK for the RedditStocks API — an entity-oriented client using idioma
 
 ## Install
 ```bash
-gem install reddit-stocks-sdk
+gem install voxgig-sdk-reddit-stocks
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "reddit-stocks-sdk"
+gem "voxgig-sdk-reddit-stocks"
 ```
 
 Then run:

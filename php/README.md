@@ -10,7 +10,7 @@ The PHP SDK for the RedditStocks API — an entity-oriented client using PHP con
 
 ## Install
 ```bash
-composer require voxgig/reddit-stocks-sdk
+composer require voxgig-sdk/reddit-stocks
 ```
 
 

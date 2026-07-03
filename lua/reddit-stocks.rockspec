@@ -8,12 +8,14 @@ source = {
   dir = "reddit-stocks-sdk/lua"
 }
 description = {
-  summary = "RedditStocks SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the Reddit Stocks public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/reddit-stocks-sdk",
+  issues_url = "https://github.com/voxgig-sdk/reddit-stocks-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "reddit-stocks" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {
