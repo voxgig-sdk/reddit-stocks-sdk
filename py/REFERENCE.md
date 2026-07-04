@@ -88,7 +88,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## StockEntity
 
 ```python
-stock = client.stock
+stock = client.Stock()
 ```
 
 ### Fields
@@ -107,7 +107,9 @@ stock = client.stock
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.stock.list({})
+results = client.Stock().list({})
+for stock in results:
+    print(stock)
 ```
 
 ### Common Methods
@@ -142,7 +144,7 @@ Return the entity name.
 ## StockDetailEntity
 
 ```python
-stock_detail = client.stock_detail
+stock_detail = client.StockDetail()
 ```
 
 ### Fields
@@ -163,7 +165,7 @@ stock_detail = client.stock_detail
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.stock_detail.load({"id": "stock_detail_id"})
+result = client.StockDetail().load({"id": "stock_detail_id"})
 ```
 
 ### Common Methods
@@ -198,7 +200,7 @@ Return the entity name.
 ## TrendEntity
 
 ```python
-trend = client.trend
+trend = client.Trend()
 ```
 
 ### Fields
@@ -218,7 +220,9 @@ trend = client.trend
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.trend.list({})
+results = client.Trend().list({})
+for trend in results:
+    print(trend)
 ```
 
 ### Common Methods

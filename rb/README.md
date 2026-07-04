@@ -28,16 +28,14 @@ require_relative "RedditStocks_sdk"
 client = RedditStocksSDK.new
 ```
 
-### 2. List stocks
+### 2. List stock records
 
 ```ruby
 begin
-  result = client.stock.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Stock records — iterate directly.
+  stocks = client.Stock.list
+  stocks.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -85,13 +83,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = RedditStocksSDK.test
+client = RedditStocksSDK.test({
+  "entity" => { "stock" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.stock.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+stock = client.Stock.load({ "id" => "test01" })
+puts stock
 ```
 
 ### Use a custom fetch function
@@ -257,7 +259,7 @@ API path: `/apps/reddit/trend`
 
 ### Stock
 
-Create an instance: `const stock = client.stock`
+Create an instance: `stock = client.Stock`
 
 #### Operations
 
@@ -276,14 +278,15 @@ Create an instance: `const stock = client.stock`
 
 #### Example: List
 
-```ts
-const stocks = await client.stock.list()
+```ruby
+# list returns an Array of Stock records (raises on error).
+stocks = client.Stock.list
 ```
 
 
 ### StockDetail
 
-Create an instance: `const stock_detail = client.stock_detail`
+Create an instance: `stock_detail = client.StockDetail`
 
 #### Operations
 
@@ -304,14 +307,15 @@ Create an instance: `const stock_detail = client.stock_detail`
 
 #### Example: Load
 
-```ts
-const stock_detail = await client.stock_detail.load({ id: 'stock_detail_id' })
+```ruby
+# load returns the bare StockDetail record (raises on error).
+stock_detail = client.StockDetail.load({ "id" => "stock_detail_id" })
 ```
 
 
 ### Trend
 
-Create an instance: `const trend = client.trend`
+Create an instance: `trend = client.Trend`
 
 #### Operations
 
@@ -331,8 +335,9 @@ Create an instance: `const trend = client.trend`
 
 #### Example: List
 
-```ts
-const trends = await client.trend.list()
+```ruby
+# list returns an Array of Trend records (raises on error).
+trends = client.Trend.list
 ```
 
 
@@ -407,7 +412,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-stock = client.stock
+stock = client.Stock
 stock.load({ "id" => "example_id" })
 
 # stock.data_get now returns the loaded stock data

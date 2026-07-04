@@ -31,14 +31,16 @@ from redditstocks_sdk import RedditStocksSDK
 client = RedditStocksSDK()
 ```
 
-### 2. List stocks
+### 2. List stock records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.stock.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    stocks = client.Stock().list({})
+    for stock in stocks:
+        print(stock)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -86,8 +88,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = RedditStocksSDK.test()
 
-result = client.stock.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+stock = client.Stock().load({"id": "test01"})
+# stock contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -254,7 +257,7 @@ API path: `/apps/reddit/trend`
 
 ### Stock
 
-Create an instance: `const stock = client.stock`
+Create an instance: `stock = client.Stock()`
 
 #### Operations
 
@@ -273,14 +276,14 @@ Create an instance: `const stock = client.stock`
 
 #### Example: List
 
-```ts
-const stocks = await client.stock.list()
+```python
+stocks = client.Stock().list({})
 ```
 
 
 ### StockDetail
 
-Create an instance: `const stock_detail = client.stock_detail`
+Create an instance: `stock_detail = client.StockDetail()`
 
 #### Operations
 
@@ -301,14 +304,14 @@ Create an instance: `const stock_detail = client.stock_detail`
 
 #### Example: Load
 
-```ts
-const stock_detail = await client.stock_detail.load({ id: 'stock_detail_id' })
+```python
+stock_detail = client.StockDetail().load({"id": "stock_detail_id"})
 ```
 
 
 ### Trend
 
-Create an instance: `const trend = client.trend`
+Create an instance: `trend = client.Trend()`
 
 #### Operations
 
@@ -328,8 +331,8 @@ Create an instance: `const trend = client.trend`
 
 #### Example: List
 
-```ts
-const trends = await client.trend.list()
+```python
+trends = client.Trend().list({})
 ```
 
 
@@ -403,7 +406,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-stock = client.stock
+stock = client.Stock()
 stock.load({"id": "example_id"})
 
 # stock.data_get() now returns the loaded stock data

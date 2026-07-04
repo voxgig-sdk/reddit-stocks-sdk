@@ -233,10 +233,10 @@ class RedditStocksSDK
 
     private $_stock = null;
 
-    // Idiomatic facade: $client->stock()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Stock() (PHP method
-    // names are case-insensitive).
-    public function stock($data = null)
+    // Canonical facade: $client->Stock()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->stock()
+    // resolves here too.
+    public function Stock($data = null)
     {
         require_once __DIR__ . '/entity/stock_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class RedditStocksSDK
 
     private $_stock_detail = null;
 
-    // Idiomatic facade: $client->stock_detail()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias StockDetail() (PHP method
-    // names are case-insensitive).
-    public function stock_detail($data = null)
+    // Canonical facade: $client->StockDetail()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->stock_detail()
+    // resolves here too.
+    public function StockDetail($data = null)
     {
         require_once __DIR__ . '/entity/stock_detail_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class RedditStocksSDK
 
     private $_trend = null;
 
-    // Idiomatic facade: $client->trend()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Trend() (PHP method
-    // names are case-insensitive).
-    public function trend($data = null)
+    // Canonical facade: $client->Trend()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->trend()
+    // resolves here too.
+    public function Trend($data = null)
     {
         require_once __DIR__ . '/entity/trend_entity.php';
         if ($data === null) {

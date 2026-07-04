@@ -206,42 +206,21 @@ class RedditStocksSDK {
 
 
 
-  _stock?: StockEntity
-
-  // Idiomatic facade: `client.stock.list()` / `client.stock.load({ id })`.
-  get stock(): StockEntity {
-    return (this._stock ??= new StockEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.stock` instead. */
+  // Entity access: `client.Stock().list()` / `client.Stock().load({ id })`.
   Stock(data?: any) {
     const self = this
     return new StockEntity(self,data)
   }
 
 
-  _stock_detail?: StockDetailEntity
-
-  // Idiomatic facade: `client.stock_detail.list()` / `client.stock_detail.load({ id })`.
-  get stock_detail(): StockDetailEntity {
-    return (this._stock_detail ??= new StockDetailEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.stock_detail` instead. */
+  // Entity access: `client.StockDetail().list()` / `client.StockDetail().load({ id })`.
   StockDetail(data?: any) {
     const self = this
     return new StockDetailEntity(self,data)
   }
 
 
-  _trend?: TrendEntity
-
-  // Idiomatic facade: `client.trend.list()` / `client.trend.load({ id })`.
-  get trend(): TrendEntity {
-    return (this._trend ??= new TrendEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.trend` instead. */
+  // Entity access: `client.Trend().list()` / `client.Trend().load({ id })`.
   Trend(data?: any) {
     const self = this
     return new TrendEntity(self,data)

@@ -94,7 +94,7 @@ same parameters as `direct()`. Raises on error.
 ## StockEntity
 
 ```ruby
-stock = client.stock
+stock = client.Stock
 ```
 
 ### Fields
@@ -113,7 +113,7 @@ stock = client.stock
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.stock.list(nil)
+results = client.Stock.list(nil)
 ```
 
 ### Common Methods
@@ -149,7 +149,7 @@ Return the entity name.
 ## StockDetailEntity
 
 ```ruby
-stock_detail = client.stock_detail
+stock_detail = client.StockDetail
 ```
 
 ### Fields
@@ -170,7 +170,7 @@ stock_detail = client.stock_detail
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.stock_detail.load({ "id" => "stock_detail_id" })
+result = client.StockDetail.load({ "id" => "stock_detail_id" })
 ```
 
 ### Common Methods
@@ -206,7 +206,7 @@ Return the entity name.
 ## TrendEntity
 
 ```ruby
-trend = client.trend
+trend = client.Trend
 ```
 
 ### Fields
@@ -226,7 +226,7 @@ trend = client.trend
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.trend.list(nil)
+results = client.Trend.list(nil)
 ```
 
 ### Common Methods

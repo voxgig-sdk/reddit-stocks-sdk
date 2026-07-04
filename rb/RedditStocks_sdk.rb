@@ -208,39 +208,21 @@ class RedditStocksSDK
   end
 
 
-  # Idiomatic facade: client.stock.list / client.stock.load({ "id" => ... })
-  def stock
-    require_relative 'entity/stock_entity'
-    @stock ||= StockEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.stock instead.
+  # Canonical facade: client.Stock.list / client.Stock.load({ "id" => ... })
   def Stock(data = nil)
     require_relative 'entity/stock_entity'
     StockEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.stock_detail.list / client.stock_detail.load({ "id" => ... })
-  def stock_detail
-    require_relative 'entity/stock_detail_entity'
-    @stock_detail ||= StockDetailEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.stock_detail instead.
+  # Canonical facade: client.StockDetail.list / client.StockDetail.load({ "id" => ... })
   def StockDetail(data = nil)
     require_relative 'entity/stock_detail_entity'
     StockDetailEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.trend.list / client.trend.load({ "id" => ... })
-  def trend
-    require_relative 'entity/trend_entity'
-    @trend ||= TrendEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.trend instead.
+  # Canonical facade: client.Trend.list / client.Trend.load({ "id" => ... })
   def Trend(data = nil)
     require_relative 'entity/trend_entity'
     TrendEntity.new(self, data)

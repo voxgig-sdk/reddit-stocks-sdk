@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:stock():list() / client:stock():load({ id = ... })
-function RedditStocksSDK:stock(data)
+-- Idiomatic facade: client:Stock():list() / client:Stock():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function RedditStocksSDK:Stock(data)
   local EntityMod = require("entity.stock_entity")
   if data == nil then
     if self._stock == nil then
@@ -256,15 +257,10 @@ function RedditStocksSDK:stock(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:stock() instead.
-function RedditStocksSDK:Stock(data)
-  local EntityMod = require("entity.stock_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:stock_detail():list() / client:stock_detail():load({ id = ... })
-function RedditStocksSDK:stock_detail(data)
+-- Idiomatic facade: client:StockDetail():list() / client:StockDetail():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function RedditStocksSDK:StockDetail(data)
   local EntityMod = require("entity.stock_detail_entity")
   if data == nil then
     if self._stock_detail == nil then
@@ -275,15 +271,10 @@ function RedditStocksSDK:stock_detail(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:stock_detail() instead.
-function RedditStocksSDK:StockDetail(data)
-  local EntityMod = require("entity.stock_detail_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:trend():list() / client:trend():load({ id = ... })
-function RedditStocksSDK:trend(data)
+-- Idiomatic facade: client:Trend():list() / client:Trend():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function RedditStocksSDK:Trend(data)
   local EntityMod = require("entity.trend_entity")
   if data == nil then
     if self._trend == nil then
@@ -291,12 +282,6 @@ function RedditStocksSDK:trend(data)
     end
     return self._trend
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:trend() instead.
-function RedditStocksSDK:Trend(data)
-  local EntityMod = require("entity.trend_entity")
   return EntityMod.new(self, data)
 end
 

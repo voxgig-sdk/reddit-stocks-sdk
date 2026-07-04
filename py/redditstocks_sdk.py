@@ -220,57 +220,27 @@ class RedditStocksSDK:
         }
 
 
-    @property
-    def stock(self):
-        """Idiomatic facade: client.stock.list() / client.stock.load({"id": ...})."""
-        from entity.stock_entity import StockEntity
-        cached = getattr(self, "_stock", None)
-        if cached is None:
-            cached = StockEntity(self, None)
-            self._stock = cached
-        return cached
-
-    def Stock(self, data=None):
-        # Deprecated: use client.stock instead.
+    def Stock(self, data=None) -> "StockEntity":
+        """Entity factory: client.Stock().list({}) / client.Stock().load({"id": ...})."""
         from entity.stock_entity import StockEntity
         return StockEntity(self, data)
 
 
-    @property
-    def stock_detail(self):
-        """Idiomatic facade: client.stock_detail.list() / client.stock_detail.load({"id": ...})."""
-        from entity.stock_detail_entity import StockDetailEntity
-        cached = getattr(self, "_stock_detail", None)
-        if cached is None:
-            cached = StockDetailEntity(self, None)
-            self._stock_detail = cached
-        return cached
-
-    def StockDetail(self, data=None):
-        # Deprecated: use client.stock_detail instead.
+    def StockDetail(self, data=None) -> "StockDetailEntity":
+        """Entity factory: client.StockDetail().list({}) / client.StockDetail().load({"id": ...})."""
         from entity.stock_detail_entity import StockDetailEntity
         return StockDetailEntity(self, data)
 
 
-    @property
-    def trend(self):
-        """Idiomatic facade: client.trend.list() / client.trend.load({"id": ...})."""
-        from entity.trend_entity import TrendEntity
-        cached = getattr(self, "_trend", None)
-        if cached is None:
-            cached = TrendEntity(self, None)
-            self._trend = cached
-        return cached
-
-    def Trend(self, data=None):
-        # Deprecated: use client.trend instead.
+    def Trend(self, data=None) -> "TrendEntity":
+        """Entity factory: client.Trend().list({}) / client.Trend().load({"id": ...})."""
         from entity.trend_entity import TrendEntity
         return TrendEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "RedditStocksSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -290,3 +260,11 @@ class RedditStocksSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.stock_entity import StockEntity
+    from entity.stock_detail_entity import StockDetailEntity
+    from entity.trend_entity import TrendEntity

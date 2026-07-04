@@ -91,7 +91,7 @@ same parameters as `direct()`.
 ## StockEntity
 
 ```lua
-local stock = client:stock(nil)
+local stock = client:Stock(nil)
 ```
 
 ### Fields
@@ -110,7 +110,7 @@ local stock = client:stock(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:stock():list()
+local results, err = client:Stock():list()
 ```
 
 ### Common Methods
@@ -146,7 +146,7 @@ Return the entity name.
 ## StockDetailEntity
 
 ```lua
-local stock_detail = client:stock_detail(nil)
+local stock_detail = client:StockDetail(nil)
 ```
 
 ### Fields
@@ -167,7 +167,7 @@ local stock_detail = client:stock_detail(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:stock_detail():load({ id = "stock_detail_id" })
+local result, err = client:StockDetail():load({ id = "stock_detail_id" })
 ```
 
 ### Common Methods
@@ -203,7 +203,7 @@ Return the entity name.
 ## TrendEntity
 
 ```lua
-local trend = client:trend(nil)
+local trend = client:Trend(nil)
 ```
 
 ### Fields
@@ -223,7 +223,7 @@ local trend = client:trend(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:trend():list()
+local results, err = client:Trend():list()
 ```
 
 ### Common Methods

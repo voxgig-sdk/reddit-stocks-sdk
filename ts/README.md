@@ -28,15 +28,15 @@ import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks'
 const client = new RedditStocksSDK()
 ```
 
-### 2. List stocks
+### 2. List stock records
+
+`list()` resolves to an array of Stock objects — iterate it directly:
 
 ```ts
-const result = await client.stock.list()
+const stocks = await client.Stock().list()
 
-if (result.ok) {
-  for (const item of result.data) {
-    console.log(item.id, item.name)
-  }
+for (const stock of stocks) {
+  console.log(stock)
 }
 ```
 
@@ -54,6 +54,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -82,9 +85,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = RedditStocksSDK.test()
 
-const result = await client.stock.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const stock = await client.Stock().load({ id: 'test01' })
+// stock is a bare entity populated with mock response data
+console.log(stock)
 ```
 
 You can also use the instance method:
@@ -99,7 +102,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.stock
+const entity = client.Stock()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -196,29 +199,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): RedditStocksSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -299,7 +303,7 @@ API path: `/apps/reddit/trend`
 
 ### Stock
 
-Create an instance: `const stock = client.stock`
+Create an instance: `const stock = client.Stock()`
 
 #### Operations
 
@@ -319,13 +323,13 @@ Create an instance: `const stock = client.stock`
 #### Example: List
 
 ```ts
-const stocks = await client.stock.list()
+const stocks = await client.Stock().list()
 ```
 
 
 ### StockDetail
 
-Create an instance: `const stock_detail = client.stock_detail`
+Create an instance: `const stock_detail = client.StockDetail()`
 
 #### Operations
 
@@ -347,13 +351,13 @@ Create an instance: `const stock_detail = client.stock_detail`
 #### Example: Load
 
 ```ts
-const stock_detail = await client.stock_detail.load({ id: 'stock_detail_id' })
+const stock_detail = await client.StockDetail().load({ id: 'stock_detail_id' })
 ```
 
 
 ### Trend
 
-Create an instance: `const trend = client.trend`
+Create an instance: `const trend = client.Trend()`
 
 #### Operations
 
@@ -374,7 +378,7 @@ Create an instance: `const trend = client.trend`
 #### Example: List
 
 ```ts
-const trends = await client.trend.list()
+const trends = await client.Trend().list()
 ```
 
 
@@ -445,7 +449,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const stock = client.stock
+const stock = client.Stock()
 await stock.load({ id: "example_id" })
 
 // stock.data() now returns the loaded stock data

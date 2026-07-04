@@ -26,9 +26,11 @@ import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks'
 
 const client = new RedditStocksSDK()
 
-// List all stocks
-const stocks = await client.stock.list()
-console.log(stocks.data)
+// List all stocks (returns Stock[])
+const stocks = await client.Stock().list()
+for (const stock of stocks) {
+  console.log(stock)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -85,9 +87,10 @@ from redditstocks_sdk import RedditStocksSDK
 
 client = RedditStocksSDK()
 
-# List all stocks
-stocks = client.stock.list()
-print(stocks)
+# List all stocks (returns a list, raises on error)
+stocks = client.Stock().list({})
+for stock in stocks:
+    print(stock)
 ```
 
 ### PHP
@@ -98,8 +101,8 @@ require_once 'redditstocks_sdk.php';
 
 $client = new RedditStocksSDK();
 
-// List all stocks (throws on error)
-$stocks = $client->stock()->list();
+// List all stocks (returns an array; throws on error)
+$stocks = $client->Stock()->list();
 print_r($stocks);
 ```
 
@@ -122,8 +125,8 @@ require_relative "RedditStocks_sdk"
 
 client = RedditStocksSDK.new
 
-# List all stocks
-stocks = client.stock.list
+# List all stocks (returns an Array; raises on error)
+stocks = client.Stock.list
 puts stocks
 ```
 
@@ -135,7 +138,7 @@ local sdk = require("reddit-stocks_sdk")
 local client = sdk.new()
 
 -- List all stocks
-local stocks, err = client:stock():list()
+local stocks, err = client:Stock():list()
 print(stocks)
 ```
 
@@ -148,22 +151,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = RedditStocksSDK.test()
-const result = await client.stock.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const stock = await client.Stock().load({ id: 'test01' })
+// stock is a bare Stock populated with mock data
+console.log(stock)
 ```
 
 ### Python
 
 ```python
 client = RedditStocksSDK.test()
-result = client.stock.load({"id": "test01"})
+stock = client.Stock().load({"id": "test01"})
+print(stock)
 ```
 
 ### PHP
 
 ```php
-$client = RedditStocksSDK::test();
-$result = $client->stock()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = RedditStocksSDK::test([
+    "entity" => ["stock" => ["test01" => ["id" => "test01"]]],
+]);
+$stock = $client->Stock()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -178,15 +186,18 @@ result, err := client.Stock(nil).Load(
 ### Ruby
 
 ```ruby
-client = RedditStocksSDK.test
-result = client.stock.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = RedditStocksSDK.test({
+  "entity" => { "stock" => { "test01" => { "id" => "test01" } } },
+})
+stock = client.Stock.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:stock():load({ id = "test01" })
+local result, err = client:Stock():load({ id = "test01" })
 ```
 
 ## How it works
@@ -234,6 +245,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

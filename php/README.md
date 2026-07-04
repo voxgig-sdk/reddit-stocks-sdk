@@ -29,18 +29,16 @@ require_once 'redditstocks_sdk.php';
 $client = new RedditStocksSDK();
 ```
 
-### 2. List stocks
+### 2. List stock records
 
 ```php
 try {
-    $result = $client->stock()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Stock records — iterate directly.
+    $stocks = $client->Stock()->list();
+    foreach ($stocks as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -86,13 +84,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = RedditStocksSDK::test();
+$client = RedditStocksSDK::test([
+    "entity" => ["stock" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->stock()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$stock = $client->Stock()->load(["id" => "test01"]);
+print_r($stock);
 ```
 
 ### Use a custom fetch function
@@ -262,7 +264,7 @@ API path: `/apps/reddit/trend`
 
 ### Stock
 
-Create an instance: `const stock = client.stock`
+Create an instance: `$stock = $client->Stock();`
 
 #### Operations
 
@@ -281,14 +283,15 @@ Create an instance: `const stock = client.stock`
 
 #### Example: List
 
-```ts
-const stocks = await client.stock.list()
+```php
+// list() returns an array of Stock records (throws on error).
+$stocks = $client->Stock()->list();
 ```
 
 
 ### StockDetail
 
-Create an instance: `const stock_detail = client.stock_detail`
+Create an instance: `$stock_detail = $client->StockDetail();`
 
 #### Operations
 
@@ -309,14 +312,15 @@ Create an instance: `const stock_detail = client.stock_detail`
 
 #### Example: Load
 
-```ts
-const stock_detail = await client.stock_detail.load({ id: 'stock_detail_id' })
+```php
+// load() returns the bare StockDetail record (throws on error).
+$stock_detail = $client->StockDetail()->load(["id" => "stock_detail_id"]);
 ```
 
 
 ### Trend
 
-Create an instance: `const trend = client.trend`
+Create an instance: `$trend = $client->Trend();`
 
 #### Operations
 
@@ -336,8 +340,9 @@ Create an instance: `const trend = client.trend`
 
 #### Example: List
 
-```ts
-const trends = await client.trend.list()
+```php
+// list() returns an array of Trend records (throws on error).
+$trends = $client->Trend()->list();
 ```
 
 
@@ -412,7 +417,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$stock = $client->stock();
+$stock = $client->Stock();
 $stock->load(["id" => "example_id"]);
 
 // $stock->dataGet() now returns the loaded stock data

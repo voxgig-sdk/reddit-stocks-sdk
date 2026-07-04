@@ -133,7 +133,7 @@ Alias for `RedditStocksSDK.test()`.
 ## StockEntity
 
 ```ts
-const stock = client.stock
+const stock = client.Stock()
 ```
 
 ### Fields
@@ -152,7 +152,7 @@ const stock = client.stock
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.stock.list()
+const results = await client.Stock().list()
 ```
 
 ### Common Methods
@@ -186,7 +186,7 @@ Return a copy of the entity options.
 ## StockDetailEntity
 
 ```ts
-const stock_detail = client.stock_detail
+const stock_detail = client.StockDetail()
 ```
 
 ### Fields
@@ -207,7 +207,7 @@ const stock_detail = client.stock_detail
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.stock_detail.load({ id: 'stock_detail_id' })
+const result = await client.StockDetail().load({ id: 'stock_detail_id' })
 ```
 
 ### Common Methods
@@ -241,7 +241,7 @@ Return a copy of the entity options.
 ## TrendEntity
 
 ```ts
-const trend = client.trend
+const trend = client.Trend()
 ```
 
 ### Fields
@@ -261,7 +261,7 @@ const trend = client.trend
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.trend.list()
+const results = await client.Trend().list()
 ```
 
 ### Common Methods

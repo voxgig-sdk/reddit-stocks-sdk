@@ -93,7 +93,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## StockEntity
 
 ```php
-$stock = $client->stock();
+$stock = $client->Stock();
 ```
 
 ### Fields
@@ -112,7 +112,7 @@ $stock = $client->stock();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->stock()->list([]);
+$results = $client->Stock()->list([]);
 ```
 
 ### Common Methods
@@ -148,7 +148,7 @@ Return the entity name.
 ## StockDetailEntity
 
 ```php
-$stock_detail = $client->stock_detail();
+$stock_detail = $client->StockDetail();
 ```
 
 ### Fields
@@ -169,7 +169,7 @@ $stock_detail = $client->stock_detail();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->stock_detail()->load(["id" => "stock_detail_id"]);
+$result = $client->StockDetail()->load(["id" => "stock_detail_id"]);
 ```
 
 ### Common Methods
@@ -205,7 +205,7 @@ Return the entity name.
 ## TrendEntity
 
 ```php
-$trend = $client->trend();
+$trend = $client->Trend();
 ```
 
 ### Fields
@@ -225,7 +225,7 @@ $trend = $client->trend();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->trend()->list([]);
+$results = $client->Trend()->list([]);
 ```
 
 ### Common Methods
