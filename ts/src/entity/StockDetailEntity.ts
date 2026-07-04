@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  StockDetail,
+  StockDetailLoadMatch,
+} from '../RedditStocksTypes'
 
 // TODO: needs Entity superclass
-class StockDetailEntity extends RedditStocksEntityBase {
+class StockDetailEntity extends RedditStocksEntityBase<StockDetail> {
 
   constructor(client: RedditStocksSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class StockDetailEntity extends RedditStocksEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: StockDetailLoadMatch, ctrl?: Control): Promise<StockDetail> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class StockDetailEntity extends RedditStocksEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<StockDetail> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

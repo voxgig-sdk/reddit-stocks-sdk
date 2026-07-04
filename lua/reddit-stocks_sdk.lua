@@ -244,18 +244,57 @@ end
 
 
 
+-- Idiomatic facade: client:stock():list() / client:stock():load({ id = ... })
+function RedditStocksSDK:stock(data)
+  local EntityMod = require("entity.stock_entity")
+  if data == nil then
+    if self._stock == nil then
+      self._stock = EntityMod.new(self, nil)
+    end
+    return self._stock
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:stock() instead.
 function RedditStocksSDK:Stock(data)
   local EntityMod = require("entity.stock_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:stock_detail():list() / client:stock_detail():load({ id = ... })
+function RedditStocksSDK:stock_detail(data)
+  local EntityMod = require("entity.stock_detail_entity")
+  if data == nil then
+    if self._stock_detail == nil then
+      self._stock_detail = EntityMod.new(self, nil)
+    end
+    return self._stock_detail
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:stock_detail() instead.
 function RedditStocksSDK:StockDetail(data)
   local EntityMod = require("entity.stock_detail_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:trend():list() / client:trend():load({ id = ... })
+function RedditStocksSDK:trend(data)
+  local EntityMod = require("entity.trend_entity")
+  if data == nil then
+    if self._trend == nil then
+      self._trend = EntityMod.new(self, nil)
+    end
+    return self._trend
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:trend() instead.
 function RedditStocksSDK:Trend(data)
   local EntityMod = require("entity.trend_entity")
   return EntityMod.new(self, data)

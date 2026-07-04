@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Trend,
+  TrendListMatch,
+} from '../RedditStocksTypes'
 
 // TODO: needs Entity superclass
-class TrendEntity extends RedditStocksEntityBase {
+class TrendEntity extends RedditStocksEntityBase<Trend> {
 
   constructor(client: RedditStocksSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class TrendEntity extends RedditStocksEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: TrendListMatch, ctrl?: Control): Promise<Trend[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class TrendEntity extends RedditStocksEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Trend[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

@@ -50,8 +50,7 @@ class TestStockEntity:
         stock_ref01_ent = client.Stock(None)
         stock_ref01_match = {}
 
-        stock_ref01_list_result, err = stock_ref01_ent.list(stock_ref01_match, None)
-        assert err is None
+        stock_ref01_list_result = stock_ref01_ent.list(stock_ref01_match, None)
         assert isinstance(stock_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _stock_basic_setup(extra):
         "REDDITSTOCKS_TEST_STOCK_ENTID": idmap,
         "REDDITSTOCKS_TEST_LIVE": "FALSE",
         "REDDITSTOCKS_TEST_EXPLAIN": "FALSE",
-        "REDDITSTOCKS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _stock_basic_setup(extra):
     if env.get("REDDITSTOCKS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("REDDITSTOCKS_APIKEY"),
             },
             extra or {},
         ])

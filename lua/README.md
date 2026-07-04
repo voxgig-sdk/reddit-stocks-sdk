@@ -9,12 +9,9 @@ The Lua SDK for the RedditStocks API — an entity-oriented client using Lua con
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-reddit-stocks
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("reddit-stocks_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("REDDIT-STOCKS_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 2. List stocks
 
 ```lua
-local result, err = client:Stock():list()
+local result, err = client:stock():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -93,7 +88,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:RedditStocks():load({ id = "test01" })
+local result, err = client:stock():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -126,8 +121,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-REDDIT-STOCKS_TEST_LIVE=TRUE
-REDDIT-STOCKS_APIKEY=<your-key>
+REDDIT_STOCKS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -150,7 +144,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -261,7 +254,7 @@ API path: `/apps/reddit/trend`
 
 ### Stock
 
-Create an instance: `const stock = client.Stock()`
+Create an instance: `const stock = client.stock`
 
 #### Operations
 
@@ -281,13 +274,13 @@ Create an instance: `const stock = client.Stock()`
 #### Example: List
 
 ```ts
-const stocks = await client.Stock().list()
+const stocks = await client.stock.list()
 ```
 
 
 ### StockDetail
 
-Create an instance: `const stock_detail = client.StockDetail()`
+Create an instance: `const stock_detail = client.stock_detail`
 
 #### Operations
 
@@ -309,13 +302,13 @@ Create an instance: `const stock_detail = client.StockDetail()`
 #### Example: Load
 
 ```ts
-const stock_detail = await client.StockDetail().load({ id: 'stock_detail_id' })
+const stock_detail = await client.stock_detail.load({ id: 'stock_detail_id' })
 ```
 
 
 ### Trend
 
-Create an instance: `const trend = client.Trend()`
+Create an instance: `const trend = client.trend`
 
 #### Operations
 
@@ -336,7 +329,7 @@ Create an instance: `const trend = client.Trend()`
 #### Example: List
 
 ```ts
-const trends = await client.Trend().list()
+const trends = await client.trend.list()
 ```
 
 
@@ -411,11 +404,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local stock = client:stock()
+stock:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- stock:data_get() now returns the loaded stock data
+-- stock:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

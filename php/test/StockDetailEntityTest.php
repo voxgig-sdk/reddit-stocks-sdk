@@ -49,8 +49,7 @@ class StockDetailEntityTest extends TestCase
         // LOAD
         $stock_detail_ref01_ent = $client->StockDetail(null);
         $stock_detail_ref01_match_dt0 = [];
-        [$stock_detail_ref01_data_dt0_loaded, $err] = $stock_detail_ref01_ent->load($stock_detail_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $stock_detail_ref01_data_dt0_loaded = $stock_detail_ref01_ent->load($stock_detail_ref01_match_dt0, null);
         $this->assertNotNull($stock_detail_ref01_data_dt0_loaded);
 
     }
@@ -85,7 +84,6 @@ function stock_detail_basic_setup($extra)
         "REDDITSTOCKS_TEST_STOCK_DETAIL_ENTID" => $idmap,
         "REDDITSTOCKS_TEST_LIVE" => "FALSE",
         "REDDITSTOCKS_TEST_EXPLAIN" => "FALSE",
-        "REDDITSTOCKS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,7 +95,6 @@ function stock_detail_basic_setup($extra)
     if ($env["REDDITSTOCKS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["REDDITSTOCKS_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch StockListMatch
+---@param ctrl? table
+---@return Stock[]
+---@return string? err
 function StockEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

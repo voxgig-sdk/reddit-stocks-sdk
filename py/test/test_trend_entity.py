@@ -50,8 +50,7 @@ class TestTrendEntity:
         trend_ref01_ent = client.Trend(None)
         trend_ref01_match = {}
 
-        trend_ref01_list_result, err = trend_ref01_ent.list(trend_ref01_match, None)
-        assert err is None
+        trend_ref01_list_result = trend_ref01_ent.list(trend_ref01_match, None)
         assert isinstance(trend_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _trend_basic_setup(extra):
         "REDDITSTOCKS_TEST_TREND_ENTID": idmap,
         "REDDITSTOCKS_TEST_LIVE": "FALSE",
         "REDDITSTOCKS_TEST_EXPLAIN": "FALSE",
-        "REDDITSTOCKS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _trend_basic_setup(extra):
     if env.get("REDDITSTOCKS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("REDDITSTOCKS_APIKEY"),
             },
             extra or {},
         ])

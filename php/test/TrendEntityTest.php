@@ -50,8 +50,7 @@ class TrendEntityTest extends TestCase
         $trend_ref01_ent = $client->Trend(null);
         $trend_ref01_match = [];
 
-        [$trend_ref01_list_result, $err] = $trend_ref01_ent->list($trend_ref01_match, null);
-        $this->assertNull($err);
+        $trend_ref01_list_result = $trend_ref01_ent->list($trend_ref01_match, null);
         $this->assertIsArray($trend_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function trend_basic_setup($extra)
         "REDDITSTOCKS_TEST_TREND_ENTID" => $idmap,
         "REDDITSTOCKS_TEST_LIVE" => "FALSE",
         "REDDITSTOCKS_TEST_EXPLAIN" => "FALSE",
-        "REDDITSTOCKS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function trend_basic_setup($extra)
     if ($env["REDDITSTOCKS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["REDDITSTOCKS_APIKEY"],
             ],
             $extra ?? [],
         ]);

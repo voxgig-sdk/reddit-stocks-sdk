@@ -15,9 +15,6 @@ def make_config():
         },
         "options": {
             "base": "https://tradestie.com/api/v1",
-            "auth": {
-                "prefix": "Bearer",
-            },
             "headers": {
         "content-type": "application/json",
       },
@@ -152,6 +149,7 @@ def make_config():
                       "orig": "ticker",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                 },

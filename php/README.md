@@ -9,9 +9,10 @@ The PHP SDK for the RedditStocks API — an entity-oriented client using PHP con
 
 
 ## Install
-```bash
-composer require voxgig-sdk/reddit-stocks
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/reddit-stocks-sdk/releases](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -25,22 +26,22 @@ loading a specific record.
 <?php
 require_once 'redditstocks_sdk.php';
 
-$client = new RedditStocksSDK([
-    "apikey" => getenv("REDDIT-STOCKS_APIKEY"),
-]);
+$client = new RedditStocksSDK();
 ```
 
 ### 2. List stocks
 
 ```php
-[$result, $err] = $client->Stock()->list();
-if ($err) { throw new \Exception($err); }
-
-if (is_array($result)) {
-    foreach ($result as $item) {
-        $d = $item->data_get();
-        echo $d["id"] . " " . $d["name"] . "\n";
+try {
+    $result = $client->stock()->list();
+    if (is_array($result)) {
+        foreach ($result as $item) {
+            $d = $item->data_get();
+            echo $d["id"] . " " . $d["name"] . "\n";
+        }
     }
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
 }
 ```
 
@@ -52,28 +53,31 @@ if (is_array($result)) {
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -87,7 +91,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = RedditStocksSDK::test();
 
-[$result, $err] = $client->RedditStocks()->load(["id" => "test01"]);
+$result = $client->stock()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -121,8 +125,7 @@ $client = new RedditStocksSDK([
 Create a `.env.local` file at the project root:
 
 ```
-REDDIT-STOCKS_TEST_LIVE=TRUE
-REDDIT-STOCKS_APIKEY=<your-key>
+REDDIT_STOCKS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -145,7 +148,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -193,8 +195,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -256,7 +262,7 @@ API path: `/apps/reddit/trend`
 
 ### Stock
 
-Create an instance: `const stock = client.Stock()`
+Create an instance: `const stock = client.stock`
 
 #### Operations
 
@@ -276,13 +282,13 @@ Create an instance: `const stock = client.Stock()`
 #### Example: List
 
 ```ts
-const stocks = await client.Stock().list()
+const stocks = await client.stock.list()
 ```
 
 
 ### StockDetail
 
-Create an instance: `const stock_detail = client.StockDetail()`
+Create an instance: `const stock_detail = client.stock_detail`
 
 #### Operations
 
@@ -304,13 +310,13 @@ Create an instance: `const stock_detail = client.StockDetail()`
 #### Example: Load
 
 ```ts
-const stock_detail = await client.StockDetail().load({ id: 'stock_detail_id' })
+const stock_detail = await client.stock_detail.load({ id: 'stock_detail_id' })
 ```
 
 
 ### Trend
 
-Create an instance: `const trend = client.Trend()`
+Create an instance: `const trend = client.trend`
 
 #### Operations
 
@@ -331,7 +337,7 @@ Create an instance: `const trend = client.Trend()`
 #### Example: List
 
 ```ts
-const trends = await client.Trend().list()
+const trends = await client.trend.list()
 ```
 
 
@@ -406,11 +412,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$stock = $client->stock();
+$stock->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $stock->dataGet() now returns the loaded stock data
+// $stock->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

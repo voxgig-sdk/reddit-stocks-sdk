@@ -20,9 +20,6 @@ class RedditStocksConfig
             ],
             "options" => [
                 "base" => "https://tradestie.com/api/v1",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -157,6 +154,7 @@ class RedditStocksConfig
                         'orig' => 'ticker',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                   ],

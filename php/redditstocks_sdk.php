@@ -103,7 +103,7 @@ class RedditStocksSDK
         return $this->_rootctx;
     }
 
-    public function prepare(array $fetchargs = []): array
+    public function prepare(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
         $fetchargs = $fetchargs ?? [];
@@ -149,19 +149,27 @@ class RedditStocksSDK
 
         [$_, $err] = ($utility->prepare_auth)($ctx);
         if ($err) {
-            return [null, $err];
+            return ($utility->make_error)($ctx, $err);
         }
 
-        return ($utility->make_fetch_def)($ctx);
+        [$fetchdef, $fd_err] = ($utility->make_fetch_def)($ctx);
+        if ($fd_err) {
+            return ($utility->make_error)($ctx, $fd_err);
+        }
+        return $fetchdef;
     }
 
-    public function direct(array $fetchargs = []): array
+    public function direct(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
 
-        [$fetchdef, $err] = $this->prepare($fetchargs);
-        if ($err) {
-            return [["ok" => false, "err" => $err], null];
+        // direct() is the raw-HTTP escape hatch: it never throws, it returns
+        // an {ok, err, ...} dict. prepare() now raises on error, so catch it
+        // and surface the failure through the dict instead.
+        try {
+            $fetchdef = $this->prepare($fetchargs);
+        } catch (\Throwable $err) {
+            return ["ok" => false, "err" => $err];
         }
 
         $fetchargs = $fetchargs ?? [];
@@ -176,14 +184,14 @@ class RedditStocksSDK
         [$fetched, $fetch_err] = ($utility->fetcher)($ctx, $url, $fetchdef);
 
         if ($fetch_err) {
-            return [["ok" => false, "err" => $fetch_err], null];
+            return ["ok" => false, "err" => $fetch_err];
         }
 
         if ($fetched === null) {
-            return [[
+            return [
                 "ok" => false,
                 "err" => $ctx->make_error("direct_no_response", "response: undefined"),
-            ], null];
+            ];
         }
 
         if (is_array($fetched)) {
@@ -208,38 +216,71 @@ class RedditStocksSDK
                 }
             }
 
-            return [[
+            return [
                 "ok" => $status >= 200 && $status < 300,
                 "status" => $status,
                 "headers" => Struct::getprop($fetched, "headers"),
                 "data" => $json_data,
-            ], null];
+            ];
         }
 
-        return [[
+        return [
             "ok" => false,
             "err" => $ctx->make_error("direct_invalid", "invalid response type"),
-        ], null];
+        ];
     }
 
 
-    public function Stock($data = null)
+    private $_stock = null;
+
+    // Idiomatic facade: $client->stock()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Stock() (PHP method
+    // names are case-insensitive).
+    public function stock($data = null)
     {
         require_once __DIR__ . '/entity/stock_entity.php';
+        if ($data === null) {
+            if ($this->_stock === null) {
+                $this->_stock = new StockEntity($this, null);
+            }
+            return $this->_stock;
+        }
         return new StockEntity($this, $data);
     }
 
 
-    public function StockDetail($data = null)
+    private $_stock_detail = null;
+
+    // Idiomatic facade: $client->stock_detail()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias StockDetail() (PHP method
+    // names are case-insensitive).
+    public function stock_detail($data = null)
     {
         require_once __DIR__ . '/entity/stock_detail_entity.php';
+        if ($data === null) {
+            if ($this->_stock_detail === null) {
+                $this->_stock_detail = new StockDetailEntity($this, null);
+            }
+            return $this->_stock_detail;
+        }
         return new StockDetailEntity($this, $data);
     }
 
 
-    public function Trend($data = null)
+    private $_trend = null;
+
+    // Idiomatic facade: $client->trend()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Trend() (PHP method
+    // names are case-insensitive).
+    public function trend($data = null)
     {
         require_once __DIR__ . '/entity/trend_entity.php';
+        if ($data === null) {
+            if ($this->_trend === null) {
+                $this->_trend = new TrendEntity($this, null);
+            }
+            return $this->_trend;
+        }
         return new TrendEntity($this, $data);
     }
 

@@ -42,8 +42,7 @@ class StockDetailEntityTest < Minitest::Test
     # LOAD
     stock_detail_ref01_ent = client.StockDetail(nil)
     stock_detail_ref01_match_dt0 = {}
-    stock_detail_ref01_data_dt0_loaded, err = stock_detail_ref01_ent.load(stock_detail_ref01_match_dt0, nil)
-    assert_nil err
+    stock_detail_ref01_data_dt0_loaded = stock_detail_ref01_ent.load(stock_detail_ref01_match_dt0, nil)
     assert !stock_detail_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def stock_detail_basic_setup(extra)
     "REDDITSTOCKS_TEST_STOCK_DETAIL_ENTID" => idmap,
     "REDDITSTOCKS_TEST_LIVE" => "FALSE",
     "REDDITSTOCKS_TEST_EXPLAIN" => "FALSE",
-    "REDDITSTOCKS_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def stock_detail_basic_setup(extra)
   if env["REDDITSTOCKS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["REDDITSTOCKS_APIKEY"],
       },
       extra || {},
     ])

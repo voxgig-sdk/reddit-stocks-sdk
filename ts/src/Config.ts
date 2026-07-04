@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://tradestie.com/api/v1',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -185,7 +181,8 @@ class Config {
                     "name": "ticker",
                     "orig": "ticker",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },

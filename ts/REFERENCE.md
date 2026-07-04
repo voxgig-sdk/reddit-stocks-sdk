@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -134,7 +133,7 @@ Alias for `RedditStocksSDK.test()`.
 ## StockEntity
 
 ```ts
-const stock = client.Stock()
+const stock = client.stock
 ```
 
 ### Fields
@@ -153,7 +152,7 @@ const stock = client.Stock()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Stock().list()
+const results = await client.stock.list()
 ```
 
 ### Common Methods
@@ -187,7 +186,7 @@ Return a copy of the entity options.
 ## StockDetailEntity
 
 ```ts
-const stock_detail = client.StockDetail()
+const stock_detail = client.stock_detail
 ```
 
 ### Fields
@@ -208,7 +207,7 @@ const stock_detail = client.StockDetail()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.StockDetail().load({ id: 'stock_detail_id' })
+const result = await client.stock_detail.load({ id: 'stock_detail_id' })
 ```
 
 ### Common Methods
@@ -242,7 +241,7 @@ Return a copy of the entity options.
 ## TrendEntity
 
 ```ts
-const trend = client.Trend()
+const trend = client.trend
 ```
 
 ### Fields
@@ -262,7 +261,7 @@ const trend = client.Trend()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Trend().list()
+const results = await client.trend.list()
 ```
 
 ### Common Methods

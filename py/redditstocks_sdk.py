@@ -144,16 +144,23 @@ class RedditStocksSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class RedditStocksSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,25 +212,58 @@ class RedditStocksSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def stock(self):
+        """Idiomatic facade: client.stock.list() / client.stock.load({"id": ...})."""
+        from entity.stock_entity import StockEntity
+        cached = getattr(self, "_stock", None)
+        if cached is None:
+            cached = StockEntity(self, None)
+            self._stock = cached
+        return cached
 
     def Stock(self, data=None):
+        # Deprecated: use client.stock instead.
         from entity.stock_entity import StockEntity
         return StockEntity(self, data)
 
 
+    @property
+    def stock_detail(self):
+        """Idiomatic facade: client.stock_detail.list() / client.stock_detail.load({"id": ...})."""
+        from entity.stock_detail_entity import StockDetailEntity
+        cached = getattr(self, "_stock_detail", None)
+        if cached is None:
+            cached = StockDetailEntity(self, None)
+            self._stock_detail = cached
+        return cached
+
     def StockDetail(self, data=None):
+        # Deprecated: use client.stock_detail instead.
         from entity.stock_detail_entity import StockDetailEntity
         return StockDetailEntity(self, data)
 
 
+    @property
+    def trend(self):
+        """Idiomatic facade: client.trend.list() / client.trend.load({"id": ...})."""
+        from entity.trend_entity import TrendEntity
+        cached = getattr(self, "_trend", None)
+        if cached is None:
+            cached = TrendEntity(self, None)
+            self._trend = cached
+        return cached
+
     def Trend(self, data=None):
+        # Deprecated: use client.trend instead.
         from entity.trend_entity import TrendEntity
         return TrendEntity(self, data)
 

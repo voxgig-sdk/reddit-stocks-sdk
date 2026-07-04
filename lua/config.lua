@@ -14,9 +14,6 @@ local function make_config()
     },
     options = {
       base = "https://tradestie.com/api/v1",
-      auth = {
-        prefix = "Bearer",
-      },
       headers = {
         ["content-type"] = "application/json",
       },
@@ -151,6 +148,7 @@ local function make_config()
                       ["orig"] = "ticker",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                   },
                 },

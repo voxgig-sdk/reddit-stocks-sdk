@@ -23,7 +23,7 @@ class StockDetailDirectTest < Minitest::Test
       params["ticker"] = "direct01"
     end
 
-    result, err = client.direct({
+    result = client.direct({
       "path" => "apps/reddit/{ticker}",
       "method" => "GET",
       "params" => params,
@@ -33,8 +33,8 @@ class StockDetailDirectTest < Minitest::Test
       # Live mode is lenient: synthetic IDs frequently 4xx. Skip rather
       # than fail when the load endpoint isn't reachable with the IDs
       # we can construct from setup.idmap.
-      if !err.nil?
-        skip("load call failed (likely synthetic IDs against live API): #{err}")
+      if !result["err"].nil?
+        skip("load call failed (likely synthetic IDs against live API): #{result["err"]}")
         return
       end
       unless result["ok"]
@@ -47,7 +47,7 @@ class StockDetailDirectTest < Minitest::Test
         return
       end
     else
-      assert_nil err
+      assert_nil result["err"]
       assert result["ok"]
       assert_equal 200, Helpers.to_int(result["status"])
       assert !result["data"].nil?
@@ -69,14 +69,12 @@ def stock_detail_direct_setup(mockres)
   env = Runner.env_override({
     "REDDITSTOCKS_TEST_STOCK_DETAIL_ENTID" => {},
     "REDDITSTOCKS_TEST_LIVE" => "FALSE",
-    "REDDITSTOCKS_APIKEY" => "NONE",
   })
 
   live = env["REDDITSTOCKS_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["REDDITSTOCKS_APIKEY"],
     }
     client = RedditStocksSDK.new(merged_opts)
     return {

@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -92,7 +91,7 @@ same parameters as `direct()`.
 ## StockEntity
 
 ```lua
-local stock = client:Stock(nil)
+local stock = client:stock(nil)
 ```
 
 ### Fields
@@ -111,7 +110,7 @@ local stock = client:Stock(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Stock():list()
+local results, err = client:stock():list()
 ```
 
 ### Common Methods
@@ -147,7 +146,7 @@ Return the entity name.
 ## StockDetailEntity
 
 ```lua
-local stock_detail = client:StockDetail(nil)
+local stock_detail = client:stock_detail(nil)
 ```
 
 ### Fields
@@ -168,7 +167,7 @@ local stock_detail = client:StockDetail(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:StockDetail():load({ id = "stock_detail_id" })
+local result, err = client:stock_detail():load({ id = "stock_detail_id" })
 ```
 
 ### Common Methods
@@ -204,7 +203,7 @@ Return the entity name.
 ## TrendEntity
 
 ```lua
-local trend = client:Trend(nil)
+local trend = client:trend(nil)
 ```
 
 ### Fields
@@ -224,7 +223,7 @@ local trend = client:Trend(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Trend():list()
+local results, err = client:trend():list()
 ```
 
 ### Common Methods

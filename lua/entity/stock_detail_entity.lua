@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch StockDetailLoadMatch
+---@param ctrl? table
+---@return StockDetail
+---@return string? err
 function StockDetailEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

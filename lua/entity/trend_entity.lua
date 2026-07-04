@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch TrendListMatch
+---@param ctrl? table
+---@return Trend[]
+---@return string? err
 function TrendEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

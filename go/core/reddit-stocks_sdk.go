@@ -245,16 +245,25 @@ func (sdk *RedditStocksSDK) Direct(fetchargs map[string]any) (map[string]any, er
 }
 
 
+// Stock returns a Stock entity bound to this client.
+// Idiomatic usage: client.Stock(nil).List(nil, nil) or
+// client.Stock(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *RedditStocksSDK) Stock(data map[string]any) RedditStocksEntity {
 	return NewStockEntityFunc(sdk, data)
 }
 
 
+// StockDetail returns a StockDetail entity bound to this client.
+// Idiomatic usage: client.StockDetail(nil).List(nil, nil) or
+// client.StockDetail(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *RedditStocksSDK) StockDetail(data map[string]any) RedditStocksEntity {
 	return NewStockDetailEntityFunc(sdk, data)
 }
 
 
+// Trend returns a Trend entity bound to this client.
+// Idiomatic usage: client.Trend(nil).List(nil, nil) or
+// client.Trend(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *RedditStocksSDK) Trend(data map[string]any) RedditStocksEntity {
 	return NewTrendEntityFunc(sdk, data)
 }

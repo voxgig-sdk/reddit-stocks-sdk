@@ -92,7 +92,6 @@ function stock_basic_setup(extra)
     ["REDDITSTOCKS_TEST_STOCK_ENTID"] = idmap,
     ["REDDITSTOCKS_TEST_LIVE"] = "FALSE",
     ["REDDITSTOCKS_TEST_EXPLAIN"] = "FALSE",
-    ["REDDITSTOCKS_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -104,7 +103,6 @@ function stock_basic_setup(extra)
   if env["REDDITSTOCKS_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["REDDITSTOCKS_APIKEY"],
       },
       extra or {},
     })
