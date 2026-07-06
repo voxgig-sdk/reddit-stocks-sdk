@@ -12,7 +12,12 @@ export interface Stock {
   ticker?: string
 }
 
-export type StockListMatch = Partial<Stock>
+export interface StockListMatch {
+  no_of_comment?: number
+  sentiment?: string
+  sentiment_score?: number
+  ticker?: string
+}
 
 export interface StockDetail {
   mention?: number
@@ -35,5 +40,11 @@ export interface Trend {
   trend_score?: number
 }
 
-export type TrendListMatch = Partial<Trend>
+export interface TrendListMatch {
+  no_of_comment?: number
+  sentiment?: string
+  sentiment_score?: number
+  ticker?: string
+  trend_score?: number
+}
 

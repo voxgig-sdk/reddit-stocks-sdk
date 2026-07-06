@@ -13,6 +13,10 @@
 ---@field ticker? string
 
 ---@class StockListMatch
+---@field no_of_comment? number
+---@field sentiment? string
+---@field sentiment_score? number
+---@field ticker? string
 
 ---@class StockDetail
 ---@field mention? number
@@ -33,6 +37,11 @@
 ---@field trend_score? number
 
 ---@class TrendListMatch
+---@field no_of_comment? number
+---@field sentiment? string
+---@field sentiment_score? number
+---@field ticker? string
+---@field trend_score? number
 
 local M = {}
 

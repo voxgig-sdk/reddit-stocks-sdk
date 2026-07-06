@@ -21,7 +21,7 @@ class Stock
     public ?string $ticker = null;
 }
 
-/** Match filter for Stock#list (any subset of Stock fields). */
+/** Request payload for Stock#list. */
 class StockListMatch
 {
     public ?int $no_of_comment = null;
@@ -57,7 +57,7 @@ class Trend
     public ?float $trend_score = null;
 }
 
-/** Match filter for Trend#list (any subset of Trend fields). */
+/** Request payload for Trend#list. */
 class TrendListMatch
 {
     public ?int $no_of_comment = null;

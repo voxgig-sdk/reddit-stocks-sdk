@@ -8,7 +8,7 @@ Complete API reference for the RedditStocks Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'reddit-stocks_sdk'
+require_relative 'RedditStocks_sdk'
 
 client = RedditStocksSDK.new(options)
 ```
@@ -101,19 +101,19 @@ stock = client.Stock
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
+| `no_of_comment` | `Integer` | No |  |
+| `sentiment` | `String` | No |  |
+| `sentiment_score` | `Float` | No |  |
+| `ticker` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Stock.list(nil)
+results = client.Stock.list
 ```
 
 ### Common Methods
@@ -156,12 +156,12 @@ stock_detail = client.StockDetail
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mention` | ``$INTEGER`` | No |  |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `rank` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
+| `mention` | `Integer` | No |  |
+| `no_of_comment` | `Integer` | No |  |
+| `rank` | `Integer` | No |  |
+| `sentiment` | `String` | No |  |
+| `sentiment_score` | `Float` | No |  |
+| `ticker` | `String` | No |  |
 
 ### Operations
 
@@ -170,7 +170,7 @@ stock_detail = client.StockDetail
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.StockDetail.load({ "id" => "stock_detail_id" })
+result = client.StockDetail.load()
 ```
 
 ### Common Methods
@@ -213,20 +213,20 @@ trend = client.Trend
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
-| `trend_score` | ``$NUMBER`` | No |  |
+| `no_of_comment` | `Integer` | No |  |
+| `sentiment` | `String` | No |  |
+| `sentiment_score` | `Float` | No |  |
+| `ticker` | `String` | No |  |
+| `trend_score` | `Float` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Trend.list(nil)
+results = client.Trend.list
 ```
 
 ### Common Methods

@@ -4,6 +4,11 @@
 
 The TypeScript SDK for the RedditStocks API — a type-safe, entity-oriented client with full async/await support.
 
+The API is exposed as capitalised, semantic **Entities** — e.g.
+`client.Stock()` — each with a small set of operations (`list`, `load`)
+instead of raw URL paths and query parameters. This keeps the surface
+predictable and low-friction for both humans and AI agents.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -37,6 +42,35 @@ const stocks = await client.Stock().list()
 
 for (const stock of stocks) {
   console.log(stock)
+}
+```
+
+
+## Error handling
+
+Entity operations reject on failure, so wrap them in `try` / `catch`:
+
+```ts
+try {
+  const stocks = await client.Stock().list()
+  console.log(stocks)
+} catch (err) {
+  console.error('list failed:', err)
+}
+```
+
+The low-level `direct()` method does **not** throw — it returns the
+value or an `Error`, so check the result before using it:
+
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example_id' },
+})
+
+if (result instanceof Error) {
+  throw result
 }
 ```
 
@@ -85,7 +119,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = RedditStocksSDK.test()
 
-const stock = await client.Stock().load({ id: 'test01' })
+const stock = await client.Stock().list()
 // stock is a bare entity populated with mock response data
 console.log(stock)
 ```
@@ -104,12 +138,12 @@ Entity instances remember their last match and data:
 ```ts
 const entity = client.Stock()
 
-// First call sets internal match
-await entity.load({ id: 'example' })
+// First call runs the operation and stores its result
+await entity.list()
 
-// Subsequent calls reuse the stored match
+// Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id) // 'example'
+console.log(data)
 ```
 
 ### Add custom middleware
@@ -201,11 +235,8 @@ All entities share the same interface.
 | --- | --- | --- |
 | `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
 | `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
-| `data` | `data(data?): any` | Get or set entity data. |
-| `match` | `match(match?): any` | Get or set entity match criteria. |
+| `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
+| `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): RedditStocksSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
@@ -215,10 +246,9 @@ All entities share the same interface.
 Entity operations resolve to the entity data directly — there is no
 result envelope:
 
-- `load`, `create` and `update` resolve to a single entity object.
+- `load` resolves to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
   there is no `.data` and no `.ok`).
-- `remove` resolves to `void`.
 
 On a failed request these methods **throw**, so wrap calls in
 `try`/`catch` to handle errors. Only `direct()` returns the result
@@ -315,10 +345,10 @@ Create an instance: `const stock = client.Stock()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` |  |
-| `sentiment` | ``$STRING`` |  |
-| `sentiment_score` | ``$NUMBER`` |  |
-| `ticker` | ``$STRING`` |  |
+| `no_of_comment` | `number` |  |
+| `sentiment` | `string` |  |
+| `sentiment_score` | `number` |  |
+| `ticker` | `string` |  |
 
 #### Example: List
 
@@ -341,17 +371,17 @@ Create an instance: `const stock_detail = client.StockDetail()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mention` | ``$INTEGER`` |  |
-| `no_of_comment` | ``$INTEGER`` |  |
-| `rank` | ``$INTEGER`` |  |
-| `sentiment` | ``$STRING`` |  |
-| `sentiment_score` | ``$NUMBER`` |  |
-| `ticker` | ``$STRING`` |  |
+| `mention` | `number` |  |
+| `no_of_comment` | `number` |  |
+| `rank` | `number` |  |
+| `sentiment` | `string` |  |
+| `sentiment_score` | `number` |  |
+| `ticker` | `string` |  |
 
 #### Example: Load
 
 ```ts
-const stock_detail = await client.StockDetail().load({ id: 'stock_detail_id' })
+const stock_detail = await client.StockDetail().load()
 ```
 
 
@@ -369,11 +399,11 @@ Create an instance: `const trend = client.Trend()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` |  |
-| `sentiment` | ``$STRING`` |  |
-| `sentiment_score` | ``$NUMBER`` |  |
-| `ticker` | ``$STRING`` |  |
-| `trend_score` | ``$NUMBER`` |  |
+| `no_of_comment` | `number` |  |
+| `sentiment` | `string` |  |
+| `sentiment_score` | `number` |  |
+| `ticker` | `string` |  |
+| `trend_score` | `number` |  |
 
 #### Example: List
 
@@ -382,12 +412,16 @@ const trends = await client.Trend().list()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -404,11 +438,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller.
-
-An unexpected exception triggers the `PreUnexpected` hook before
-propagating.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -444,16 +476,16 @@ import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
 const stock = client.Stock()
-await stock.load({ id: "example_id" })
+await stock.list()
 
-// stock.data() now returns the loaded stock data
-// stock.match() returns { id: "example_id" }
+// stock.data() now returns the stock data from the last `list`
+// stock.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

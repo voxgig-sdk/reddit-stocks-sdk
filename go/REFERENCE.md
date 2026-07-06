@@ -105,10 +105,10 @@ stock := client.Stock(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
+| `no_of_comment` | `int` | No |  |
+| `sentiment` | `string` | No |  |
+| `sentiment_score` | `float64` | No |  |
+| `ticker` | `string` | No |  |
 
 ### Operations
 
@@ -154,12 +154,12 @@ stock_detail := client.StockDetail(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mention` | ``$INTEGER`` | No |  |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `rank` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
+| `mention` | `int` | No |  |
+| `no_of_comment` | `int` | No |  |
+| `rank` | `int` | No |  |
+| `sentiment` | `string` | No |  |
+| `sentiment_score` | `float64` | No |  |
+| `ticker` | `string` | No |  |
 
 ### Operations
 
@@ -168,7 +168,7 @@ stock_detail := client.StockDetail(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.StockDetail(nil).Load(map[string]any{"id": "stock_detail_id"}, nil)
+result, err := client.StockDetail(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -205,11 +205,11 @@ trend := client.Trend(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
-| `trend_score` | ``$NUMBER`` | No |  |
+| `no_of_comment` | `int` | No |  |
+| `sentiment` | `string` | No |  |
+| `sentiment_score` | `float64` | No |  |
+| `ticker` | `string` | No |  |
+| `trend_score` | `float64` | No |  |
 
 ### Operations
 

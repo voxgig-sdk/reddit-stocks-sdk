@@ -29,7 +29,7 @@ Stock = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Stock#list (any subset of Stock fields).
+# Request payload for Stock#list.
 #
 # @!attribute [rw] no_of_comment
 #   @return [Integer, nil]
@@ -113,7 +113,7 @@ Trend = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Trend#list (any subset of Trend fields).
+# Request payload for Trend#list.
 #
 # @!attribute [rw] no_of_comment
 #   @return [Integer, nil]

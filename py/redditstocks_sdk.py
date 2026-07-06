@@ -221,19 +221,19 @@ class RedditStocksSDK:
 
 
     def Stock(self, data=None) -> "StockEntity":
-        """Entity factory: client.Stock().list({}) / client.Stock().load({"id": ...})."""
+        """Entity factory: client.Stock().list() / client.Stock().load({"id": ...})."""
         from entity.stock_entity import StockEntity
         return StockEntity(self, data)
 
 
     def StockDetail(self, data=None) -> "StockDetailEntity":
-        """Entity factory: client.StockDetail().list({}) / client.StockDetail().load({"id": ...})."""
+        """Entity factory: client.StockDetail().list() / client.StockDetail().load({"id": ...})."""
         from entity.stock_detail_entity import StockDetailEntity
         return StockDetailEntity(self, data)
 
 
     def Trend(self, data=None) -> "TrendEntity":
-        """Entity factory: client.Trend().list({}) / client.Trend().load({"id": ...})."""
+        """Entity factory: client.Trend().list() / client.Trend().load({"id": ...})."""
         from entity.trend_entity import TrendEntity
         return TrendEntity(self, data)
 

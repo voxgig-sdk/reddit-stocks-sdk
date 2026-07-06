@@ -8,7 +8,7 @@ Complete API reference for the RedditStocks PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/reddit-stocks_sdk.php';
+require_once __DIR__ . '/redditstocks_sdk.php';
 
 $client = new RedditStocksSDK($options);
 ```
@@ -53,11 +53,11 @@ Create a new `StockDetailEntity` instance. Pass `null` for no initial data.
 
 Create a new `TrendEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): RedditStocksUtility`
 
 Return a copy of the SDK utility object.
 
@@ -100,36 +100,36 @@ $stock = $client->Stock();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
+| `no_of_comment` | `int` | No |  |
+| `sentiment` | `string` | No |  |
+| `sentiment_score` | `float` | No |  |
+| `ticker` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Stock()->list([]);
+$results = $client->Stock()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -138,7 +138,7 @@ Set the entity match criteria.
 Create a new `StockEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -155,12 +155,12 @@ $stock_detail = $client->StockDetail();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mention` | ``$INTEGER`` | No |  |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `rank` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
+| `mention` | `int` | No |  |
+| `no_of_comment` | `int` | No |  |
+| `rank` | `int` | No |  |
+| `sentiment` | `string` | No |  |
+| `sentiment_score` | `float` | No |  |
+| `ticker` | `string` | No |  |
 
 ### Operations
 
@@ -169,24 +169,24 @@ $stock_detail = $client->StockDetail();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->StockDetail()->load(["id" => "stock_detail_id"]);
+$result = $client->StockDetail()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -195,7 +195,7 @@ Set the entity match criteria.
 Create a new `StockDetailEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -212,37 +212,37 @@ $trend = $client->Trend();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
-| `trend_score` | ``$NUMBER`` | No |  |
+| `no_of_comment` | `int` | No |  |
+| `sentiment` | `string` | No |  |
+| `sentiment_score` | `float` | No |  |
+| `ticker` | `string` | No |  |
+| `trend_score` | `float` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Trend()->list([]);
+$results = $client->Trend()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -251,7 +251,7 @@ Set the entity match criteria.
 Create a new `TrendEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

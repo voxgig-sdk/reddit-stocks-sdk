@@ -8,7 +8,7 @@ Complete API reference for the RedditStocks Python SDK.
 ### Constructor
 
 ```python
-from reddit-stocks_sdk import RedditStocksSDK
+from redditstocks_sdk import RedditStocksSDK
 
 client = RedditStocksSDK(options)
 ```
@@ -95,19 +95,19 @@ stock = client.Stock()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
+| `no_of_comment` | `int` | No |  |
+| `sentiment` | `str` | No |  |
+| `sentiment_score` | `float` | No |  |
+| `ticker` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Stock().list({})
+results = client.Stock().list()
 for stock in results:
     print(stock)
 ```
@@ -151,12 +151,12 @@ stock_detail = client.StockDetail()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mention` | ``$INTEGER`` | No |  |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `rank` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
+| `mention` | `int` | No |  |
+| `no_of_comment` | `int` | No |  |
+| `rank` | `int` | No |  |
+| `sentiment` | `str` | No |  |
+| `sentiment_score` | `float` | No |  |
+| `ticker` | `str` | No |  |
 
 ### Operations
 
@@ -165,7 +165,7 @@ stock_detail = client.StockDetail()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.StockDetail().load({"id": "stock_detail_id"})
+result = client.StockDetail().load()
 ```
 
 ### Common Methods
@@ -207,20 +207,20 @@ trend = client.Trend()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
-| `trend_score` | ``$NUMBER`` | No |  |
+| `no_of_comment` | `int` | No |  |
+| `sentiment` | `str` | No |  |
+| `sentiment_score` | `float` | No |  |
+| `ticker` | `str` | No |  |
+| `trend_score` | `float` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Trend().list({})
+results = client.Trend().list()
 for trend in results:
     print(trend)
 ```

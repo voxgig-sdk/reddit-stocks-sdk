@@ -98,10 +98,10 @@ local stock = client:Stock(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
+| `no_of_comment` | `number` | No |  |
+| `sentiment` | `string` | No |  |
+| `sentiment_score` | `number` | No |  |
+| `ticker` | `string` | No |  |
 
 ### Operations
 
@@ -153,12 +153,12 @@ local stock_detail = client:StockDetail(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mention` | ``$INTEGER`` | No |  |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `rank` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
+| `mention` | `number` | No |  |
+| `no_of_comment` | `number` | No |  |
+| `rank` | `number` | No |  |
+| `sentiment` | `string` | No |  |
+| `sentiment_score` | `number` | No |  |
+| `ticker` | `string` | No |  |
 
 ### Operations
 
@@ -167,7 +167,7 @@ local stock_detail = client:StockDetail(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:StockDetail():load({ id = "stock_detail_id" })
+local result, err = client:StockDetail():load()
 ```
 
 ### Common Methods
@@ -210,11 +210,11 @@ local trend = client:Trend(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | ``$INTEGER`` | No |  |
-| `sentiment` | ``$STRING`` | No |  |
-| `sentiment_score` | ``$NUMBER`` | No |  |
-| `ticker` | ``$STRING`` | No |  |
-| `trend_score` | ``$NUMBER`` | No |  |
+| `no_of_comment` | `number` | No |  |
+| `sentiment` | `string` | No |  |
+| `sentiment_score` | `number` | No |  |
+| `ticker` | `string` | No |  |
+| `trend_score` | `number` | No |  |
 
 ### Operations
 

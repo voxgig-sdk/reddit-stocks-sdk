@@ -16,8 +16,7 @@ type Stock struct {
 	Ticker *string `json:"ticker,omitempty"`
 }
 
-// StockListMatch mirrors the stock fields as an all-optional match
-// filter (Go analog of Partial<Stock>).
+// StockListMatch is the typed request payload for Stock.ListTyped.
 type StockListMatch struct {
 	NoOfComment *int `json:"no_of_comment,omitempty"`
 	Sentiment *string `json:"sentiment,omitempty"`
@@ -49,8 +48,7 @@ type Trend struct {
 	TrendScore *float64 `json:"trend_score,omitempty"`
 }
 
-// TrendListMatch mirrors the trend fields as an all-optional match
-// filter (Go analog of Partial<Trend>).
+// TrendListMatch is the typed request payload for Trend.ListTyped.
 type TrendListMatch struct {
 	NoOfComment *int `json:"no_of_comment,omitempty"`
 	Sentiment *string `json:"sentiment,omitempty"`
