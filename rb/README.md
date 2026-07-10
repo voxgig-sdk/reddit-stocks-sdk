@@ -44,6 +44,20 @@ rescue => err
 end
 ```
 
+### 3. Load a stockdetail
+
+StockDetail is nested under ticker, so provide the `ticker`.
+
+```ruby
+begin
+  # load returns the bare StockDetail record (raises on error).
+  stockdetail = client.StockDetail.load({ "ticker" => "example_ticker" })
+  puts stockdetail
+rescue => err
+  warn "load failed: #{err}"
+end
+```
+
 
 ## Error handling
 
@@ -334,7 +348,7 @@ Create an instance: `stock_detail = client.StockDetail`
 
 ```ruby
 # load returns the bare StockDetail record (raises on error).
-stock_detail = client.StockDetail.load()
+stock_detail = client.StockDetail.load({ "ticker" => "ticker" })
 ```
 
 

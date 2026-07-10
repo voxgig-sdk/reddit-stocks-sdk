@@ -47,6 +47,16 @@ for _, item in ipairs(stocks) do
 end
 ```
 
+### 3. Load a stockdetail
+
+StockDetail is nested under ticker, so provide the `ticker`.
+
+```lua
+local stockdetail, err = client:StockDetail():load({ ticker = "example_ticker" })
+if err then error(err) end
+print(stockdetail)
+```
+
 
 ## Error handling
 
@@ -328,7 +338,7 @@ Create an instance: `local stock_detail = client:StockDetail(nil)`
 #### Example: Load
 
 ```lua
-local stock_detail, err = client:StockDetail():load()
+local stock_detail, err = client:StockDetail():load({ ticker = "ticker" })
 ```
 
 

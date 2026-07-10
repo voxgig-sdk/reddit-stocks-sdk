@@ -50,6 +50,19 @@ except Exception as err:
     print(f"list failed: {err}")
 ```
 
+### 3. Load a stockdetail
+
+StockDetail is nested under ticker, so provide the `ticker`.
+`load()` returns the bare record (a `dict`) and raises on error.
+
+```python
+try:
+    stockdetail = client.StockDetail().load({"ticker": "example_ticker"})
+    print(stockdetail)
+except Exception as err:
+    print(f"load failed: {err}")
+```
+
 
 ## Error handling
 
@@ -338,7 +351,7 @@ Create an instance: `stock_detail = client.StockDetail()`
 #### Example: Load
 
 ```python
-stock_detail = client.StockDetail().load()
+stock_detail = client.StockDetail().load({"ticker": "ticker"})
 ```
 
 

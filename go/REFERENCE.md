@@ -99,6 +99,7 @@ same parameters as `Direct()`.
 
 ```go
 stock := client.Stock(nil)
+fmt.Println(stock.GetName()) // "stock"
 ```
 
 ### Fields
@@ -118,6 +119,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Stock(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -147,7 +152,8 @@ Return the entity name.
 ## StockDetailEntity
 
 ```go
-stock_detail := client.StockDetail(nil)
+stockDetail := client.StockDetail(nil)
+fmt.Println(stockDetail.GetName()) // "stock_detail"
 ```
 
 ### Fields
@@ -168,7 +174,11 @@ stock_detail := client.StockDetail(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.StockDetail(nil).Load(nil, nil)
+result, err := client.StockDetail(nil).Load(map[string]any{"ticker": "ticker"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -199,6 +209,7 @@ Return the entity name.
 
 ```go
 trend := client.Trend(nil)
+fmt.Println(trend.GetName()) // "trend"
 ```
 
 ### Fields
@@ -219,6 +230,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Trend(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods

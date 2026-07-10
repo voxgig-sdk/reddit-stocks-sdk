@@ -207,7 +207,7 @@ const stock_detail = client.StockDetail()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.StockDetail().load()
+const result = await client.StockDetail().load({ ticker: 'ticker' })
 ```
 
 ### Common Methods

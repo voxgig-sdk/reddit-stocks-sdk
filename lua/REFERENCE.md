@@ -167,7 +167,7 @@ local stock_detail = client:StockDetail(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:StockDetail():load()
+local result, err = client:StockDetail():load({ ticker = "ticker" })
 ```
 
 ### Common Methods

@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -425,14 +422,17 @@
           "url": "https://tradestie.com/apps/reddit/api/"
         },
         "description": "Get top 50 stocks discussed on Reddit subreddit - Wallstreetbets",
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://tradestie.com/api/v1"
           }
         ],
+        "summary": "Get top 50 stocks discussed on Reddit subreddit - Wallstreetbets",
         "title": "Reddit Stocks",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://tradestie.com"
       },
       "option": {},
       "target": {
@@ -485,6 +485,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -535,6 +538,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

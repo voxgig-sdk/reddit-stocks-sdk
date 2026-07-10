@@ -339,7 +339,7 @@ fmt.Println(stocks) // the array of records
 
 ### StockDetail
 
-Create an instance: `stock_detail := client.StockDetail(nil)`
+Create an instance: `stockDetail := client.StockDetail(nil)`
 
 #### Operations
 
@@ -361,11 +361,11 @@ Create an instance: `stock_detail := client.StockDetail(nil)`
 #### Example: Load
 
 ```go
-stock_detail, err := client.StockDetail(nil).Load(nil, nil)
+stockDetail, err := client.StockDetail(nil).Load(map[string]any{"ticker": "ticker"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(stock_detail) // the loaded record
+fmt.Println(stockDetail) // the loaded record
 ```
 
 

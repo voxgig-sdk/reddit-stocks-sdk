@@ -165,7 +165,7 @@ stock_detail = client.StockDetail()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.StockDetail().load()
+result = client.StockDetail().load({"ticker": "ticker"})
 ```
 
 ### Common Methods

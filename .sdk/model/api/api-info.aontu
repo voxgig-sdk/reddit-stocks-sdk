@@ -15,9 +15,9 @@ main: {
           url: "https://tradestie.com/api/v1"
         }
       ]
+      summary: "Get top 50 stocks discussed on Reddit subreddit - Wallstreetbets"
       title: "Reddit Stocks"
       version: "1.0.0"
+      website: "https://tradestie.com"
     }
   }
-}
-

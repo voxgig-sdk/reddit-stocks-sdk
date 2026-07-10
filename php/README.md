@@ -45,6 +45,20 @@ try {
 }
 ```
 
+### 3. Load a stockdetail
+
+StockDetail is nested under ticker, so provide the `ticker`.
+
+```php
+try {
+    // load() returns the bare StockDetail record (throws on error).
+    $stockdetail = $client->StockDetail()->load(["ticker" => "example_ticker"]);
+    print_r($stockdetail);
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
 
 ## Error handling
 
@@ -344,7 +358,7 @@ Create an instance: `$stock_detail = $client->StockDetail();`
 
 ```php
 // load() returns the bare StockDetail record (throws on error).
-$stock_detail = $client->StockDetail()->load();
+$stock_detail = $client->StockDetail()->load(["ticker" => "ticker"]);
 ```
 
 
