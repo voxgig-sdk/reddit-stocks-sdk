@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- RedditStocks SDK exists test
 
 local sdk = require("reddit-stocks_sdk")
 
