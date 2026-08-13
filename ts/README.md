@@ -35,7 +35,9 @@ const client = new RedditStocksSDK()
 
 ### 2. List stock records
 
-`list()` resolves to an array of Stock objects — iterate it directly:
+`list()` resolves to an array of Stock ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const stocks = await client.Stock().list()
@@ -68,8 +70,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const stocks = await client.Stock().list()
-  console.log(stocks)
+  const trends = await client.Trend().list()
+  console.log(trends)
 } catch (err) {
   console.error('list failed:', err)
 }
@@ -135,9 +137,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = RedditStocksSDK.test()
 
-const stock = await client.Stock().list()
-// stock is a bare entity populated with mock response data
-console.log(stock)
+const trend = await client.Trend().list()
+// trend is the entity, populated with mock response data
+// — call trend.data() for the record itself
+console.log(trend)
 ```
 
 You can also use the instance method:
@@ -152,7 +155,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Stock()
+const entity = client.Trend()
 
 // First call runs the operation and stores its result
 await entity.list()
@@ -304,7 +307,7 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `no_of_comment` |  |
+| `no_of_comments` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
 | `ticker` |  |
@@ -317,8 +320,8 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `mention` |  |
-| `no_of_comment` |  |
+| `mentions` |  |
+| `no_of_comments` |  |
 | `rank` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
@@ -332,7 +335,7 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `no_of_comment` |  |
+| `no_of_comments` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
 | `ticker` |  |
@@ -361,7 +364,7 @@ Create an instance: `const stock = client.Stock()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `number` |  |
+| `no_of_comments` | `number` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `number` |  |
 | `ticker` | `string` |  |
@@ -387,8 +390,8 @@ Create an instance: `const stock_detail = client.StockDetail()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mention` | `number` |  |
-| `no_of_comment` | `number` |  |
+| `mentions` | `number` |  |
+| `no_of_comments` | `number` |  |
 | `rank` | `number` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `number` |  |
@@ -415,7 +418,7 @@ Create an instance: `const trend = client.Trend()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `number` |  |
+| `no_of_comments` | `number` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `number` |  |
 | `ticker` | `string` |  |
@@ -497,11 +500,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const stock = client.Stock()
-await stock.list()
+const trend = client.Trend()
+await trend.list()
 
-// stock.data() now returns the stock data from the last `list`
-// stock.match() returns the last match criteria
+// trend.data() now returns the trend data from the last `list`
+// trend.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

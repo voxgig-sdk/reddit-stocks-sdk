@@ -26,8 +26,8 @@ import {
 describe('StockDetailEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when REDDITSTOCKS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('REDDITSTOCKS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when REDDIT_STOCKS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('REDDIT_STOCKS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = RedditStocksSDK.test()

@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import RedditStocksControl
-from core.error import RedditStocksError
-from core.result import RedditStocksResult
-from core.spec import RedditStocksSpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import RedditStocksControl
+from projectname_sdk.core.error import RedditStocksError
+from projectname_sdk.core.result import RedditStocksResult
+from projectname_sdk.core.spec import RedditStocksSpec
 
 
 # True when this SDK was generated with the named feature.

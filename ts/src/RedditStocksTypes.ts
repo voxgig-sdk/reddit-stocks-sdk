@@ -6,22 +6,22 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface Stock {
-  no_of_comment?: number
+  no_of_comments?: number
   sentiment?: string
   sentiment_score?: number
   ticker?: string
 }
 
 export interface StockListMatch {
-  no_of_comment?: number
+  no_of_comments?: number
   sentiment?: string
   sentiment_score?: number
   ticker?: string
 }
 
 export interface StockDetail {
-  mention?: number
-  no_of_comment?: number
+  mentions?: number
+  no_of_comments?: number
   rank?: number
   sentiment?: string
   sentiment_score?: number
@@ -33,7 +33,7 @@ export interface StockDetailLoadMatch {
 }
 
 export interface Trend {
-  no_of_comment?: number
+  no_of_comments?: number
   sentiment?: string
   sentiment_score?: number
   ticker?: string
@@ -41,7 +41,7 @@ export interface Trend {
 }
 
 export interface TrendListMatch {
-  no_of_comment?: number
+  no_of_comments?: number
   sentiment?: string
   sentiment_score?: number
   ticker?: string

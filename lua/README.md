@@ -64,7 +64,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local stocks, err = client:Stock():list()
+local trends, err = client:Trend():list()
 if err then error(err) end
 ```
 
@@ -122,7 +122,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Stock():list()
+local result, err = client:Trend():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -232,9 +232,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local stock, err = client:Stock():load()
+    local stock_detail, err = client:StockDetail():load()
     if err then error(err) end
-    -- stock is the loaded record
+    -- stock_detail is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -245,7 +245,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `no_of_comment` |  |
+| `no_of_comments` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
 | `ticker` |  |
@@ -258,8 +258,8 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `mention` |  |
-| `no_of_comment` |  |
+| `mentions` |  |
+| `no_of_comments` |  |
 | `rank` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
@@ -273,7 +273,7 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `no_of_comment` |  |
+| `no_of_comments` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
 | `ticker` |  |
@@ -302,7 +302,7 @@ Create an instance: `local stock = client:Stock(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `number` |  |
+| `no_of_comments` | `number` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `number` |  |
 | `ticker` | `string` |  |
@@ -328,8 +328,8 @@ Create an instance: `local stock_detail = client:StockDetail(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mention` | `number` |  |
-| `no_of_comment` | `number` |  |
+| `mentions` | `number` |  |
+| `no_of_comments` | `number` |  |
 | `rank` | `number` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `number` |  |
@@ -356,7 +356,7 @@ Create an instance: `local trend = client:Trend(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `number` |  |
+| `no_of_comments` | `number` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `number` |  |
 | `ticker` | `string` |  |
@@ -445,11 +445,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local stock = client:Stock()
-stock:list()
+local trend = client:Trend()
+trend:list()
 
--- stock:data_get() now returns the stock data from the last list
--- stock:match_get() returns the last match criteria
+-- trend:data_get() now returns the trend data from the last list
+-- trend:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

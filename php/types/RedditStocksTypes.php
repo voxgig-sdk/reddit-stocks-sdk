@@ -15,7 +15,7 @@ declare(strict_types=1);
 /** Stock entity data model. */
 class Stock
 {
-    public ?int $no_of_comment = null;
+    public ?int $no_of_comments = null;
     public ?string $sentiment = null;
     public ?float $sentiment_score = null;
     public ?string $ticker = null;
@@ -24,7 +24,7 @@ class Stock
 /** Request payload for Stock#list. */
 class StockListMatch
 {
-    public ?int $no_of_comment = null;
+    public ?int $no_of_comments = null;
     public ?string $sentiment = null;
     public ?float $sentiment_score = null;
     public ?string $ticker = null;
@@ -33,8 +33,8 @@ class StockListMatch
 /** StockDetail entity data model. */
 class StockDetail
 {
-    public ?int $mention = null;
-    public ?int $no_of_comment = null;
+    public ?int $mentions = null;
+    public ?int $no_of_comments = null;
     public ?int $rank = null;
     public ?string $sentiment = null;
     public ?float $sentiment_score = null;
@@ -50,7 +50,7 @@ class StockDetailLoadMatch
 /** Trend entity data model. */
 class Trend
 {
-    public ?int $no_of_comment = null;
+    public ?int $no_of_comments = null;
     public ?string $sentiment = null;
     public ?float $sentiment_score = null;
     public ?string $ticker = null;
@@ -60,7 +60,7 @@ class Trend
 /** Request payload for Trend#list. */
 class TrendListMatch
 {
-    public ?int $no_of_comment = null;
+    public ?int $no_of_comments = null;
     public ?string $sentiment = null;
     public ?float $sentiment_score = null;
     public ?string $ticker = null;

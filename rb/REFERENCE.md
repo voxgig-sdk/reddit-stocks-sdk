@@ -101,7 +101,7 @@ stock = client.Stock
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | `Integer` | No |  |
+| `no_of_comments` | `Integer` | No |  |
 | `sentiment` | `String` | No |  |
 | `sentiment_score` | `Float` | No |  |
 | `ticker` | `String` | No |  |
@@ -156,8 +156,8 @@ stock_detail = client.StockDetail
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mention` | `Integer` | No |  |
-| `no_of_comment` | `Integer` | No |  |
+| `mentions` | `Integer` | No |  |
+| `no_of_comments` | `Integer` | No |  |
 | `rank` | `Integer` | No |  |
 | `sentiment` | `String` | No |  |
 | `sentiment_score` | `Float` | No |  |
@@ -213,7 +213,7 @@ trend = client.Trend
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | `Integer` | No |  |
+| `no_of_comments` | `Integer` | No |  |
 | `sentiment` | `String` | No |  |
 | `sentiment_score` | `Float` | No |  |
 | `ticker` | `String` | No |  |

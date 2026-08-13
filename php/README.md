@@ -38,7 +38,7 @@ try {
     // list() returns an array of Stock records — iterate directly.
     $stocks = $client->Stock()->list();
     foreach ($stocks as $item) {
-        echo $item["no_of_comment"] . "\n";
+        echo $item["no_of_comments"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -51,7 +51,7 @@ StockDetail is nested under ticker, so provide the `ticker`.
 
 ```php
 try {
-    // load() returns the bare StockDetail record (throws on error).
+    // load() returns the ENTITY — call data_get() for the StockDetail record (throws on error).
     $stockdetail = $client->StockDetail()->load(["ticker" => "example_ticker"]);
     print_r($stockdetail);
 } catch (\Throwable $err) {
@@ -67,7 +67,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $stocks = $client->Stock()->list();
+    $trends = $client->Trend()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -139,9 +139,10 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = RedditStocksSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$stock = $client->Stock()->list();
-print_r($stock);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$trend = $client->Trend()->list();
+print_r($trend);
 ```
 
 ### Use a custom fetch function
@@ -241,7 +242,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -263,7 +264,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `no_of_comment` |  |
+| `no_of_comments` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
 | `ticker` |  |
@@ -276,8 +277,8 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `mention` |  |
-| `no_of_comment` |  |
+| `mentions` |  |
+| `no_of_comments` |  |
 | `rank` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
@@ -291,7 +292,7 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `no_of_comment` |  |
+| `no_of_comments` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
 | `ticker` |  |
@@ -320,7 +321,7 @@ Create an instance: `$stock = $client->Stock();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `int` |  |
+| `no_of_comments` | `int` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `float` |  |
 | `ticker` | `string` |  |
@@ -347,8 +348,8 @@ Create an instance: `$stock_detail = $client->StockDetail();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mention` | `int` |  |
-| `no_of_comment` | `int` |  |
+| `mentions` | `int` |  |
+| `no_of_comments` | `int` |  |
 | `rank` | `int` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `float` |  |
@@ -357,7 +358,7 @@ Create an instance: `$stock_detail = $client->StockDetail();`
 #### Example: Load
 
 ```php
-// load() returns the bare StockDetail record (throws on error).
+// load() returns the ENTITY — call data_get() for the StockDetail record (throws on error).
 $stock_detail = $client->StockDetail()->load(["ticker" => "ticker"]);
 ```
 
@@ -376,7 +377,7 @@ Create an instance: `$trend = $client->Trend();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `int` |  |
+| `no_of_comments` | `int` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `float` |  |
 | `ticker` | `string` |  |
@@ -466,11 +467,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$stock = $client->Stock();
-$stock->list();
+$trend = $client->Trend();
+$trend->list();
 
-// $stock->data_get() now returns the stock data from the last list
-// $stock->match_get() returns the last match criteria
+// $trend->data_get() now returns the trend data from the last list
+// $trend->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

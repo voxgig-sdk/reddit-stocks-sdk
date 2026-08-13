@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# RedditStocks SDK exists test
 
 import pytest
 from redditstocks_sdk import RedditStocksSDK

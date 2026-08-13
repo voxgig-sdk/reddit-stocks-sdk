@@ -37,7 +37,7 @@ class StockEntity extends RedditStocksEntityBase<Stock> {
 
 
 
-  async list(this: any, reqmatch?: StockListMatch, ctrl?: Control): Promise<Stock[]> {
+  async list(this: any, reqmatch?: StockListMatch, ctrl?: Control): Promise<StockEntity[]> {
 
     const utility = this._utility
 

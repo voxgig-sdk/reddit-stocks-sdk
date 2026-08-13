@@ -2,19 +2,19 @@
   "existing": {
     "stock": {
       "STOCK00": {
-        "no_of_comment": "s28",
+        "no_of_comments": "s28",
         "sentiment": "s29",
         "sentiment_score": 42,
         "ticker": "s2b"
       },
       "STOCK01": {
-        "no_of_comment": "s50",
+        "no_of_comments": "s50",
         "sentiment": "s51",
         "sentiment_score": 82,
         "ticker": "s53"
       },
       "STOCK02": {
-        "no_of_comment": "s78",
+        "no_of_comments": "s78",
         "sentiment": "s79",
         "sentiment_score": 122,
         "ticker": "s7b"
@@ -24,7 +24,7 @@
   "new": {
     "stock": {
       "stock_ref01": {
-        "no_of_comment": "sa0",
+        "no_of_comments": "sa0",
         "sentiment": "sa1",
         "sentiment_score": 162,
         "ticker": "sa3"

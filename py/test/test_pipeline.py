@@ -16,11 +16,11 @@
 import pytest
 
 from redditstocks_sdk import RedditStocksSDK
-from core.error import RedditStocksError
-from core.result import RedditStocksResult
-from core.response import RedditStocksResponse
-from core.spec import RedditStocksSpec
-from feature.base_feature import RedditStocksBaseFeature
+from redditstocks_sdk.core.error import RedditStocksError
+from redditstocks_sdk.core.result import RedditStocksResult
+from redditstocks_sdk.core.response import RedditStocksResponse
+from redditstocks_sdk.core.spec import RedditStocksSpec
+from redditstocks_sdk.feature.base_feature import RedditStocksBaseFeature
 
 
 def _client():

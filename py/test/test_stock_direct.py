@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from redditstocks_sdk.utility.voxgig_struct import voxgig_struct as vs
 from redditstocks_sdk import RedditStocksSDK
-from core import helpers
+from redditstocks_sdk.core import helpers
 from test import runner
 
 
@@ -58,11 +58,11 @@ def _stock_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "REDDITSTOCKS_TEST_STOCK_ENTID": {},
-        "REDDITSTOCKS_TEST_LIVE": "FALSE",
+        "REDDIT_STOCKS_TEST_STOCK_ENTID": {},
+        "REDDIT_STOCKS_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("REDDITSTOCKS_TEST_LIVE") == "TRUE"
+    live = env.get("REDDIT_STOCKS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

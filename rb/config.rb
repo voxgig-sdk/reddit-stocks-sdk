@@ -29,7 +29,7 @@ module RedditStocksConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "no_of_comment",
+              "name" => "no_of_comments",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 0,
@@ -65,6 +65,7 @@ module RedditStocksConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/apps/reddit",
                   "parts" => [
@@ -90,14 +91,14 @@ module RedditStocksConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "mention",
+              "name" => "mentions",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 0,
             },
             {
               "active" => true,
-              "name" => "no_of_comment",
+              "name" => "no_of_comments",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 1,
@@ -153,6 +154,7 @@ module RedditStocksConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/apps/reddit/{ticker}",
                   "parts" => [
@@ -187,7 +189,7 @@ module RedditStocksConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "no_of_comment",
+              "name" => "no_of_comments",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 0,
@@ -230,6 +232,7 @@ module RedditStocksConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/apps/reddit/trend",
                   "parts" => [

@@ -37,7 +37,7 @@ begin
   # list returns an Array of Stock records — iterate directly.
   stocks = client.Stock.list
   stocks.each do |item|
-    puts "#{item["no_of_comment"]}"
+    puts "#{item["no_of_comments"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -50,7 +50,7 @@ StockDetail is nested under ticker, so provide the `ticker`.
 
 ```ruby
 begin
-  # load returns the bare StockDetail record (raises on error).
+  # load returns the ENTITY — call data_get for the StockDetail record (raises on error).
   stockdetail = client.StockDetail.load({ "ticker" => "example_ticker" })
   puts stockdetail
 rescue => err
@@ -65,7 +65,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  stocks = client.Stock.list()
+  trends = client.Trend.list()
 rescue => err
   warn "list failed: #{err}"
 end
@@ -133,9 +133,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = RedditStocksSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-stock = client.Stock.list()
-puts stock
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+trend = client.Trend.list()
+puts trend
 ```
 
 ### Use a custom fetch function
@@ -253,7 +254,7 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `no_of_comment` |  |
+| `no_of_comments` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
 | `ticker` |  |
@@ -266,8 +267,8 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `mention` |  |
-| `no_of_comment` |  |
+| `mentions` |  |
+| `no_of_comments` |  |
 | `rank` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
@@ -281,7 +282,7 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `no_of_comment` |  |
+| `no_of_comments` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
 | `ticker` |  |
@@ -310,7 +311,7 @@ Create an instance: `stock = client.Stock`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `Integer` |  |
+| `no_of_comments` | `Integer` |  |
 | `sentiment` | `String` |  |
 | `sentiment_score` | `Float` |  |
 | `ticker` | `String` |  |
@@ -337,8 +338,8 @@ Create an instance: `stock_detail = client.StockDetail`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mention` | `Integer` |  |
-| `no_of_comment` | `Integer` |  |
+| `mentions` | `Integer` |  |
+| `no_of_comments` | `Integer` |  |
 | `rank` | `Integer` |  |
 | `sentiment` | `String` |  |
 | `sentiment_score` | `Float` |  |
@@ -347,7 +348,7 @@ Create an instance: `stock_detail = client.StockDetail`
 #### Example: Load
 
 ```ruby
-# load returns the bare StockDetail record (raises on error).
+# load returns the ENTITY — call data_get for the StockDetail record (raises on error).
 stock_detail = client.StockDetail.load({ "ticker" => "ticker" })
 ```
 
@@ -366,7 +367,7 @@ Create an instance: `trend = client.Trend`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `Integer` |  |
+| `no_of_comments` | `Integer` |  |
 | `sentiment` | `String` |  |
 | `sentiment_score` | `Float` |  |
 | `ticker` | `String` |  |
@@ -456,11 +457,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-stock = client.Stock
-stock.list()
+trend = client.Trend
+trend.list()
 
-# stock.data_get now returns the stock data from the last list
-# stock.match_get returns the last match criteria
+# trend.data_get now returns the trend data from the last list
+# trend.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

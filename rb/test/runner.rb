@@ -23,8 +23,8 @@ module RedditStocksTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("REDDITSTOCKS_TEST_LIVE")
-    override = getenv("REDDITSTOCKS_TEST_OVERRIDE")
+    live = getenv("REDDIT_STOCKS_TEST_LIVE")
+    override = getenv("REDDIT_STOCKS_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module RedditStocksTestRunner
       end
     end
 
-    explain = getenv("REDDITSTOCKS_TEST_EXPLAIN")
-    m["REDDITSTOCKS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("REDDIT_STOCKS_TEST_EXPLAIN")
+    m["REDDIT_STOCKS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

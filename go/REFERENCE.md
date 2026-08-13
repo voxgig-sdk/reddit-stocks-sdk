@@ -106,7 +106,7 @@ fmt.Println(stock.GetName()) // "stock"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | `int` | No |  |
+| `no_of_comments` | `int` | No |  |
 | `sentiment` | `string` | No |  |
 | `sentiment_score` | `float64` | No |  |
 | `ticker` | `string` | No |  |
@@ -160,8 +160,8 @@ fmt.Println(stockDetail.GetName()) // "stock_detail"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mention` | `int` | No |  |
-| `no_of_comment` | `int` | No |  |
+| `mentions` | `int` | No |  |
+| `no_of_comments` | `int` | No |  |
 | `rank` | `int` | No |  |
 | `sentiment` | `string` | No |  |
 | `sentiment_score` | `float64` | No |  |
@@ -216,7 +216,7 @@ fmt.Println(trend.GetName()) // "trend"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | `int` | No |  |
+| `no_of_comments` | `int` | No |  |
 | `sentiment` | `string` | No |  |
 | `sentiment_score` | `float64` | No |  |
 | `ticker` | `string` | No |  |

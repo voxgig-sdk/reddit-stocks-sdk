@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ RedditStocksUtility::setRegistrar(function (RedditStocksUtility $u): void {
     $u->prepare_params = [RedditStocksPrepareParams::class, 'call'];
     $u->prepare_path = [RedditStocksPreparePath::class, 'call'];
     $u->prepare_query = [RedditStocksPrepareQuery::class, 'call'];
+    $u->graphql_body = [RedditStocksGraphql::class, 'body'];
+    $u->graphql_errors = [RedditStocksGraphql::class, 'errors'];
     $u->result_basic = [RedditStocksResultBasic::class, 'call'];
     $u->result_body = [RedditStocksResultBody::class, 'call'];
     $u->result_headers = [RedditStocksResultHeaders::class, 'call'];

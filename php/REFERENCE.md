@@ -100,7 +100,7 @@ $stock = $client->Stock();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | `int` | No |  |
+| `no_of_comments` | `int` | No |  |
 | `sentiment` | `string` | No |  |
 | `sentiment_score` | `float` | No |  |
 | `ticker` | `string` | No |  |
@@ -155,8 +155,8 @@ $stock_detail = $client->StockDetail();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mention` | `int` | No |  |
-| `no_of_comment` | `int` | No |  |
+| `mentions` | `int` | No |  |
+| `no_of_comments` | `int` | No |  |
 | `rank` | `int` | No |  |
 | `sentiment` | `string` | No |  |
 | `sentiment_score` | `float` | No |  |
@@ -212,7 +212,7 @@ $trend = $client->Trend();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | `int` | No |  |
+| `no_of_comments` | `int` | No |  |
 | `sentiment` | `string` | No |  |
 | `sentiment_score` | `float` | No |  |
 | `ticker` | `string` | No |  |

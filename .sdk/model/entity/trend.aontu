@@ -6,7 +6,7 @@ main: kit: entity: trend: {
 
   fields: [
     {
-      name: "no_of_comment"
+      name: "no_of_comments"
       req: false
       type: "`$INTEGER`"
     }

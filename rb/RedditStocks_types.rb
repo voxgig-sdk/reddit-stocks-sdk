@@ -10,7 +10,7 @@
 
 # Stock entity data model.
 #
-# @!attribute [rw] no_of_comment
+# @!attribute [rw] no_of_comments
 #   @return [Integer, nil]
 #
 # @!attribute [rw] sentiment
@@ -22,7 +22,7 @@
 # @!attribute [rw] ticker
 #   @return [String, nil]
 Stock = Struct.new(
-  :no_of_comment,
+  :no_of_comments,
   :sentiment,
   :sentiment_score,
   :ticker,
@@ -31,7 +31,7 @@ Stock = Struct.new(
 
 # Request payload for Stock#list.
 #
-# @!attribute [rw] no_of_comment
+# @!attribute [rw] no_of_comments
 #   @return [Integer, nil]
 #
 # @!attribute [rw] sentiment
@@ -43,7 +43,7 @@ Stock = Struct.new(
 # @!attribute [rw] ticker
 #   @return [String, nil]
 StockListMatch = Struct.new(
-  :no_of_comment,
+  :no_of_comments,
   :sentiment,
   :sentiment_score,
   :ticker,
@@ -52,10 +52,10 @@ StockListMatch = Struct.new(
 
 # StockDetail entity data model.
 #
-# @!attribute [rw] mention
+# @!attribute [rw] mentions
 #   @return [Integer, nil]
 #
-# @!attribute [rw] no_of_comment
+# @!attribute [rw] no_of_comments
 #   @return [Integer, nil]
 #
 # @!attribute [rw] rank
@@ -70,8 +70,8 @@ StockListMatch = Struct.new(
 # @!attribute [rw] ticker
 #   @return [String, nil]
 StockDetail = Struct.new(
-  :mention,
-  :no_of_comment,
+  :mentions,
+  :no_of_comments,
   :rank,
   :sentiment,
   :sentiment_score,
@@ -90,7 +90,7 @@ StockDetailLoadMatch = Struct.new(
 
 # Trend entity data model.
 #
-# @!attribute [rw] no_of_comment
+# @!attribute [rw] no_of_comments
 #   @return [Integer, nil]
 #
 # @!attribute [rw] sentiment
@@ -105,7 +105,7 @@ StockDetailLoadMatch = Struct.new(
 # @!attribute [rw] trend_score
 #   @return [Float, nil]
 Trend = Struct.new(
-  :no_of_comment,
+  :no_of_comments,
   :sentiment,
   :sentiment_score,
   :ticker,
@@ -115,7 +115,7 @@ Trend = Struct.new(
 
 # Request payload for Trend#list.
 #
-# @!attribute [rw] no_of_comment
+# @!attribute [rw] no_of_comments
 #   @return [Integer, nil]
 #
 # @!attribute [rw] sentiment
@@ -130,7 +130,7 @@ Trend = Struct.new(
 # @!attribute [rw] trend_score
 #   @return [Float, nil]
 TrendListMatch = Struct.new(
-  :no_of_comment,
+  :no_of_comments,
   :sentiment,
   :sentiment_score,
   :ticker,

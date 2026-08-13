@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'RedditStocks',
   }
 
 
@@ -62,7 +62,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "no_of_comment",
+          "name": "no_of_comments",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 0
@@ -98,6 +98,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/apps/reddit",
               "parts": [
@@ -123,14 +124,14 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "mention",
+          "name": "mentions",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "no_of_comment",
+          "name": "no_of_comments",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 1
@@ -186,6 +187,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/apps/reddit/{ticker}",
               "parts": [
@@ -220,7 +222,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "no_of_comment",
+          "name": "no_of_comments",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 0
@@ -263,6 +265,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/apps/reddit/trend",
               "parts": [

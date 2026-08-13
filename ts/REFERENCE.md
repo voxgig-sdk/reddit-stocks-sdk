@@ -140,7 +140,7 @@ const stock = client.Stock()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | `number` | No |  |
+| `no_of_comments` | `number` | No |  |
 | `sentiment` | `string` | No |  |
 | `sentiment_score` | `number` | No |  |
 | `ticker` | `string` | No |  |
@@ -193,8 +193,8 @@ const stock_detail = client.StockDetail()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mention` | `number` | No |  |
-| `no_of_comment` | `number` | No |  |
+| `mentions` | `number` | No |  |
+| `no_of_comments` | `number` | No |  |
 | `rank` | `number` | No |  |
 | `sentiment` | `string` | No |  |
 | `sentiment_score` | `number` | No |  |
@@ -248,7 +248,7 @@ const trend = client.Trend()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comment` | `number` | No |  |
+| `no_of_comments` | `number` | No |  |
 | `sentiment` | `string` | No |  |
 | `sentiment_score` | `number` | No |  |
 | `ticker` | `string` | No |  |

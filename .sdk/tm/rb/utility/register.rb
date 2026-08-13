@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ RedditStocksUtility.registrar = ->(u) {
   u.prepare_params = RedditStocksUtilities::PrepareParams
   u.prepare_path = RedditStocksUtilities::PreparePath
   u.prepare_query = RedditStocksUtilities::PrepareQuery
+  u.graphql_body = RedditStocksUtilities::GraphqlBody
+  u.graphql_errors = RedditStocksUtilities::GraphqlErrors
   u.result_basic = RedditStocksUtilities::ResultBasic
   u.result_body = RedditStocksUtilities::ResultBody
   u.result_headers = RedditStocksUtilities::ResultHeaders

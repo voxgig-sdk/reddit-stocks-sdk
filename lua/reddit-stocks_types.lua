@@ -7,20 +7,20 @@
 -- edit by hand.
 
 ---@class Stock
----@field no_of_comment? number
+---@field no_of_comments? number
 ---@field sentiment? string
 ---@field sentiment_score? number
 ---@field ticker? string
 
 ---@class StockListMatch
----@field no_of_comment? number
+---@field no_of_comments? number
 ---@field sentiment? string
 ---@field sentiment_score? number
 ---@field ticker? string
 
 ---@class StockDetail
----@field mention? number
----@field no_of_comment? number
+---@field mentions? number
+---@field no_of_comments? number
 ---@field rank? number
 ---@field sentiment? string
 ---@field sentiment_score? number
@@ -30,14 +30,14 @@
 ---@field ticker string
 
 ---@class Trend
----@field no_of_comment? number
+---@field no_of_comments? number
 ---@field sentiment? string
 ---@field sentiment_score? number
 ---@field ticker? string
 ---@field trend_score? number
 
 ---@class TrendListMatch
----@field no_of_comment? number
+---@field no_of_comments? number
 ---@field sentiment? string
 ---@field sentiment_score? number
 ---@field ticker? string

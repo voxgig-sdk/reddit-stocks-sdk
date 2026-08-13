@@ -68,12 +68,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-stocks, err := client.Stock(nil).List(nil, nil)
+trends, err := client.Trend(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = stocks
+_ = trends
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -137,13 +137,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-stock, err := client.Stock(nil).List(
+trend, err := client.Trend(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(stock) // the returned mock data
+fmt.Println(trend) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -264,7 +264,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"no_of_comment"` |  |
+| `"no_of_comments"` |  |
 | `"sentiment"` |  |
 | `"sentiment_score"` |  |
 | `"ticker"` |  |
@@ -277,8 +277,8 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `"mention"` |  |
-| `"no_of_comment"` |  |
+| `"mentions"` |  |
+| `"no_of_comments"` |  |
 | `"rank"` |  |
 | `"sentiment"` |  |
 | `"sentiment_score"` |  |
@@ -292,7 +292,7 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `"no_of_comment"` |  |
+| `"no_of_comments"` |  |
 | `"sentiment"` |  |
 | `"sentiment_score"` |  |
 | `"ticker"` |  |
@@ -321,7 +321,7 @@ Create an instance: `stock := client.Stock(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `int` |  |
+| `no_of_comments` | `int` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `float64` |  |
 | `ticker` | `string` |  |
@@ -351,8 +351,8 @@ Create an instance: `stockDetail := client.StockDetail(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mention` | `int` |  |
-| `no_of_comment` | `int` |  |
+| `mentions` | `int` |  |
+| `no_of_comments` | `int` |  |
 | `rank` | `int` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `float64` |  |
@@ -383,7 +383,7 @@ Create an instance: `trend := client.Trend(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `int` |  |
+| `no_of_comments` | `int` |  |
 | `sentiment` | `string` |  |
 | `sentiment_score` | `float64` |  |
 | `ticker` | `string` |  |
@@ -473,11 +473,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-stock := client.Stock(nil)
-stock.List(nil, nil)
+trend := client.Trend(nil)
+trend.List(nil, nil)
 
-// stock.Data() now returns the stock data from the last list
-// stock.Match() returns the last match criteria
+// trend.Data() now returns the trend data from the last list
+// trend.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

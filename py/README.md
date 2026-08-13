@@ -53,7 +53,7 @@ except Exception as err:
 ### 3. Load a stockdetail
 
 StockDetail is nested under ticker, so provide the `ticker`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -70,8 +70,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    stocks = client.Stock().list()
-    print(stocks)
+    trends = client.Trend().list()
+    print(trends)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -137,9 +137,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = RedditStocksSDK.test()
 
-# Entity ops return the bare record and raise on error.
-stock = client.Stock().list()
-# stock contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+trend = client.Trend().list()
+# trend contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -236,7 +237,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -258,7 +259,7 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `no_of_comment` |  |
+| `no_of_comments` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
 | `ticker` |  |
@@ -271,8 +272,8 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `mention` |  |
-| `no_of_comment` |  |
+| `mentions` |  |
+| `no_of_comments` |  |
 | `rank` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
@@ -286,7 +287,7 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `no_of_comment` |  |
+| `no_of_comments` |  |
 | `sentiment` |  |
 | `sentiment_score` |  |
 | `ticker` |  |
@@ -315,7 +316,7 @@ Create an instance: `stock = client.Stock()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `int` |  |
+| `no_of_comments` | `int` |  |
 | `sentiment` | `str` |  |
 | `sentiment_score` | `float` |  |
 | `ticker` | `str` |  |
@@ -341,8 +342,8 @@ Create an instance: `stock_detail = client.StockDetail()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mention` | `int` |  |
-| `no_of_comment` | `int` |  |
+| `mentions` | `int` |  |
+| `no_of_comments` | `int` |  |
 | `rank` | `int` |  |
 | `sentiment` | `str` |  |
 | `sentiment_score` | `float` |  |
@@ -369,7 +370,7 @@ Create an instance: `trend = client.Trend()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comment` | `int` |  |
+| `no_of_comments` | `int` |  |
 | `sentiment` | `str` |  |
 | `sentiment_score` | `float` |  |
 | `ticker` | `str` |  |
@@ -457,11 +458,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-stock = client.Stock()
-stock.list()
+trend = client.Trend()
+trend.list()
 
-# stock.data_get() now returns the stock data from the last list
-# stock.match_get() returns the last match criteria
+# trend.data_get() now returns the trend data from the last list
+# trend.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

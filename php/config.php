@@ -34,7 +34,7 @@ class RedditStocksConfig
           'fields' => [
             [
               'active' => true,
-              'name' => 'no_of_comment',
+              'name' => 'no_of_comments',
               'req' => false,
               'type' => '`$INTEGER`',
               'index$' => 0,
@@ -70,6 +70,7 @@ class RedditStocksConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/apps/reddit',
                   'parts' => [
@@ -95,14 +96,14 @@ class RedditStocksConfig
           'fields' => [
             [
               'active' => true,
-              'name' => 'mention',
+              'name' => 'mentions',
               'req' => false,
               'type' => '`$INTEGER`',
               'index$' => 0,
             ],
             [
               'active' => true,
-              'name' => 'no_of_comment',
+              'name' => 'no_of_comments',
               'req' => false,
               'type' => '`$INTEGER`',
               'index$' => 1,
@@ -158,6 +159,7 @@ class RedditStocksConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/apps/reddit/{ticker}',
                   'parts' => [
@@ -192,7 +194,7 @@ class RedditStocksConfig
           'fields' => [
             [
               'active' => true,
-              'name' => 'no_of_comment',
+              'name' => 'no_of_comments',
               'req' => false,
               'type' => '`$INTEGER`',
               'index$' => 0,
@@ -235,6 +237,7 @@ class RedditStocksConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/apps/reddit/trend',
                   'parts' => [

@@ -37,7 +37,7 @@ class TrendEntity extends RedditStocksEntityBase<Trend> {
 
 
 
-  async list(this: any, reqmatch?: TrendListMatch, ctrl?: Control): Promise<Trend[]> {
+  async list(this: any, reqmatch?: TrendListMatch, ctrl?: Control): Promise<TrendEntity[]> {
 
     const utility = this._utility
 

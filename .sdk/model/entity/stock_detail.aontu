@@ -6,12 +6,12 @@ main: kit: entity: stock_detail: {
 
   fields: [
     {
-      name: "mention"
+      name: "mentions"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "no_of_comment"
+      name: "no_of_comments"
       req: false
       type: "`$INTEGER`"
     }

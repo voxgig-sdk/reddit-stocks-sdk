@@ -28,7 +28,7 @@ local function make_config()
         ["fields"] = {
           {
             ["active"] = true,
-            ["name"] = "no_of_comment",
+            ["name"] = "no_of_comments",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
             ["index$"] = 0,
@@ -64,6 +64,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/apps/reddit",
                 ["parts"] = {
@@ -89,14 +90,14 @@ local function make_config()
         ["fields"] = {
           {
             ["active"] = true,
-            ["name"] = "mention",
+            ["name"] = "mentions",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
             ["index$"] = 0,
           },
           {
             ["active"] = true,
-            ["name"] = "no_of_comment",
+            ["name"] = "no_of_comments",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
             ["index$"] = 1,
@@ -152,6 +153,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/apps/reddit/{ticker}",
                 ["parts"] = {
@@ -186,7 +188,7 @@ local function make_config()
         ["fields"] = {
           {
             ["active"] = true,
-            ["name"] = "no_of_comment",
+            ["name"] = "no_of_comments",
             ["req"] = false,
             ["type"] = "`$INTEGER`",
             ["index$"] = 0,
@@ -229,6 +231,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/apps/reddit/trend",
                 ["parts"] = {

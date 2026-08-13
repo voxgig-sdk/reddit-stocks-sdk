@@ -38,18 +38,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = RedditStocksSDK.test()
-const stocks = await client.Stock().list()
-// stocks is an array of bare Stock records populated with mock data
-console.log(stocks)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = RedditStocksSDK.test({
+  entity: {
+    trend: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const trends = await client.Trend().list()
+// trends is an array of Trend entities, populated with mock data
+// — call trends[0].data() for the record itself
+console.log(trends)
 ```
 
 ### Python
 
 ```python
 client = RedditStocksSDK.test()
-stocks = client.Stock().list()
-print(stocks)
+trends = client.Trend().list()
+print(trends)
 ```
 
 ### PHP
@@ -57,16 +66,16 @@ print(stocks)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = RedditStocksSDK::test([
-    "entity" => ["stock" => ["test01" => []]],
+    "entity" => ["trend" => ["test01" => []]],
 ]);
-$stocks = $client->Stock()->list();
+$trends = $client->Trend()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Stock(nil).List(
+result, err := client.Trend(nil).List(
     nil, nil,
 )
 ```
@@ -76,16 +85,16 @@ result, err := client.Stock(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = RedditStocksSDK.test({
-  "entity" => { "stock" => { "test01" => {} } },
+  "entity" => { "trend" => { "test01" => {} } },
 })
-stocks = client.Stock.list()
+trends = client.Trend.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Stock():list()
+local results, err = client:Trend():list()
 ```
 
 ## Packages
@@ -110,7 +119,7 @@ import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks'
 
 const client = new RedditStocksSDK()
 
-// List all stocks (returns Stock[])
+// List all stocks (returns StockEntity[] — .data() for the record)
 const stocks = await client.Stock().list()
 for (const stock of stocks) {
   console.log(stock)
@@ -360,6 +369,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://tradestie.com/apps/reddit/api/](https://tradestie.com/apps/reddit/api/)
 

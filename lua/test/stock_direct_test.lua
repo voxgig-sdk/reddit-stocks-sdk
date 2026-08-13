@@ -61,11 +61,11 @@ function stock_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["REDDITSTOCKS_TEST_STOCK_ENTID"] = {},
-    ["REDDITSTOCKS_TEST_LIVE"] = "FALSE",
+    ["REDDIT_STOCKS_TEST_STOCK_ENTID"] = {},
+    ["REDDIT_STOCKS_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["REDDITSTOCKS_TEST_LIVE"] == "TRUE"
+  local live = env["REDDIT_STOCKS_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

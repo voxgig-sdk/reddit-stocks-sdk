@@ -19,11 +19,15 @@ import {
 describe('StockDetailDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when REDDITSTOCKS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('REDDITSTOCKS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when REDDIT_STOCKS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('REDDIT_STOCKS_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new RedditStocksSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -77,17 +81,17 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'REDDITSTOCKS_TEST_STOCK_DETAIL_ENTID': {},
-    'REDDITSTOCKS_TEST_LIVE': 'FALSE',
+    'REDDIT_STOCKS_TEST_STOCK_DETAIL_ENTID': {},
+    'REDDIT_STOCKS_TEST_LIVE': 'FALSE',
   })
 
-  const live = 'TRUE' === env.REDDITSTOCKS_TEST_LIVE
+  const live = 'TRUE' === env.REDDIT_STOCKS_TEST_LIVE
 
   if (live) {
     const client = new RedditStocksSDK({
     })
 
-    let idmap: any = env['REDDITSTOCKS_TEST_STOCK_DETAIL_ENTID']
+    let idmap: any = env['REDDIT_STOCKS_TEST_STOCK_DETAIL_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }
