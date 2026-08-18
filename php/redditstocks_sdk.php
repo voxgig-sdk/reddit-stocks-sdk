@@ -40,7 +40,7 @@ class RedditStocksSDK
         $utility = new RedditStocksUtility();
         $this->_utility = $utility;
 
-        $config = RedditStocksConfig::make_config();
+        $config = RedditStocksConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

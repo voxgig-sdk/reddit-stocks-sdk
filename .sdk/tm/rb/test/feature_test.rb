@@ -15,7 +15,7 @@ require_relative "../RedditStocks_sdk"
 module RedditStocksFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = RedditStocksConfig.make_config["feature"]
+    f = RedditStocksConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 

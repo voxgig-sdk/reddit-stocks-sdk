@@ -28,7 +28,7 @@ class RedditStocksSDK
     utility = RedditStocksUtility.new
     @_utility = utility
 
-    config = RedditStocksConfig.make_config
+    config = RedditStocksConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,
