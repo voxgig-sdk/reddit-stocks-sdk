@@ -101,10 +101,10 @@ stock = client.Stock
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comments` | `Integer` | No |  |
-| `sentiment` | `String` | No |  |
-| `sentiment_score` | `Float` | No |  |
-| `ticker` | `String` | No |  |
+| `no_of_comments` | `Integer` | No | Number of comments mentioning this stock |
+| `sentiment` | `String` | No | Overall sentiment for the stock |
+| `sentiment_score` | `Float` | No | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | `String` | No | Stock ticker symbol |
 
 ### Operations
 
@@ -156,12 +156,12 @@ stock_detail = client.StockDetail
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mentions` | `Integer` | No |  |
-| `no_of_comments` | `Integer` | No |  |
-| `rank` | `Integer` | No |  |
-| `sentiment` | `String` | No |  |
-| `sentiment_score` | `Float` | No |  |
-| `ticker` | `String` | No |  |
+| `mentions` | `Integer` | No | Number of times mentioned |
+| `no_of_comments` | `Integer` | No | Total number of comments |
+| `rank` | `Integer` | No | Current rank among discussed stocks |
+| `sentiment` | `String` | No | Overall sentiment |
+| `sentiment_score` | `Float` | No | Sentiment score |
+| `ticker` | `String` | No | Stock ticker symbol |
 
 ### Operations
 
@@ -213,11 +213,11 @@ trend = client.Trend
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comments` | `Integer` | No |  |
-| `sentiment` | `String` | No |  |
-| `sentiment_score` | `Float` | No |  |
-| `ticker` | `String` | No |  |
-| `trend_score` | `Float` | No |  |
+| `no_of_comments` | `Integer` | No | Number of comments mentioning this stock |
+| `sentiment` | `String` | No | Overall sentiment for the stock |
+| `sentiment_score` | `Float` | No | Sentiment score |
+| `ticker` | `String` | No | Stock ticker symbol |
+| `trend_score` | `Float` | No | Trending momentum score |
 
 ### Operations
 

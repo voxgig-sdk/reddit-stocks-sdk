@@ -1,6 +1,6 @@
-# Entity: trend
+# Entity: stock
 
-main: kit: entity: trend: {
+main: kit: entity: stock: {
 
   alias: field: {}
 
@@ -8,42 +8,40 @@ main: kit: entity: trend: {
     {
       name: "no_of_comments"
       req: false
+      short: "Number of comments mentioning this stock"
       type: "`$INTEGER`"
     }
     {
       name: "sentiment"
       req: false
+      short: "Overall sentiment for the stock"
       type: "`$STRING`"
     }
     {
       name: "sentiment_score"
       req: false
+      short: "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)"
       type: "`$NUMBER`"
     }
     {
       name: "ticker"
       req: false
+      short: "Stock ticker symbol"
       type: "`$STRING`"
-    }
-    {
-      name: "trend_score"
-      req: false
-      type: "`$NUMBER`"
     }
   ]
 
-  name: "trend"
+  name: "stock"
   op: {
     list: {
       name: "list"
       points: [
         {
           method: "GET"
-          orig: "/apps/reddit/trend"
+          orig: "/apps/reddit"
           parts: [
             "apps"
             "reddit"
-            "trend"
           ]
           transform: {
             req: "`reqdata`"

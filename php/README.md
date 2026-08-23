@@ -264,10 +264,10 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `no_of_comments` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
+| `no_of_comments` | Number of comments mentioning this stock |
+| `sentiment` | Overall sentiment for the stock |
+| `sentiment_score` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | Stock ticker symbol |
 
 Operations: List.
 
@@ -277,12 +277,12 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `mentions` |  |
-| `no_of_comments` |  |
-| `rank` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
+| `mentions` | Number of times mentioned |
+| `no_of_comments` | Total number of comments |
+| `rank` | Current rank among discussed stocks |
+| `sentiment` | Overall sentiment |
+| `sentiment_score` | Sentiment score |
+| `ticker` | Stock ticker symbol |
 
 Operations: Load.
 
@@ -292,11 +292,11 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `no_of_comments` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
-| `trend_score` |  |
+| `no_of_comments` | Number of comments mentioning this stock |
+| `sentiment` | Overall sentiment for the stock |
+| `sentiment_score` | Sentiment score |
+| `ticker` | Stock ticker symbol |
+| `trend_score` | Trending momentum score |
 
 Operations: List.
 
@@ -321,10 +321,10 @@ Create an instance: `$stock = $client->Stock();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `int` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `float` |  |
-| `ticker` | `string` |  |
+| `no_of_comments` | `int` | Number of comments mentioning this stock |
+| `sentiment` | `string` | Overall sentiment for the stock |
+| `sentiment_score` | `float` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | `string` | Stock ticker symbol |
 
 #### Example: List
 
@@ -348,12 +348,12 @@ Create an instance: `$stock_detail = $client->StockDetail();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mentions` | `int` |  |
-| `no_of_comments` | `int` |  |
-| `rank` | `int` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `float` |  |
-| `ticker` | `string` |  |
+| `mentions` | `int` | Number of times mentioned |
+| `no_of_comments` | `int` | Total number of comments |
+| `rank` | `int` | Current rank among discussed stocks |
+| `sentiment` | `string` | Overall sentiment |
+| `sentiment_score` | `float` | Sentiment score |
+| `ticker` | `string` | Stock ticker symbol |
 
 #### Example: Load
 
@@ -377,11 +377,11 @@ Create an instance: `$trend = $client->Trend();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `int` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `float` |  |
-| `ticker` | `string` |  |
-| `trend_score` | `float` |  |
+| `no_of_comments` | `int` | Number of comments mentioning this stock |
+| `sentiment` | `string` | Overall sentiment for the stock |
+| `sentiment_score` | `float` | Sentiment score |
+| `ticker` | `string` | Stock ticker symbol |
+| `trend_score` | `float` | Trending momentum score |
 
 #### Example: List
 

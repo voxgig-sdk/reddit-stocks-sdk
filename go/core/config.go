@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "RedditStocks",
+			"slug": "reddit-stocks",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -35,18 +38,22 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "no_of_comments",
+						"short": "Number of comments mentioning this stock",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "sentiment",
+						"short": "Overall sentiment for the stock",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "sentiment_score",
+						"short": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "ticker",
+						"short": "Stock ticker symbol",
 						"type": "`$STRING`",
 					},
 				},
@@ -82,26 +89,32 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "mentions",
+						"short": "Number of times mentioned",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "no_of_comments",
+						"short": "Total number of comments",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "rank",
+						"short": "Current rank among discussed stocks",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "sentiment",
+						"short": "Overall sentiment",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "sentiment_score",
+						"short": "Sentiment score",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "ticker",
+						"short": "Stock ticker symbol",
 						"type": "`$STRING`",
 					},
 				},
@@ -157,22 +170,27 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "no_of_comments",
+						"short": "Number of comments mentioning this stock",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "sentiment",
+						"short": "Overall sentiment for the stock",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "sentiment_score",
+						"short": "Sentiment score",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "ticker",
+						"short": "Stock ticker symbol",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "trend_score",
+						"short": "Trending momentum score",
 						"type": "`$NUMBER`",
 					},
 				},

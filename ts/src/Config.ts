@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'RedditStocks',
+        slug: "reddit-stocks",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -62,18 +73,22 @@ class Config {
       "fields": [
         {
           "name": "no_of_comments",
+          "short": "Number of comments mentioning this stock",
           "type": "`$INTEGER`"
         },
         {
           "name": "sentiment",
+          "short": "Overall sentiment for the stock",
           "type": "`$STRING`"
         },
         {
           "name": "sentiment_score",
+          "short": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
           "type": "`$NUMBER`"
         },
         {
           "name": "ticker",
+          "short": "Stock ticker symbol",
           "type": "`$STRING`"
         }
       ],
@@ -109,26 +124,32 @@ class Config {
       "fields": [
         {
           "name": "mentions",
+          "short": "Number of times mentioned",
           "type": "`$INTEGER`"
         },
         {
           "name": "no_of_comments",
+          "short": "Total number of comments",
           "type": "`$INTEGER`"
         },
         {
           "name": "rank",
+          "short": "Current rank among discussed stocks",
           "type": "`$INTEGER`"
         },
         {
           "name": "sentiment",
+          "short": "Overall sentiment",
           "type": "`$STRING`"
         },
         {
           "name": "sentiment_score",
+          "short": "Sentiment score",
           "type": "`$NUMBER`"
         },
         {
           "name": "ticker",
+          "short": "Stock ticker symbol",
           "type": "`$STRING`"
         }
       ],
@@ -184,22 +205,27 @@ class Config {
       "fields": [
         {
           "name": "no_of_comments",
+          "short": "Number of comments mentioning this stock",
           "type": "`$INTEGER`"
         },
         {
           "name": "sentiment",
+          "short": "Overall sentiment for the stock",
           "type": "`$STRING`"
         },
         {
           "name": "sentiment_score",
+          "short": "Sentiment score",
           "type": "`$NUMBER`"
         },
         {
           "name": "ticker",
+          "short": "Stock ticker symbol",
           "type": "`$STRING`"
         },
         {
           "name": "trend_score",
+          "short": "Trending momentum score",
           "type": "`$NUMBER`"
         }
       ],

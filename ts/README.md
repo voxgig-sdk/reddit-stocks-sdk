@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -307,10 +307,10 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `no_of_comments` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
+| `no_of_comments` | Number of comments mentioning this stock |
+| `sentiment` | Overall sentiment for the stock |
+| `sentiment_score` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | Stock ticker symbol |
 
 Operations: list.
 
@@ -320,12 +320,12 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `mentions` |  |
-| `no_of_comments` |  |
-| `rank` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
+| `mentions` | Number of times mentioned |
+| `no_of_comments` | Total number of comments |
+| `rank` | Current rank among discussed stocks |
+| `sentiment` | Overall sentiment |
+| `sentiment_score` | Sentiment score |
+| `ticker` | Stock ticker symbol |
 
 Operations: load.
 
@@ -335,11 +335,11 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `no_of_comments` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
-| `trend_score` |  |
+| `no_of_comments` | Number of comments mentioning this stock |
+| `sentiment` | Overall sentiment for the stock |
+| `sentiment_score` | Sentiment score |
+| `ticker` | Stock ticker symbol |
+| `trend_score` | Trending momentum score |
 
 Operations: list.
 
@@ -364,10 +364,10 @@ Create an instance: `const stock = client.Stock()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `number` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `number` |  |
-| `ticker` | `string` |  |
+| `no_of_comments` | `number` | Number of comments mentioning this stock |
+| `sentiment` | `string` | Overall sentiment for the stock |
+| `sentiment_score` | `number` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | `string` | Stock ticker symbol |
 
 #### Example: List
 
@@ -390,12 +390,12 @@ Create an instance: `const stock_detail = client.StockDetail()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mentions` | `number` |  |
-| `no_of_comments` | `number` |  |
-| `rank` | `number` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `number` |  |
-| `ticker` | `string` |  |
+| `mentions` | `number` | Number of times mentioned |
+| `no_of_comments` | `number` | Total number of comments |
+| `rank` | `number` | Current rank among discussed stocks |
+| `sentiment` | `string` | Overall sentiment |
+| `sentiment_score` | `number` | Sentiment score |
+| `ticker` | `string` | Stock ticker symbol |
 
 #### Example: Load
 
@@ -418,11 +418,11 @@ Create an instance: `const trend = client.Trend()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `number` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `number` |  |
-| `ticker` | `string` |  |
-| `trend_score` | `number` |  |
+| `no_of_comments` | `number` | Number of comments mentioning this stock |
+| `sentiment` | `string` | Overall sentiment for the stock |
+| `sentiment_score` | `number` | Sentiment score |
+| `ticker` | `string` | Stock ticker symbol |
+| `trend_score` | `number` | Trending momentum score |
 
 #### Example: List
 

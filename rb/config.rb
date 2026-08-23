@@ -19,6 +19,9 @@ module RedditStocksConfig
     {
       "main" => {
         "name" => "RedditStocks",
+        "slug" => "reddit-stocks",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
@@ -43,18 +46,22 @@ module RedditStocksConfig
           "fields" => [
             {
               "name" => "no_of_comments",
+              "short" => "Number of comments mentioning this stock",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "sentiment",
+              "short" => "Overall sentiment for the stock",
               "type" => "`$STRING`",
             },
             {
               "name" => "sentiment_score",
+              "short" => "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
               "type" => "`$NUMBER`",
             },
             {
               "name" => "ticker",
+              "short" => "Stock ticker symbol",
               "type" => "`$STRING`",
             },
           ],
@@ -90,26 +97,32 @@ module RedditStocksConfig
           "fields" => [
             {
               "name" => "mentions",
+              "short" => "Number of times mentioned",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "no_of_comments",
+              "short" => "Total number of comments",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "rank",
+              "short" => "Current rank among discussed stocks",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "sentiment",
+              "short" => "Overall sentiment",
               "type" => "`$STRING`",
             },
             {
               "name" => "sentiment_score",
+              "short" => "Sentiment score",
               "type" => "`$NUMBER`",
             },
             {
               "name" => "ticker",
+              "short" => "Stock ticker symbol",
               "type" => "`$STRING`",
             },
           ],
@@ -165,22 +178,27 @@ module RedditStocksConfig
           "fields" => [
             {
               "name" => "no_of_comments",
+              "short" => "Number of comments mentioning this stock",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "sentiment",
+              "short" => "Overall sentiment for the stock",
               "type" => "`$STRING`",
             },
             {
               "name" => "sentiment_score",
+              "short" => "Sentiment score",
               "type" => "`$NUMBER`",
             },
             {
               "name" => "ticker",
+              "short" => "Stock ticker symbol",
               "type" => "`$STRING`",
             },
             {
               "name" => "trend_score",
+              "short" => "Trending momentum score",
               "type" => "`$NUMBER`",
             },
           ],

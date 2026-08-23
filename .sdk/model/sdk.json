@@ -36,24 +36,28 @@
               "active": true,
               "name": "no_of_comments",
               "req": false,
+              "short": "Number of comments mentioning this stock",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "sentiment",
               "req": false,
+              "short": "Overall sentiment for the stock",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "sentiment_score",
               "req": false,
+              "short": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "ticker",
               "req": false,
+              "short": "Stock ticker symbol",
               "type": "`$STRING`"
             }
           ],
@@ -96,36 +100,42 @@
               "active": true,
               "name": "mentions",
               "req": false,
+              "short": "Number of times mentioned",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "no_of_comments",
               "req": false,
+              "short": "Total number of comments",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "rank",
               "req": false,
+              "short": "Current rank among discussed stocks",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "sentiment",
               "req": false,
+              "short": "Overall sentiment",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "sentiment_score",
               "req": false,
+              "short": "Sentiment score",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "ticker",
               "req": false,
+              "short": "Stock ticker symbol",
               "type": "`$STRING`"
             }
           ],
@@ -189,30 +199,35 @@
               "active": true,
               "name": "no_of_comments",
               "req": false,
+              "short": "Number of comments mentioning this stock",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "sentiment",
               "req": false,
+              "short": "Overall sentiment for the stock",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "sentiment_score",
               "req": false,
+              "short": "Sentiment score",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "ticker",
               "req": false,
+              "short": "Stock ticker symbol",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "trend_score",
               "req": false,
+              "short": "Trending momentum score",
               "type": "`$NUMBER`"
             }
           ],

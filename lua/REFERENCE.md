@@ -98,10 +98,10 @@ local stock = client:Stock(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comments` | `number` | No |  |
-| `sentiment` | `string` | No |  |
-| `sentiment_score` | `number` | No |  |
-| `ticker` | `string` | No |  |
+| `no_of_comments` | `number` | No | Number of comments mentioning this stock |
+| `sentiment` | `string` | No | Overall sentiment for the stock |
+| `sentiment_score` | `number` | No | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | `string` | No | Stock ticker symbol |
 
 ### Operations
 
@@ -153,12 +153,12 @@ local stock_detail = client:StockDetail(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mentions` | `number` | No |  |
-| `no_of_comments` | `number` | No |  |
-| `rank` | `number` | No |  |
-| `sentiment` | `string` | No |  |
-| `sentiment_score` | `number` | No |  |
-| `ticker` | `string` | No |  |
+| `mentions` | `number` | No | Number of times mentioned |
+| `no_of_comments` | `number` | No | Total number of comments |
+| `rank` | `number` | No | Current rank among discussed stocks |
+| `sentiment` | `string` | No | Overall sentiment |
+| `sentiment_score` | `number` | No | Sentiment score |
+| `ticker` | `string` | No | Stock ticker symbol |
 
 ### Operations
 
@@ -210,11 +210,11 @@ local trend = client:Trend(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comments` | `number` | No |  |
-| `sentiment` | `string` | No |  |
-| `sentiment_score` | `number` | No |  |
-| `ticker` | `string` | No |  |
-| `trend_score` | `number` | No |  |
+| `no_of_comments` | `number` | No | Number of comments mentioning this stock |
+| `sentiment` | `string` | No | Overall sentiment for the stock |
+| `sentiment_score` | `number` | No | Sentiment score |
+| `ticker` | `string` | No | Stock ticker symbol |
+| `trend_score` | `number` | No | Trending momentum score |
 
 ### Operations
 

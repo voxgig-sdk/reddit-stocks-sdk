@@ -106,10 +106,10 @@ fmt.Println(stock.GetName()) // "stock"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comments` | `int` | No |  |
-| `sentiment` | `string` | No |  |
-| `sentiment_score` | `float64` | No |  |
-| `ticker` | `string` | No |  |
+| `no_of_comments` | `int` | No | Number of comments mentioning this stock |
+| `sentiment` | `string` | No | Overall sentiment for the stock |
+| `sentiment_score` | `float64` | No | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | `string` | No | Stock ticker symbol |
 
 ### Operations
 
@@ -160,12 +160,12 @@ fmt.Println(stockDetail.GetName()) // "stock_detail"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mentions` | `int` | No |  |
-| `no_of_comments` | `int` | No |  |
-| `rank` | `int` | No |  |
-| `sentiment` | `string` | No |  |
-| `sentiment_score` | `float64` | No |  |
-| `ticker` | `string` | No |  |
+| `mentions` | `int` | No | Number of times mentioned |
+| `no_of_comments` | `int` | No | Total number of comments |
+| `rank` | `int` | No | Current rank among discussed stocks |
+| `sentiment` | `string` | No | Overall sentiment |
+| `sentiment_score` | `float64` | No | Sentiment score |
+| `ticker` | `string` | No | Stock ticker symbol |
 
 ### Operations
 
@@ -216,11 +216,11 @@ fmt.Println(trend.GetName()) // "trend"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comments` | `int` | No |  |
-| `sentiment` | `string` | No |  |
-| `sentiment_score` | `float64` | No |  |
-| `ticker` | `string` | No |  |
-| `trend_score` | `float64` | No |  |
+| `no_of_comments` | `int` | No | Number of comments mentioning this stock |
+| `sentiment` | `string` | No | Overall sentiment for the stock |
+| `sentiment_score` | `float64` | No | Sentiment score |
+| `ticker` | `string` | No | Stock ticker symbol |
+| `trend_score` | `float64` | No | Trending momentum score |
 
 ### Operations
 

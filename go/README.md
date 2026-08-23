@@ -6,7 +6,7 @@ The Golang SDK for the RedditStocks API — an entity-oriented client using stan
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Stock(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -264,10 +264,10 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"no_of_comments"` |  |
-| `"sentiment"` |  |
-| `"sentiment_score"` |  |
-| `"ticker"` |  |
+| `"no_of_comments"` | Number of comments mentioning this stock |
+| `"sentiment"` | Overall sentiment for the stock |
+| `"sentiment_score"` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `"ticker"` | Stock ticker symbol |
 
 Operations: List.
 
@@ -277,12 +277,12 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `"mentions"` |  |
-| `"no_of_comments"` |  |
-| `"rank"` |  |
-| `"sentiment"` |  |
-| `"sentiment_score"` |  |
-| `"ticker"` |  |
+| `"mentions"` | Number of times mentioned |
+| `"no_of_comments"` | Total number of comments |
+| `"rank"` | Current rank among discussed stocks |
+| `"sentiment"` | Overall sentiment |
+| `"sentiment_score"` | Sentiment score |
+| `"ticker"` | Stock ticker symbol |
 
 Operations: Load.
 
@@ -292,11 +292,11 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `"no_of_comments"` |  |
-| `"sentiment"` |  |
-| `"sentiment_score"` |  |
-| `"ticker"` |  |
-| `"trend_score"` |  |
+| `"no_of_comments"` | Number of comments mentioning this stock |
+| `"sentiment"` | Overall sentiment for the stock |
+| `"sentiment_score"` | Sentiment score |
+| `"ticker"` | Stock ticker symbol |
+| `"trend_score"` | Trending momentum score |
 
 Operations: List.
 
@@ -321,10 +321,10 @@ Create an instance: `stock := client.Stock(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `int` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `float64` |  |
-| `ticker` | `string` |  |
+| `no_of_comments` | `int` | Number of comments mentioning this stock |
+| `sentiment` | `string` | Overall sentiment for the stock |
+| `sentiment_score` | `float64` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | `string` | Stock ticker symbol |
 
 #### Example: List
 
@@ -351,12 +351,12 @@ Create an instance: `stockDetail := client.StockDetail(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mentions` | `int` |  |
-| `no_of_comments` | `int` |  |
-| `rank` | `int` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `float64` |  |
-| `ticker` | `string` |  |
+| `mentions` | `int` | Number of times mentioned |
+| `no_of_comments` | `int` | Total number of comments |
+| `rank` | `int` | Current rank among discussed stocks |
+| `sentiment` | `string` | Overall sentiment |
+| `sentiment_score` | `float64` | Sentiment score |
+| `ticker` | `string` | Stock ticker symbol |
 
 #### Example: Load
 
@@ -383,11 +383,11 @@ Create an instance: `trend := client.Trend(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `int` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `float64` |  |
-| `ticker` | `string` |  |
-| `trend_score` | `float64` |  |
+| `no_of_comments` | `int` | Number of comments mentioning this stock |
+| `sentiment` | `string` | Overall sentiment for the stock |
+| `sentiment_score` | `float64` | Sentiment score |
+| `ticker` | `string` | Stock ticker symbol |
+| `trend_score` | `float64` | Trending momentum score |
 
 #### Example: List
 

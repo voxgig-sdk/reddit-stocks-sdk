@@ -245,10 +245,10 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `no_of_comments` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
+| `no_of_comments` | Number of comments mentioning this stock |
+| `sentiment` | Overall sentiment for the stock |
+| `sentiment_score` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | Stock ticker symbol |
 
 Operations: List.
 
@@ -258,12 +258,12 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `mentions` |  |
-| `no_of_comments` |  |
-| `rank` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
+| `mentions` | Number of times mentioned |
+| `no_of_comments` | Total number of comments |
+| `rank` | Current rank among discussed stocks |
+| `sentiment` | Overall sentiment |
+| `sentiment_score` | Sentiment score |
+| `ticker` | Stock ticker symbol |
 
 Operations: Load.
 
@@ -273,11 +273,11 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `no_of_comments` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
-| `trend_score` |  |
+| `no_of_comments` | Number of comments mentioning this stock |
+| `sentiment` | Overall sentiment for the stock |
+| `sentiment_score` | Sentiment score |
+| `ticker` | Stock ticker symbol |
+| `trend_score` | Trending momentum score |
 
 Operations: List.
 
@@ -302,10 +302,10 @@ Create an instance: `local stock = client:Stock(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `number` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `number` |  |
-| `ticker` | `string` |  |
+| `no_of_comments` | `number` | Number of comments mentioning this stock |
+| `sentiment` | `string` | Overall sentiment for the stock |
+| `sentiment_score` | `number` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | `string` | Stock ticker symbol |
 
 #### Example: List
 
@@ -328,12 +328,12 @@ Create an instance: `local stock_detail = client:StockDetail(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mentions` | `number` |  |
-| `no_of_comments` | `number` |  |
-| `rank` | `number` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `number` |  |
-| `ticker` | `string` |  |
+| `mentions` | `number` | Number of times mentioned |
+| `no_of_comments` | `number` | Total number of comments |
+| `rank` | `number` | Current rank among discussed stocks |
+| `sentiment` | `string` | Overall sentiment |
+| `sentiment_score` | `number` | Sentiment score |
+| `ticker` | `string` | Stock ticker symbol |
 
 #### Example: Load
 
@@ -356,11 +356,11 @@ Create an instance: `local trend = client:Trend(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `number` |  |
-| `sentiment` | `string` |  |
-| `sentiment_score` | `number` |  |
-| `ticker` | `string` |  |
-| `trend_score` | `number` |  |
+| `no_of_comments` | `number` | Number of comments mentioning this stock |
+| `sentiment` | `string` | Overall sentiment for the stock |
+| `sentiment_score` | `number` | Sentiment score |
+| `ticker` | `string` | Stock ticker symbol |
+| `trend_score` | `number` | Trending momentum score |
 
 #### Example: List
 

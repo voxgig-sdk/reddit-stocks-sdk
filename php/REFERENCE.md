@@ -100,10 +100,10 @@ $stock = $client->Stock();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comments` | `int` | No |  |
-| `sentiment` | `string` | No |  |
-| `sentiment_score` | `float` | No |  |
-| `ticker` | `string` | No |  |
+| `no_of_comments` | `int` | No | Number of comments mentioning this stock |
+| `sentiment` | `string` | No | Overall sentiment for the stock |
+| `sentiment_score` | `float` | No | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | `string` | No | Stock ticker symbol |
 
 ### Operations
 
@@ -155,12 +155,12 @@ $stock_detail = $client->StockDetail();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `mentions` | `int` | No |  |
-| `no_of_comments` | `int` | No |  |
-| `rank` | `int` | No |  |
-| `sentiment` | `string` | No |  |
-| `sentiment_score` | `float` | No |  |
-| `ticker` | `string` | No |  |
+| `mentions` | `int` | No | Number of times mentioned |
+| `no_of_comments` | `int` | No | Total number of comments |
+| `rank` | `int` | No | Current rank among discussed stocks |
+| `sentiment` | `string` | No | Overall sentiment |
+| `sentiment_score` | `float` | No | Sentiment score |
+| `ticker` | `string` | No | Stock ticker symbol |
 
 ### Operations
 
@@ -212,11 +212,11 @@ $trend = $client->Trend();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `no_of_comments` | `int` | No |  |
-| `sentiment` | `string` | No |  |
-| `sentiment_score` | `float` | No |  |
-| `ticker` | `string` | No |  |
-| `trend_score` | `float` | No |  |
+| `no_of_comments` | `int` | No | Number of comments mentioning this stock |
+| `sentiment` | `string` | No | Overall sentiment for the stock |
+| `sentiment_score` | `float` | No | Sentiment score |
+| `ticker` | `string` | No | Stock ticker symbol |
+| `trend_score` | `float` | No | Trending momentum score |
 
 ### Operations
 

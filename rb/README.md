@@ -254,10 +254,10 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `no_of_comments` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
+| `no_of_comments` | Number of comments mentioning this stock |
+| `sentiment` | Overall sentiment for the stock |
+| `sentiment_score` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | Stock ticker symbol |
 
 Operations: List.
 
@@ -267,12 +267,12 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `mentions` |  |
-| `no_of_comments` |  |
-| `rank` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
+| `mentions` | Number of times mentioned |
+| `no_of_comments` | Total number of comments |
+| `rank` | Current rank among discussed stocks |
+| `sentiment` | Overall sentiment |
+| `sentiment_score` | Sentiment score |
+| `ticker` | Stock ticker symbol |
 
 Operations: Load.
 
@@ -282,11 +282,11 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `no_of_comments` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
-| `trend_score` |  |
+| `no_of_comments` | Number of comments mentioning this stock |
+| `sentiment` | Overall sentiment for the stock |
+| `sentiment_score` | Sentiment score |
+| `ticker` | Stock ticker symbol |
+| `trend_score` | Trending momentum score |
 
 Operations: List.
 
@@ -311,10 +311,10 @@ Create an instance: `stock = client.Stock`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `Integer` |  |
-| `sentiment` | `String` |  |
-| `sentiment_score` | `Float` |  |
-| `ticker` | `String` |  |
+| `no_of_comments` | `Integer` | Number of comments mentioning this stock |
+| `sentiment` | `String` | Overall sentiment for the stock |
+| `sentiment_score` | `Float` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | `String` | Stock ticker symbol |
 
 #### Example: List
 
@@ -338,12 +338,12 @@ Create an instance: `stock_detail = client.StockDetail`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mentions` | `Integer` |  |
-| `no_of_comments` | `Integer` |  |
-| `rank` | `Integer` |  |
-| `sentiment` | `String` |  |
-| `sentiment_score` | `Float` |  |
-| `ticker` | `String` |  |
+| `mentions` | `Integer` | Number of times mentioned |
+| `no_of_comments` | `Integer` | Total number of comments |
+| `rank` | `Integer` | Current rank among discussed stocks |
+| `sentiment` | `String` | Overall sentiment |
+| `sentiment_score` | `Float` | Sentiment score |
+| `ticker` | `String` | Stock ticker symbol |
 
 #### Example: Load
 
@@ -367,11 +367,11 @@ Create an instance: `trend = client.Trend`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `Integer` |  |
-| `sentiment` | `String` |  |
-| `sentiment_score` | `Float` |  |
-| `ticker` | `String` |  |
-| `trend_score` | `Float` |  |
+| `no_of_comments` | `Integer` | Number of comments mentioning this stock |
+| `sentiment` | `String` | Overall sentiment for the stock |
+| `sentiment_score` | `Float` | Sentiment score |
+| `ticker` | `String` | Stock ticker symbol |
+| `trend_score` | `Float` | Trending momentum score |
 
 #### Example: List
 

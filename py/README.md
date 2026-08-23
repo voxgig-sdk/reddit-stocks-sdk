@@ -259,10 +259,10 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `no_of_comments` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
+| `no_of_comments` | Number of comments mentioning this stock |
+| `sentiment` | Overall sentiment for the stock |
+| `sentiment_score` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | Stock ticker symbol |
 
 Operations: List.
 
@@ -272,12 +272,12 @@ API path: `/apps/reddit`
 
 | Field | Description |
 | --- | --- |
-| `mentions` |  |
-| `no_of_comments` |  |
-| `rank` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
+| `mentions` | Number of times mentioned |
+| `no_of_comments` | Total number of comments |
+| `rank` | Current rank among discussed stocks |
+| `sentiment` | Overall sentiment |
+| `sentiment_score` | Sentiment score |
+| `ticker` | Stock ticker symbol |
 
 Operations: Load.
 
@@ -287,11 +287,11 @@ API path: `/apps/reddit/{ticker}`
 
 | Field | Description |
 | --- | --- |
-| `no_of_comments` |  |
-| `sentiment` |  |
-| `sentiment_score` |  |
-| `ticker` |  |
-| `trend_score` |  |
+| `no_of_comments` | Number of comments mentioning this stock |
+| `sentiment` | Overall sentiment for the stock |
+| `sentiment_score` | Sentiment score |
+| `ticker` | Stock ticker symbol |
+| `trend_score` | Trending momentum score |
 
 Operations: List.
 
@@ -316,10 +316,10 @@ Create an instance: `stock = client.Stock()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `int` |  |
-| `sentiment` | `str` |  |
-| `sentiment_score` | `float` |  |
-| `ticker` | `str` |  |
+| `no_of_comments` | `int` | Number of comments mentioning this stock |
+| `sentiment` | `str` | Overall sentiment for the stock |
+| `sentiment_score` | `float` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
+| `ticker` | `str` | Stock ticker symbol |
 
 #### Example: List
 
@@ -342,12 +342,12 @@ Create an instance: `stock_detail = client.StockDetail()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `mentions` | `int` |  |
-| `no_of_comments` | `int` |  |
-| `rank` | `int` |  |
-| `sentiment` | `str` |  |
-| `sentiment_score` | `float` |  |
-| `ticker` | `str` |  |
+| `mentions` | `int` | Number of times mentioned |
+| `no_of_comments` | `int` | Total number of comments |
+| `rank` | `int` | Current rank among discussed stocks |
+| `sentiment` | `str` | Overall sentiment |
+| `sentiment_score` | `float` | Sentiment score |
+| `ticker` | `str` | Stock ticker symbol |
 
 #### Example: Load
 
@@ -370,11 +370,11 @@ Create an instance: `trend = client.Trend()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `no_of_comments` | `int` |  |
-| `sentiment` | `str` |  |
-| `sentiment_score` | `float` |  |
-| `ticker` | `str` |  |
-| `trend_score` | `float` |  |
+| `no_of_comments` | `int` | Number of comments mentioning this stock |
+| `sentiment` | `str` | Overall sentiment for the stock |
+| `sentiment_score` | `float` | Sentiment score |
+| `ticker` | `str` | Stock ticker symbol |
+| `trend_score` | `float` | Trending momentum score |
 
 #### Example: List
 

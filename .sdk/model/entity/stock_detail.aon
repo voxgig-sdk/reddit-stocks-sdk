@@ -8,31 +8,37 @@ main: kit: entity: stock_detail: {
     {
       name: "mentions"
       req: false
+      short: "Number of times mentioned"
       type: "`$INTEGER`"
     }
     {
       name: "no_of_comments"
       req: false
+      short: "Total number of comments"
       type: "`$INTEGER`"
     }
     {
       name: "rank"
       req: false
+      short: "Current rank among discussed stocks"
       type: "`$INTEGER`"
     }
     {
       name: "sentiment"
       req: false
+      short: "Overall sentiment"
       type: "`$STRING`"
     }
     {
       name: "sentiment_score"
       req: false
+      short: "Sentiment score"
       type: "`$NUMBER`"
     }
     {
       name: "ticker"
       req: false
+      short: "Stock ticker symbol"
       type: "`$STRING`"
     }
   ]
