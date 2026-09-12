@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -83,6 +94,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "float",
           "name": "sentiment_score",
           "short": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
           "type": "`$NUMBER`"
@@ -104,15 +116,23 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/apps/reddit",
-              "parts": [
-                "apps",
-                "reddit"
+              "segments": [
+                {
+                  "lit": "apps"
+                },
+                {
+                  "lit": "reddit"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "apps",
+                "reddit"
+              ]
             }
           ]
         }
@@ -144,6 +164,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "float",
           "name": "sentiment_score",
           "short": "Sentiment score",
           "type": "`$NUMBER`"
@@ -176,10 +197,16 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/apps/reddit/{ticker}",
-              "parts": [
-                "apps",
-                "reddit",
-                "{ticker}"
+              "segments": [
+                {
+                  "lit": "apps"
+                },
+                {
+                  "lit": "reddit"
+                },
+                {
+                  "var": "ticker"
+                }
               ],
               "select": {
                 "exist": [
@@ -189,7 +216,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "apps",
+                "reddit",
+                "{ticker}"
+              ]
             }
           ]
         }
@@ -215,6 +247,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "float",
           "name": "sentiment_score",
           "short": "Sentiment score",
           "type": "`$NUMBER`"
@@ -225,6 +258,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "float",
           "name": "trend_score",
           "short": "Trending momentum score",
           "type": "`$NUMBER`"
@@ -241,16 +275,27 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/apps/reddit/trend",
-              "parts": [
-                "apps",
-                "reddit",
-                "trend"
+              "segments": [
+                {
+                  "lit": "apps"
+                },
+                {
+                  "lit": "reddit"
+                },
+                {
+                  "lit": "trend"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "apps",
+                "reddit",
+                "trend"
+              ]
             }
           ]
         }
@@ -266,6 +311,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

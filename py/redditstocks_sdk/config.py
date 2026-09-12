@@ -1,6 +1,14 @@
 # RedditStocks SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -65,6 +73,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "float",
             "name": "sentiment_score",
             "short": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
             "type": "`$NUMBER`",
@@ -86,15 +95,23 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/apps/reddit",
-                "parts": [
-                  "apps",
-                  "reddit",
+                "segments": [
+                  {
+                    "lit": "apps",
+                  },
+                  {
+                    "lit": "reddit",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "apps",
+                  "reddit",
+                ],
               },
             ],
           },
@@ -126,6 +143,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "float",
             "name": "sentiment_score",
             "short": "Sentiment score",
             "type": "`$NUMBER`",
@@ -158,10 +176,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/apps/reddit/{ticker}",
-                "parts": [
-                  "apps",
-                  "reddit",
-                  "{ticker}",
+                "segments": [
+                  {
+                    "lit": "apps",
+                  },
+                  {
+                    "lit": "reddit",
+                  },
+                  {
+                    "var": "ticker",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -172,6 +196,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "apps",
+                  "reddit",
+                  "{ticker}",
+                ],
               },
             ],
           },
@@ -197,6 +226,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "float",
             "name": "sentiment_score",
             "short": "Sentiment score",
             "type": "`$NUMBER`",
@@ -207,6 +237,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "float",
             "name": "trend_score",
             "short": "Trending momentum score",
             "type": "`$NUMBER`",
@@ -223,16 +254,27 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/apps/reddit/trend",
-                "parts": [
-                  "apps",
-                  "reddit",
-                  "trend",
+                "segments": [
+                  {
+                    "lit": "apps",
+                  },
+                  {
+                    "lit": "reddit",
+                  },
+                  {
+                    "lit": "trend",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "apps",
+                  "reddit",
+                  "trend",
+                ],
               },
             ],
           },

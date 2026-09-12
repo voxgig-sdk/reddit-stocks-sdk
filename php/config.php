@@ -70,6 +70,7 @@ class RedditStocksConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'float',
               'name' => 'sentiment_score',
               'short' => 'Sentiment score ranging from -1 (most bearish) to 1 (most bullish)',
               'type' => '`$NUMBER`',
@@ -91,14 +92,22 @@ class RedditStocksConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/apps/reddit',
-                  'parts' => [
-                    'apps',
-                    'reddit',
+                  'segments' => [
+                    [
+                      'lit' => 'apps',
+                    ],
+                    [
+                      'lit' => 'reddit',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'apps',
+                    'reddit',
                   ],
                 ],
               ],
@@ -131,6 +140,7 @@ class RedditStocksConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'float',
               'name' => 'sentiment_score',
               'short' => 'Sentiment score',
               'type' => '`$NUMBER`',
@@ -163,10 +173,16 @@ class RedditStocksConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/apps/reddit/{ticker}',
-                  'parts' => [
-                    'apps',
-                    'reddit',
-                    '{ticker}',
+                  'segments' => [
+                    [
+                      'lit' => 'apps',
+                    ],
+                    [
+                      'lit' => 'reddit',
+                    ],
+                    [
+                      'var' => 'ticker',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -176,6 +192,11 @@ class RedditStocksConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'apps',
+                    'reddit',
+                    '{ticker}',
                   ],
                 ],
               ],
@@ -202,6 +223,7 @@ class RedditStocksConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'float',
               'name' => 'sentiment_score',
               'short' => 'Sentiment score',
               'type' => '`$NUMBER`',
@@ -212,6 +234,7 @@ class RedditStocksConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'float',
               'name' => 'trend_score',
               'short' => 'Trending momentum score',
               'type' => '`$NUMBER`',
@@ -228,15 +251,26 @@ class RedditStocksConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/apps/reddit/trend',
-                  'parts' => [
-                    'apps',
-                    'reddit',
-                    'trend',
+                  'segments' => [
+                    [
+                      'lit' => 'apps',
+                    ],
+                    [
+                      'lit' => 'reddit',
+                    ],
+                    [
+                      'lit' => 'trend',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'apps',
+                    'reddit',
+                    'trend',
                   ],
                 ],
               ],

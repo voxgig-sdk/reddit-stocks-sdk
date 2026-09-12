@@ -30,6 +30,7 @@ main: kit: entity: stock_detail: {
       type: "`$STRING`"
     }
     {
+      format: "float"
       name: "sentiment_score"
       req: false
       short: "Sentiment score"
@@ -63,10 +64,16 @@ main: kit: entity: stock_detail: {
           }
           method: "GET"
           orig: "/apps/reddit/{ticker}"
-          parts: [
-            "apps"
-            "reddit"
-            "{ticker}"
+          segments: [
+            {
+              lit: "apps"
+            }
+            {
+              lit: "reddit"
+            }
+            {
+              var: "ticker"
+            }
           ]
           select: {
             exist: [

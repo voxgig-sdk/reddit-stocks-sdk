@@ -48,6 +48,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "float",
 						"name": "sentiment_score",
 						"short": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
 						"type": "`$NUMBER`",
@@ -69,14 +70,22 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/apps/reddit",
-								"parts": []any{
-									"apps",
-									"reddit",
+								"segments": []any{
+									map[string]any{
+										"lit": "apps",
+									},
+									map[string]any{
+										"lit": "reddit",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"apps",
+									"reddit",
 								},
 							},
 						},
@@ -109,6 +118,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "float",
 						"name": "sentiment_score",
 						"short": "Sentiment score",
 						"type": "`$NUMBER`",
@@ -141,10 +151,16 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/apps/reddit/{ticker}",
-								"parts": []any{
-									"apps",
-									"reddit",
-									"{ticker}",
+								"segments": []any{
+									map[string]any{
+										"lit": "apps",
+									},
+									map[string]any{
+										"lit": "reddit",
+									},
+									map[string]any{
+										"var": "ticker",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -154,6 +170,11 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"apps",
+									"reddit",
+									"{ticker}",
 								},
 							},
 						},
@@ -180,6 +201,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "float",
 						"name": "sentiment_score",
 						"short": "Sentiment score",
 						"type": "`$NUMBER`",
@@ -190,6 +212,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "float",
 						"name": "trend_score",
 						"short": "Trending momentum score",
 						"type": "`$NUMBER`",
@@ -206,15 +229,26 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/apps/reddit/trend",
-								"parts": []any{
-									"apps",
-									"reddit",
-									"trend",
+								"segments": []any{
+									map[string]any{
+										"lit": "apps",
+									},
+									map[string]any{
+										"lit": "reddit",
+									},
+									map[string]any{
+										"lit": "trend",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"apps",
+									"reddit",
+									"trend",
 								},
 							},
 						},
@@ -226,6 +260,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (

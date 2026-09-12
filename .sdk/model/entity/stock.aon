@@ -18,6 +18,7 @@ main: kit: entity: stock: {
       type: "`$STRING`"
     }
     {
+      format: "float"
       name: "sentiment_score"
       req: false
       short: "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)"
@@ -39,9 +40,13 @@ main: kit: entity: stock: {
         {
           method: "GET"
           orig: "/apps/reddit"
-          parts: [
-            "apps"
-            "reddit"
+          segments: [
+            {
+              lit: "apps"
+            }
+            {
+              lit: "reddit"
+            }
           ]
           transform: {
             req: "`reqdata`"
