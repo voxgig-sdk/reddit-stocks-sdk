@@ -105,7 +105,7 @@ local results, err = client:Trend():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/reddit-stocks` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases) |
+| TypeScript | `@voxgig-sdk/reddit-stocks-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases) |
 | Python | `voxgig-sdk-reddit-stocks` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases) |
 | PHP | `voxgig-sdk/reddit-stocks` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/reddit-stocks-sdk/go` | `go get github.com/voxgig-sdk/reddit-stocks-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Trend():list()
 ### TypeScript
 
 ```ts
-import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks'
+import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks-sdk'
 
 const client = new RedditStocksSDK()
 

@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks'
+import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks-sdk'
 
 const client = new RedditStocksSDK()
 ```
@@ -513,7 +513,7 @@ reddit-stocks/
 Import the SDK from the package root:
 
 ```ts
-import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks'
+import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks-sdk'
 ```
 
 ### Entity state
