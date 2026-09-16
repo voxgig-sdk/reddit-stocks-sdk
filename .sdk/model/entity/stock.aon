@@ -38,6 +38,12 @@ main: kit: entity: stock: {
       name: "list"
       points: [
         {
+          contract: {
+            id: "GET /apps/reddit"
+            json: "{\"operationId\":\"getTopStocks\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":[{\"no_of_comments\":523,\"sentiment\":\"Bullish\",\"sentiment_score\":0.234,\"ticker\":\"TSLA\"},{\"no_of_comments\":412,\"sentiment\":\"Bearish\",\"sentiment_score\":-0.123,\"ticker\":\"AAPL\"}],\"schema\":{\"items\":{\"properties\":{\"no_of_comments\":{\"description\":\"Number of comments mentioning this stock\",\"example\":523,\"type\":\"integer\"},\"sentiment\":{\"description\":\"Overall sentiment for the stock\",\"enum\":[\"Bullish\",\"Bearish\",\"Neutral\"],\"example\":\"Bullish\",\"type\":\"string\"},\"sentiment_score\":{\"description\":\"Sentiment score ranging from -1 (most bearish) to 1 (most bullish)\",\"example\":0.234,\"format\":\"float\",\"type\":\"number\"},\"ticker\":{\"description\":\"Stock ticker symbol\",\"example\":\"TSLA\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with list of top stocks\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message\",\"example\":\"An error occurred\",\"type\":\"string\"},\"message\":{\"description\":\"Detailed error message\",\"example\":\"Unable to fetch stock data\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Internal server error\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/apps/reddit"
           segments: [

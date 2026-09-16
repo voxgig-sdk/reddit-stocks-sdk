@@ -1,12 +1,18 @@
 # RedditStocks SDK feature factory
 
 from redditstocks_sdk.feature.base_feature import RedditStocksBaseFeature
+from redditstocks_sdk.feature.ratelimit_feature import RedditStocksRatelimitFeature
+from redditstocks_sdk.feature.retry_feature import RedditStocksRetryFeature
 from redditstocks_sdk.feature.test_feature import RedditStocksTestFeature
+from redditstocks_sdk.feature.timeout_feature import RedditStocksTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: RedditStocksBaseFeature(),
+    "ratelimit": lambda: RedditStocksRatelimitFeature(),
+    "retry": lambda: RedditStocksRetryFeature(),
     "test": lambda: RedditStocksTestFeature(),
+    "timeout": lambda: RedditStocksTimeoutFeature(),
 }
 
 

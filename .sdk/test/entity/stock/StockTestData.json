@@ -2,19 +2,19 @@
   "existing": {
     "stock": {
       "STOCK00": {
-        "no_of_comments": "s28",
+        "no_of_comments": 40,
         "sentiment": "s29",
         "sentiment_score": 42,
         "ticker": "s2b"
       },
       "STOCK01": {
-        "no_of_comments": "s50",
+        "no_of_comments": 80,
         "sentiment": "s51",
         "sentiment_score": 82,
         "ticker": "s53"
       },
       "STOCK02": {
-        "no_of_comments": "s78",
+        "no_of_comments": 120,
         "sentiment": "s79",
         "sentiment_score": 122,
         "ticker": "s7b"
@@ -24,10 +24,100 @@
   "new": {
     "stock": {
       "stock_ref01": {
-        "no_of_comments": "sa0",
+        "no_of_comments": 160,
         "sentiment": "sa1",
         "sentiment_score": 162,
         "ticker": "sa3"
+      }
+    }
+  },
+  "requests": {
+    "GET /apps/reddit": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getTopStocks",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "no_of_comments": 523,
+                    "sentiment": "Bullish",
+                    "sentiment_score": 0.234,
+                    "ticker": "TSLA"
+                  },
+                  {
+                    "no_of_comments": 412,
+                    "sentiment": "Bearish",
+                    "sentiment_score": -0.123,
+                    "ticker": "AAPL"
+                  }
+                ],
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "no_of_comments": {
+                        "description": "Number of comments mentioning this stock",
+                        "example": 523,
+                        "type": "integer"
+                      },
+                      "sentiment": {
+                        "description": "Overall sentiment for the stock",
+                        "enum": [
+                          "Bullish",
+                          "Bearish",
+                          "Neutral"
+                        ],
+                        "example": "Bullish",
+                        "type": "string"
+                      },
+                      "sentiment_score": {
+                        "description": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
+                        "example": 0.234,
+                        "format": "float",
+                        "type": "number"
+                      },
+                      "ticker": {
+                        "description": "Stock ticker symbol",
+                        "example": "TSLA",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response with list of top stocks"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Error message",
+                      "example": "An error occurred",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Detailed error message",
+                      "example": "Unable to fetch stock data",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal server error"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

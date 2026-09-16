@@ -2,27 +2,27 @@
   "existing": {
     "stock_detail": {
       "STOCK_DETAIL00": {
-        "mentions": "s3c",
-        "no_of_comments": "s3d",
-        "rank": "s3e",
+        "mentions": 60,
+        "no_of_comments": 61,
+        "rank": 62,
         "sentiment": "s3f",
         "sentiment_score": 64,
         "ticker": "s41",
         "id": "STOCK_DETAIL00"
       },
       "STOCK_DETAIL01": {
-        "mentions": "s78",
-        "no_of_comments": "s79",
-        "rank": "s7a",
+        "mentions": 120,
+        "no_of_comments": 121,
+        "rank": 122,
         "sentiment": "s7b",
         "sentiment_score": 124,
         "ticker": "s7d",
         "id": "STOCK_DETAIL01"
       },
       "STOCK_DETAIL02": {
-        "mentions": "sb4",
-        "no_of_comments": "sb5",
-        "rank": "sb6",
+        "mentions": 180,
+        "no_of_comments": 181,
+        "rank": 182,
         "sentiment": "sb7",
         "sentiment_score": 184,
         "ticker": "sb9",
@@ -33,12 +33,123 @@
   "new": {
     "stock_detail": {
       "stock_detail_ref01": {
-        "mentions": "sf0",
-        "no_of_comments": "sf1",
-        "rank": "sf2",
+        "mentions": 240,
+        "no_of_comments": 241,
+        "rank": 242,
         "sentiment": "sf3",
         "sentiment_score": 244,
         "ticker": "sf5"
+      }
+    }
+  },
+  "requests": {
+    "GET /apps/reddit/{ticker}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getStockByTicker",
+        "parameters": [
+          {
+            "description": "Stock ticker symbol (e.g., TSLA, AAPL, GME)",
+            "in": "path",
+            "name": "ticker",
+            "required": true,
+            "schema": {
+              "example": "TSLA",
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "mentions": {
+                      "description": "Number of times mentioned",
+                      "example": 678,
+                      "type": "integer"
+                    },
+                    "no_of_comments": {
+                      "description": "Total number of comments",
+                      "example": 523,
+                      "type": "integer"
+                    },
+                    "rank": {
+                      "description": "Current rank among discussed stocks",
+                      "example": 3,
+                      "type": "integer"
+                    },
+                    "sentiment": {
+                      "description": "Overall sentiment",
+                      "example": "Bullish",
+                      "type": "string"
+                    },
+                    "sentiment_score": {
+                      "description": "Sentiment score",
+                      "example": 0.234,
+                      "format": "float",
+                      "type": "number"
+                    },
+                    "ticker": {
+                      "description": "Stock ticker symbol",
+                      "example": "TSLA",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with stock details"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Error message",
+                      "example": "An error occurred",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Detailed error message",
+                      "example": "Unable to fetch stock data",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Stock ticker not found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Error message",
+                      "example": "An error occurred",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Detailed error message",
+                      "example": "Unable to fetch stock data",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal server error"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

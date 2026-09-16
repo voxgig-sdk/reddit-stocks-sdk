@@ -62,6 +62,12 @@ main: kit: entity: stock_detail: {
               }
             ]
           }
+          contract: {
+            id: "GET /apps/reddit/{ticker}"
+            json: "{\"operationId\":\"getStockByTicker\",\"parameters\":[{\"description\":\"Stock ticker symbol (e.g., TSLA, AAPL, GME)\",\"in\":\"path\",\"name\":\"ticker\",\"required\":true,\"schema\":{\"example\":\"TSLA\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"mentions\":{\"description\":\"Number of times mentioned\",\"example\":678,\"type\":\"integer\"},\"no_of_comments\":{\"description\":\"Total number of comments\",\"example\":523,\"type\":\"integer\"},\"rank\":{\"description\":\"Current rank among discussed stocks\",\"example\":3,\"type\":\"integer\"},\"sentiment\":{\"description\":\"Overall sentiment\",\"example\":\"Bullish\",\"type\":\"string\"},\"sentiment_score\":{\"description\":\"Sentiment score\",\"example\":0.234,\"format\":\"float\",\"type\":\"number\"},\"ticker\":{\"description\":\"Stock ticker symbol\",\"example\":\"TSLA\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response with stock details\"},\"404\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message\",\"example\":\"An error occurred\",\"type\":\"string\"},\"message\":{\"description\":\"Detailed error message\",\"example\":\"Unable to fetch stock data\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Stock ticker not found\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message\",\"example\":\"An error occurred\",\"type\":\"string\"},\"message\":{\"description\":\"Detailed error message\",\"example\":\"Unable to fetch stock data\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Internal server error\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/apps/reddit/{ticker}"
           segments: [

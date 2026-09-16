@@ -45,6 +45,12 @@ main: kit: entity: trend: {
       name: "list"
       points: [
         {
+          contract: {
+            id: "GET /apps/reddit/trend"
+            json: "{\"operationId\":\"getTrendingStocks\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"no_of_comments\":{\"description\":\"Number of comments mentioning this stock\",\"example\":892,\"type\":\"integer\"},\"sentiment\":{\"description\":\"Overall sentiment for the stock\",\"enum\":[\"Bullish\",\"Bearish\",\"Neutral\"],\"example\":\"Bullish\",\"type\":\"string\"},\"sentiment_score\":{\"description\":\"Sentiment score\",\"example\":0.456,\"format\":\"float\",\"type\":\"number\"},\"ticker\":{\"description\":\"Stock ticker symbol\",\"example\":\"GME\",\"type\":\"string\"},\"trend_score\":{\"description\":\"Trending momentum score\",\"example\":8.5,\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with trending stocks\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message\",\"example\":\"An error occurred\",\"type\":\"string\"},\"message\":{\"description\":\"Detailed error message\",\"example\":\"Unable to fetch stock data\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Internal server error\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/apps/reddit/trend"
           segments: [
