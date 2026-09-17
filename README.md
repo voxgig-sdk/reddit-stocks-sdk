@@ -105,12 +105,12 @@ local results, err = client:Trend():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/reddit-stocks-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases) |
-| Python | `voxgig-sdk-reddit-stocks` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases) |
-| PHP | `voxgig-sdk/reddit-stocks` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases) |
+| TypeScript | `@voxgig-sdk/reddit-stocks-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/tags) |
+| Python | `voxgig-sdk-reddit-stocks` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/tags) |
+| PHP | `voxgig-sdk/reddit-stocks` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/reddit-stocks-sdk/go` | `go get github.com/voxgig-sdk/reddit-stocks-sdk/go@latest` |
-| Ruby | `voxgig-sdk-reddit-stocks` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases) |
-| Lua | `voxgig-sdk-reddit-stocks` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases) |
+| Ruby | `voxgig-sdk-reddit-stocks` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/tags) |
+| Lua | `voxgig-sdk-reddit-stocks` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/reddit-stocks-sdk/go-cli` | `go install github.com/voxgig-sdk/reddit-stocks-sdk/go-cli/cmd/reddit-stocks@latest` |
 | Go MCP server | `github.com/voxgig-sdk/reddit-stocks-sdk/go-mcp` | `go get github.com/voxgig-sdk/reddit-stocks-sdk/go-mcp@latest` |
 

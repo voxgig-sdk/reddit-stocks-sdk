@@ -127,15 +127,15 @@ class Config {
 
     entity: {
       
-      stock: {
-      },
-
-      stock_detail: {
-      },
-
-      trend: {
-      },
-
+        stock: {
+        },
+  
+        stock_detail: {
+        },
+  
+        trend: {
+        },
+  
     }
   }
 

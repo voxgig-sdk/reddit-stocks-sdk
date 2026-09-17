@@ -1,5 +1,5 @@
 # Entity Models
 
-@"stock.aon"
-@"stock_detail.aon"
-@"trend.aon"
+@"./stock.aon"
+@"./stock_detail.aon"
+@"./trend.aon"
