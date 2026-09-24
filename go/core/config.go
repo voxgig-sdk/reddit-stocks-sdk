@@ -93,24 +93,28 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "no_of_comments",
-						"short": "Number of comments mentioning this stock",
+						"title": "No Of Comments",
 						"type": "`$INTEGER`",
+						"short": "Number of comments mentioning this stock",
 					},
 					map[string]any{
 						"name": "sentiment",
-						"short": "Overall sentiment for the stock",
+						"title": "Sentiment",
 						"type": "`$STRING`",
+						"short": "Overall sentiment for the stock",
 					},
 					map[string]any{
-						"format": "float",
 						"name": "sentiment_score",
-						"short": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
+						"title": "Sentiment Score",
 						"type": "`$NUMBER`",
+						"short": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
+						"format": "float",
 					},
 					map[string]any{
 						"name": "ticker",
-						"short": "Stock ticker symbol",
+						"title": "Ticker",
 						"type": "`$STRING`",
+						"short": "Stock ticker symbol",
 					},
 				},
 				"name": "stock",
@@ -120,7 +124,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/apps/reddit",
@@ -132,15 +135,17 @@ func MakeConfig() map[string]any {
 										"lit": "reddit",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"apps",
 									"reddit",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -153,34 +158,40 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "mentions",
-						"short": "Number of times mentioned",
+						"title": "Mentions",
 						"type": "`$INTEGER`",
+						"short": "Number of times mentioned",
 					},
 					map[string]any{
 						"name": "no_of_comments",
-						"short": "Total number of comments",
+						"title": "No Of Comments",
 						"type": "`$INTEGER`",
+						"short": "Total number of comments",
 					},
 					map[string]any{
 						"name": "rank",
-						"short": "Current rank among discussed stocks",
+						"title": "Rank",
 						"type": "`$INTEGER`",
+						"short": "Current rank among discussed stocks",
 					},
 					map[string]any{
 						"name": "sentiment",
-						"short": "Overall sentiment",
+						"title": "Sentiment",
 						"type": "`$STRING`",
+						"short": "Overall sentiment",
 					},
 					map[string]any{
-						"format": "float",
 						"name": "sentiment_score",
-						"short": "Sentiment score",
+						"title": "Sentiment Score",
 						"type": "`$NUMBER`",
+						"short": "Sentiment score",
+						"format": "float",
 					},
 					map[string]any{
 						"name": "ticker",
-						"short": "Stock ticker symbol",
+						"title": "Ticker",
 						"type": "`$STRING`",
+						"short": "Stock ticker symbol",
 					},
 				},
 				"name": "stock_detail",
@@ -190,18 +201,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "TSLA",
-											"kind": "param",
-											"name": "ticker",
-											"orig": "ticker",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/apps/reddit/{ticker}",
@@ -216,60 +215,74 @@ func MakeConfig() map[string]any {
 										"var": "ticker",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"ticker",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"apps",
 									"reddit",
 									"{ticker}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "ticker",
+											"orig": "ticker",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "TSLA",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"ticker",
+									},
 								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"reddit",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"trend": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "no_of_comments",
-						"short": "Number of comments mentioning this stock",
+						"title": "No Of Comments",
 						"type": "`$INTEGER`",
+						"short": "Number of comments mentioning this stock",
 					},
 					map[string]any{
 						"name": "sentiment",
-						"short": "Overall sentiment for the stock",
+						"title": "Sentiment",
 						"type": "`$STRING`",
+						"short": "Overall sentiment for the stock",
 					},
 					map[string]any{
-						"format": "float",
 						"name": "sentiment_score",
-						"short": "Sentiment score",
+						"title": "Sentiment Score",
 						"type": "`$NUMBER`",
+						"short": "Sentiment score",
+						"format": "float",
 					},
 					map[string]any{
 						"name": "ticker",
-						"short": "Stock ticker symbol",
+						"title": "Ticker",
 						"type": "`$STRING`",
+						"short": "Stock ticker symbol",
 					},
 					map[string]any{
-						"format": "float",
 						"name": "trend_score",
-						"short": "Trending momentum score",
+						"title": "Trend Score",
 						"type": "`$NUMBER`",
+						"short": "Trending momentum score",
+						"format": "float",
 					},
 				},
 				"name": "trend",
@@ -279,7 +292,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/apps/reddit/trend",
@@ -294,16 +306,18 @@ func MakeConfig() map[string]any {
 										"lit": "trend",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"apps",
 									"reddit",
 									"trend",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},

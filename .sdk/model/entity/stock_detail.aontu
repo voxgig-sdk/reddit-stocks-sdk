@@ -1,0 +1,105 @@
+# Entity: stock_detail
+
+main: kit: entity: stock_detail: {
+
+  alias: field: {}
+
+  fields: {
+    mentions: {
+      h: "Mentions"
+      n: "mentions"
+      r: false
+      sh: "Number of times mentioned"
+      t: "`$INTEGER`"
+    }
+    no_of_comments: {
+      h: "No Of Comments"
+      n: "no_of_comments"
+      r: false
+      sh: "Total number of comments"
+      t: "`$INTEGER`"
+    }
+    rank: {
+      h: "Rank"
+      n: "rank"
+      r: false
+      sh: "Current rank among discussed stocks"
+      t: "`$INTEGER`"
+    }
+    sentiment: {
+      h: "Sentiment"
+      n: "sentiment"
+      r: false
+      sh: "Overall sentiment"
+      t: "`$STRING`"
+    }
+    sentiment_score: {
+      fo: "float"
+      h: "Sentiment Score"
+      n: "sentiment_score"
+      r: false
+      sh: "Sentiment score"
+      t: "`$NUMBER`"
+    }
+    ticker: {
+      h: "Ticker"
+      n: "ticker"
+      r: false
+      sh: "Stock ticker symbol"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "stock_detail"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /apps/reddit/{ticker}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "TSLA"
+                k: "param"
+                n: "ticker"
+                or: "ticker"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/apps/reddit/{ticker}"
+          q: {
+            exist: [
+              "ticker"
+            ]
+          }
+          s: [
+            {
+              lit: "apps"
+            }
+            {
+              lit: "reddit"
+            }
+            {
+              var: "ticker"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

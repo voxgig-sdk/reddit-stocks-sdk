@@ -19,7 +19,6 @@ import type {
   StockListMatch,
 } from '../RedditStocksTypes'
 
-// TODO: needs Entity superclass
 class StockEntity extends RedditStocksEntityBase<Stock> {
 
   constructor(client: RedditStocksSDK, entopts: any) {

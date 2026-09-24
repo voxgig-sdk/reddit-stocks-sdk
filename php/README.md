@@ -46,20 +46,6 @@ try {
 }
 ```
 
-### 3. Load a stockdetail
-
-StockDetail is nested under ticker, so provide the `ticker`.
-
-```php
-try {
-    // load() returns the ENTITY — call data_get() for the StockDetail record (throws on error).
-    $stockdetail = $client->StockDetail()->load(["ticker" => "example_ticker"]);
-    print_r($stockdetail->data_get());
-} catch (\Throwable $err) {
-    echo "Error: " . $err->getMessage();
-}
-```
-
 
 ## Error handling
 

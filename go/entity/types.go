@@ -1,7 +1,7 @@
 // Typed models for the RedditStocks SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,10 +14,6 @@ import (
 
 // Stock is the typed data model for the stock entity.
 type Stock struct {
-	NoOfComments *int `json:"no_of_comments,omitempty"`
-	Sentiment *string `json:"sentiment,omitempty"`
-	SentimentScore *float64 `json:"sentiment_score,omitempty"`
-	Ticker *string `json:"ticker,omitempty"`
 }
 
 // StockListMatch is the typed request payload for Stock.ListTyped.
@@ -30,12 +26,6 @@ type StockListMatch struct {
 
 // StockDetail is the typed data model for the stock_detail entity.
 type StockDetail struct {
-	Mentions *int `json:"mentions,omitempty"`
-	NoOfComments *int `json:"no_of_comments,omitempty"`
-	Rank *int `json:"rank,omitempty"`
-	Sentiment *string `json:"sentiment,omitempty"`
-	SentimentScore *float64 `json:"sentiment_score,omitempty"`
-	Ticker *string `json:"ticker,omitempty"`
 }
 
 // StockDetailLoadMatch is the typed request payload for StockDetail.LoadTyped.
@@ -45,11 +35,6 @@ type StockDetailLoadMatch struct {
 
 // Trend is the typed data model for the trend entity.
 type Trend struct {
-	NoOfComments *int `json:"no_of_comments,omitempty"`
-	Sentiment *string `json:"sentiment,omitempty"`
-	SentimentScore *float64 `json:"sentiment_score,omitempty"`
-	Ticker *string `json:"ticker,omitempty"`
-	TrendScore *float64 `json:"trend_score,omitempty"`
 }
 
 // TrendListMatch is the typed request payload for Trend.ListTyped.

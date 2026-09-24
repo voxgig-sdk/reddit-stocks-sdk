@@ -70,7 +70,7 @@ function stock_detail_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["stock_detail01", "stock_detail02", "stock_detail03", "reddit01", "reddit02", "reddit03"] as $k) {
+    foreach (["stock_detail01", "stock_detail02", "stock_detail03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

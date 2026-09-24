@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -116,24 +109,28 @@ class Config {
             "fields": [
                 {
                     "name": "no_of_comments",
-                    "short": "Number of comments mentioning this stock",
-                    "type": "`$INTEGER`"
+                    "title": "No Of Comments",
+                    "type": "`$INTEGER`",
+                    "short": "Number of comments mentioning this stock"
                 },
                 {
                     "name": "sentiment",
-                    "short": "Overall sentiment for the stock",
-                    "type": "`$STRING`"
+                    "title": "Sentiment",
+                    "type": "`$STRING`",
+                    "short": "Overall sentiment for the stock"
                 },
                 {
-                    "format": "float",
                     "name": "sentiment_score",
+                    "title": "Sentiment Score",
+                    "type": "`$NUMBER`",
                     "short": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
-                    "type": "`$NUMBER`"
+                    "format": "float"
                 },
                 {
                     "name": "ticker",
-                    "short": "Stock ticker symbol",
-                    "type": "`$STRING`"
+                    "title": "Ticker",
+                    "type": "`$STRING`",
+                    "short": "Stock ticker symbol"
                 }
             ],
             "name": "stock",
@@ -143,7 +140,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {},
                             "kind": "http",
                             "method": "GET",
                             "orig": "/apps/reddit",
@@ -155,15 +151,17 @@ class Config {
                                     "lit": "reddit"
                                 }
                             ],
-                            "select": {},
+                            "parts": [
+                                "apps",
+                                "reddit"
+                            ],
+                            "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "apps",
-                                "reddit"
-                            ]
+                            "args": {},
+                            "select": {}
                         }
                     ]
                 }
@@ -176,34 +174,40 @@ class Config {
             "fields": [
                 {
                     "name": "mentions",
-                    "short": "Number of times mentioned",
-                    "type": "`$INTEGER`"
+                    "title": "Mentions",
+                    "type": "`$INTEGER`",
+                    "short": "Number of times mentioned"
                 },
                 {
                     "name": "no_of_comments",
-                    "short": "Total number of comments",
-                    "type": "`$INTEGER`"
+                    "title": "No Of Comments",
+                    "type": "`$INTEGER`",
+                    "short": "Total number of comments"
                 },
                 {
                     "name": "rank",
-                    "short": "Current rank among discussed stocks",
-                    "type": "`$INTEGER`"
+                    "title": "Rank",
+                    "type": "`$INTEGER`",
+                    "short": "Current rank among discussed stocks"
                 },
                 {
                     "name": "sentiment",
-                    "short": "Overall sentiment",
-                    "type": "`$STRING`"
+                    "title": "Sentiment",
+                    "type": "`$STRING`",
+                    "short": "Overall sentiment"
                 },
                 {
-                    "format": "float",
                     "name": "sentiment_score",
+                    "title": "Sentiment Score",
+                    "type": "`$NUMBER`",
                     "short": "Sentiment score",
-                    "type": "`$NUMBER`"
+                    "format": "float"
                 },
                 {
                     "name": "ticker",
-                    "short": "Stock ticker symbol",
-                    "type": "`$STRING`"
+                    "title": "Ticker",
+                    "type": "`$STRING`",
+                    "short": "Stock ticker symbol"
                 }
             ],
             "name": "stock_detail",
@@ -213,18 +217,6 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "example": "TSLA",
-                                        "kind": "param",
-                                        "name": "ticker",
-                                        "orig": "ticker",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/apps/reddit/{ticker}",
@@ -239,60 +231,74 @@ class Config {
                                     "var": "ticker"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "ticker"
-                                ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
                             "parts": [
                                 "apps",
                                 "reddit",
                                 "{ticker}"
-                            ]
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "ticker",
+                                        "orig": "ticker",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true,
+                                        "example": "TSLA"
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "ticker"
+                                ]
+                            }
                         }
                     ]
                 }
             },
             "relations": {
-                "ancestors": [
-                    [
-                        "reddit"
-                    ]
-                ]
+                "ancestors": []
             }
         },
         "trend": {
             "fields": [
                 {
                     "name": "no_of_comments",
-                    "short": "Number of comments mentioning this stock",
-                    "type": "`$INTEGER`"
+                    "title": "No Of Comments",
+                    "type": "`$INTEGER`",
+                    "short": "Number of comments mentioning this stock"
                 },
                 {
                     "name": "sentiment",
-                    "short": "Overall sentiment for the stock",
-                    "type": "`$STRING`"
+                    "title": "Sentiment",
+                    "type": "`$STRING`",
+                    "short": "Overall sentiment for the stock"
                 },
                 {
-                    "format": "float",
                     "name": "sentiment_score",
+                    "title": "Sentiment Score",
+                    "type": "`$NUMBER`",
                     "short": "Sentiment score",
-                    "type": "`$NUMBER`"
+                    "format": "float"
                 },
                 {
                     "name": "ticker",
-                    "short": "Stock ticker symbol",
-                    "type": "`$STRING`"
+                    "title": "Ticker",
+                    "type": "`$STRING`",
+                    "short": "Stock ticker symbol"
                 },
                 {
-                    "format": "float",
                     "name": "trend_score",
+                    "title": "Trend Score",
+                    "type": "`$NUMBER`",
                     "short": "Trending momentum score",
-                    "type": "`$NUMBER`"
+                    "format": "float"
                 }
             ],
             "name": "trend",
@@ -302,7 +308,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {},
                             "kind": "http",
                             "method": "GET",
                             "orig": "/apps/reddit/trend",
@@ -317,16 +322,18 @@ class Config {
                                     "lit": "trend"
                                 }
                             ],
-                            "select": {},
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
                             "parts": [
                                 "apps",
                                 "reddit",
                                 "trend"
-                            ]
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {},
+                            "select": {}
                         }
                     ]
                 }

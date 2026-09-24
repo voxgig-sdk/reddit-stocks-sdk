@@ -101,24 +101,28 @@ module RedditStocksConfig
           "fields" => [
             {
               "name" => "no_of_comments",
-              "short" => "Number of comments mentioning this stock",
+              "title" => "No Of Comments",
               "type" => "`$INTEGER`",
+              "short" => "Number of comments mentioning this stock",
             },
             {
               "name" => "sentiment",
-              "short" => "Overall sentiment for the stock",
+              "title" => "Sentiment",
               "type" => "`$STRING`",
+              "short" => "Overall sentiment for the stock",
             },
             {
-              "format" => "float",
               "name" => "sentiment_score",
-              "short" => "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
+              "title" => "Sentiment Score",
               "type" => "`$NUMBER`",
+              "short" => "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
+              "format" => "float",
             },
             {
               "name" => "ticker",
-              "short" => "Stock ticker symbol",
+              "title" => "Ticker",
               "type" => "`$STRING`",
+              "short" => "Stock ticker symbol",
             },
           ],
           "name" => "stock",
@@ -128,7 +132,6 @@ module RedditStocksConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/apps/reddit",
@@ -140,15 +143,17 @@ module RedditStocksConfig
                       "lit" => "reddit",
                     },
                   ],
-                  "select" => {},
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "apps",
                     "reddit",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {},
+                  "select" => {},
                 },
               ],
             },
@@ -161,34 +166,40 @@ module RedditStocksConfig
           "fields" => [
             {
               "name" => "mentions",
-              "short" => "Number of times mentioned",
+              "title" => "Mentions",
               "type" => "`$INTEGER`",
+              "short" => "Number of times mentioned",
             },
             {
               "name" => "no_of_comments",
-              "short" => "Total number of comments",
+              "title" => "No Of Comments",
               "type" => "`$INTEGER`",
+              "short" => "Total number of comments",
             },
             {
               "name" => "rank",
-              "short" => "Current rank among discussed stocks",
+              "title" => "Rank",
               "type" => "`$INTEGER`",
+              "short" => "Current rank among discussed stocks",
             },
             {
               "name" => "sentiment",
-              "short" => "Overall sentiment",
+              "title" => "Sentiment",
               "type" => "`$STRING`",
+              "short" => "Overall sentiment",
             },
             {
-              "format" => "float",
               "name" => "sentiment_score",
-              "short" => "Sentiment score",
+              "title" => "Sentiment Score",
               "type" => "`$NUMBER`",
+              "short" => "Sentiment score",
+              "format" => "float",
             },
             {
               "name" => "ticker",
-              "short" => "Stock ticker symbol",
+              "title" => "Ticker",
               "type" => "`$STRING`",
+              "short" => "Stock ticker symbol",
             },
           ],
           "name" => "stock_detail",
@@ -198,18 +209,6 @@ module RedditStocksConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "example" => "TSLA",
-                        "kind" => "param",
-                        "name" => "ticker",
-                        "orig" => "ticker",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/apps/reddit/{ticker}",
@@ -224,60 +223,74 @@ module RedditStocksConfig
                       "var" => "ticker",
                     },
                   ],
-                  "select" => {
-                    "exist" => [
-                      "ticker",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "apps",
                     "reddit",
                     "{ticker}",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "ticker",
+                        "orig" => "ticker",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                        "example" => "TSLA",
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "exist" => [
+                      "ticker",
+                    ],
+                  },
                 },
               ],
             },
           },
           "relations" => {
-            "ancestors" => [
-              [
-                "reddit",
-              ],
-            ],
+            "ancestors" => [],
           },
         },
         "trend" => {
           "fields" => [
             {
               "name" => "no_of_comments",
-              "short" => "Number of comments mentioning this stock",
+              "title" => "No Of Comments",
               "type" => "`$INTEGER`",
+              "short" => "Number of comments mentioning this stock",
             },
             {
               "name" => "sentiment",
-              "short" => "Overall sentiment for the stock",
+              "title" => "Sentiment",
               "type" => "`$STRING`",
+              "short" => "Overall sentiment for the stock",
             },
             {
-              "format" => "float",
               "name" => "sentiment_score",
-              "short" => "Sentiment score",
+              "title" => "Sentiment Score",
               "type" => "`$NUMBER`",
+              "short" => "Sentiment score",
+              "format" => "float",
             },
             {
               "name" => "ticker",
-              "short" => "Stock ticker symbol",
+              "title" => "Ticker",
               "type" => "`$STRING`",
+              "short" => "Stock ticker symbol",
             },
             {
-              "format" => "float",
               "name" => "trend_score",
-              "short" => "Trending momentum score",
+              "title" => "Trend Score",
               "type" => "`$NUMBER`",
+              "short" => "Trending momentum score",
+              "format" => "float",
             },
           ],
           "name" => "trend",
@@ -287,7 +300,6 @@ module RedditStocksConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/apps/reddit/trend",
@@ -302,16 +314,18 @@ module RedditStocksConfig
                       "lit" => "trend",
                     },
                   ],
-                  "select" => {},
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                   "parts" => [
                     "apps",
                     "reddit",
                     "trend",
                   ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {},
+                  "select" => {},
                 },
               ],
             },

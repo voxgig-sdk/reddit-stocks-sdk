@@ -14,7 +14,7 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `ratelimit`, `retry`, `test`, `timeout` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
@@ -128,12 +128,6 @@ const stocks = await client.Stock().list()
 for (const stock of stocks) {
   console.log(stock)
 }
-
-// Load a specific stockdetail (returns a StockDetail)
-const stockdetail = await client.StockDetail().load({
-  ticker: 'example_ticker',
-})
-console.log(stockdetail)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -222,15 +216,6 @@ if err != nil {
     panic(err)
 }
 fmt.Println(stocks)
-
-// Load a specific stockdetail
-stockDetail, err := client.StockDetail(nil).Load(
-    map[string]any{"ticker": "example_ticker"}, nil,
-)
-if err != nil {
-    panic(err)
-}
-fmt.Println(stockDetail)
 ```
 
 ### Ruby

@@ -1,0 +1,29 @@
+# Generated from the API definition and overwritten on every build: do not
+# edit this file. Put customizations in the guide entry file, which includes
+# this one and overrides its defaults:
+#   guide.aontu
+
+guide: {
+  metrics: count: entity: 3
+  metrics: count: path: 3
+  metrics: count: method: 3
+
+  entity: stock: {
+    path: "/apps/reddit": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: stock_detail: {
+    path: "/apps/reddit/{ticker}": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: trend: {
+    path: "/apps/reddit/trend": {
+      op: list: method: *GET
+    }
+  }
+
+}

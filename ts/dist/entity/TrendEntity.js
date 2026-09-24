@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrendEntity = void 0;
 const RedditStocksEntityBase_1 = require("../RedditStocksEntityBase");
-// TODO: needs Entity superclass
 class TrendEntity extends RedditStocksEntityBase_1.RedditStocksEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

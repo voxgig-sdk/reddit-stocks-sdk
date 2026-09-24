@@ -72,7 +72,7 @@ function stock_detail_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "stock_detail01", "stock_detail02", "stock_detail03", "reddit01", "reddit02", "reddit03" },
+    { "stock_detail01", "stock_detail02", "stock_detail03" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",

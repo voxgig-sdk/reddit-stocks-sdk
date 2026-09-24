@@ -44,20 +44,6 @@ rescue => err
 end
 ```
 
-### 3. Load a stockdetail
-
-StockDetail is nested under ticker, so provide the `ticker`.
-
-```ruby
-begin
-  # load returns the ENTITY — call data_get for the StockDetail record (raises on error).
-  stockdetail = client.StockDetail.load({ "ticker" => "example_ticker" })
-  puts stockdetail
-rescue => err
-  warn "load failed: #{err}"
-end
-```
-
 
 ## Error handling
 

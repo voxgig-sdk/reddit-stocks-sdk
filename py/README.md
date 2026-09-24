@@ -50,19 +50,6 @@ except Exception as err:
     print(f"list failed: {err}")
 ```
 
-### 3. Load a stockdetail
-
-StockDetail is nested under ticker, so provide the `ticker`.
-`load()` returns the ENTITY — call data_get() for the record — and raises on error.
-
-```python
-try:
-    stockdetail = client.StockDetail().load({"ticker": "example_ticker"})
-    print(stockdetail)
-except Exception as err:
-    print(f"load failed: {err}")
-```
-
 
 ## Error handling
 

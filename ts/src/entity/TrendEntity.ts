@@ -19,7 +19,6 @@ import type {
   TrendListMatch,
 } from '../RedditStocksTypes'
 
-// TODO: needs Entity superclass
 class TrendEntity extends RedditStocksEntityBase<Trend> {
 
   constructor(client: RedditStocksSDK, entopts: any) {

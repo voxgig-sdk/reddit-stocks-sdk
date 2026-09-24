@@ -1,0 +1,71 @@
+# Entity: stock
+
+main: kit: entity: stock: {
+
+  alias: field: {}
+
+  fields: {
+    no_of_comments: {
+      h: "No Of Comments"
+      n: "no_of_comments"
+      r: false
+      sh: "Number of comments mentioning this stock"
+      t: "`$INTEGER`"
+    }
+    sentiment: {
+      h: "Sentiment"
+      n: "sentiment"
+      r: false
+      sh: "Overall sentiment for the stock"
+      t: "`$STRING`"
+    }
+    sentiment_score: {
+      fo: "float"
+      h: "Sentiment Score"
+      n: "sentiment_score"
+      r: false
+      sh: "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)"
+      t: "`$NUMBER`"
+    }
+    ticker: {
+      h: "Ticker"
+      n: "ticker"
+      r: false
+      sh: "Stock ticker symbol"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "stock"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /apps/reddit"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/apps/reddit"
+          s: [
+            {
+              lit: "apps"
+            }
+            {
+              lit: "reddit"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

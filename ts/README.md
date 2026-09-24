@@ -47,22 +47,6 @@ for (const stock of stocks) {
 }
 ```
 
-### 3. Load a stockdetail
-
-StockDetail is nested under ticker, so provide the `ticker`.
-`load()` returns the entity directly and throws on failure:
-
-```ts
-try {
-  const stockdetail = await client.StockDetail().load({
-    ticker: 'example_ticker',
-  })
-  console.log(stockdetail)
-} catch (err) {
-  console.error('load failed:', err)
-}
-```
-
 
 ## Error handling
 
