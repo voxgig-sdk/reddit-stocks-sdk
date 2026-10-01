@@ -4,7 +4,7 @@
 
 The PHP SDK for the RedditStocks API — an entity-oriented client using PHP conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Stock()` — with named operations (`list`/`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->StockDetail()` — with named operations (`list`/`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -12,9 +12,14 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`):
+GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases)), or
+from a clone as a Composer path repository:
 
-- Releases: [https://github.com/voxgig-sdk/reddit-stocks-sdk/releases](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/reddit-stocks-sdk
+composer config repositories.reddit-stocks-sdk path ./reddit-stocks-sdk/php
+composer require voxgig-sdk/reddit-stocks-sdk:@dev
+```
 
 
 ## Tutorial: your first API call
@@ -31,16 +36,28 @@ require_once 'redditstocks_sdk.php';
 $client = new RedditStocksSDK();
 ```
 
-### 2. List stock records
+### 2. List stockdetail records
 
 ```php
 try {
     // list() returns entity instances; data_get() reads each record.
-    $stocks = $client->Stock()->list();
-    foreach ($stocks as $record) {
+    $stockdetails = $client->StockDetail()->list();
+    foreach ($stockdetails as $record) {
         $item = $record->data_get();
-        echo $item["no_of_comments"] . "\n";
+        echo $item["mentions"] . "\n";
     }
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
+### 3. Load a stockdetail
+
+```php
+try {
+    // load() returns the ENTITY — call data_get() for the StockDetail record (throws on error).
+    $stockdetail = $client->StockDetail()->load(["ticker" => "example_ticker"]);
+    print_r($stockdetail->data_get());
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -54,7 +71,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $trends = $client->Trend()->list();
+    $stockdetails = $client->StockDetail()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -128,8 +145,8 @@ $client = RedditStocksSDK::test();
 
 // list() returns entity instances (throws on error);
 // call data_get() for the mock record.
-$trend = $client->Trend()->list();
-print_r(array_map(fn($item) => $item->data_get(), $trend));
+$stockdetail = $client->StockDetail()->list();
+print_r(array_map(fn($item) => $item->data_get(), $stockdetail));
 ```
 
 ### Use a custom fetch function
@@ -208,7 +225,6 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `get_utility` | `(): Utility` | Copy of the SDK utility object. |
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
-| `Stock` | `($data): StockEntity` | Create a Stock entity instance. |
 | `StockDetail` | `($data): StockDetailEntity` | Create a StockDetail entity instance. |
 | `Trend` | `($data): TrendEntity` | Create a Trend entity instance. |
 
@@ -247,19 +263,6 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 ### Entities
 
-#### Stock
-
-| Field | Description |
-| --- | --- |
-| `no_of_comments` | Number of comments mentioning this stock |
-| `sentiment` | Overall sentiment for the stock |
-| `sentiment_score` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | Stock ticker symbol |
-
-Operations: List.
-
-API path: `/apps/reddit`
-
 #### StockDetail
 
 | Field | Description |
@@ -271,9 +274,9 @@ API path: `/apps/reddit`
 | `sentiment_score` | Sentiment score |
 | `ticker` | Stock ticker symbol |
 
-Operations: Load.
+Operations: List, Load.
 
-API path: `/apps/reddit/{ticker}`
+API path: `/apps/reddit`
 
 #### Trend
 
@@ -294,33 +297,6 @@ API path: `/apps/reddit/trend`
 ## Entities
 
 
-### Stock
-
-Create an instance: `$stock = $client->Stock();`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `no_of_comments` | `int` | Number of comments mentioning this stock |
-| `sentiment` | `string` | Overall sentiment for the stock |
-| `sentiment_score` | `float` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `string` | Stock ticker symbol |
-
-#### Example: List
-
-```php
-// list() returns an array of Stock records (throws on error).
-$stocks = $client->Stock()->list();
-```
-
-
 ### StockDetail
 
 Create an instance: `$stock_detail = $client->StockDetail();`
@@ -329,6 +305,7 @@ Create an instance: `$stock_detail = $client->StockDetail();`
 
 | Method | Description |
 | --- | --- |
+| `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -347,6 +324,13 @@ Create an instance: `$stock_detail = $client->StockDetail();`
 ```php
 // load() returns the ENTITY — call data_get() for the StockDetail record (throws on error).
 $stock_detail = $client->StockDetail()->load(["ticker" => "ticker"]);
+```
+
+#### Example: List
+
+```php
+// list() returns an array of StockDetail records (throws on error).
+$stock_details = $client->StockDetail()->list();
 ```
 
 
@@ -539,11 +523,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$trend = $client->Trend();
-$trend->list();
+$stockdetail = $client->StockDetail();
+$stockdetail->list();
 
-// $trend->data_get() now returns the trend data from the last list
-// $trend->match_get() returns the last match criteria
+// $stockdetail->data_get() now returns the stockdetail data from the last list
+// $stockdetail->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

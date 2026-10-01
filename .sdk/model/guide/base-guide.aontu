@@ -4,17 +4,14 @@
 #   guide.aontu
 
 guide: {
-  metrics: count: entity: 3
+  metrics: count: entity: 2
   metrics: count: path: 3
   metrics: count: method: 3
 
-  entity: stock: {
+  entity: stock_detail: {
     path: "/apps/reddit": {
       op: list: method: *GET
     }
-  }
-
-  entity: stock_detail: {
     path: "/apps/reddit/{ticker}": {
       op: load: method: *GET
     }

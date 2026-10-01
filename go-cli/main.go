@@ -20,7 +20,7 @@ import (
 const prompt = "reddit-stocks"
 
 // entitiesHelp is the space-separated entity list shown by /help.
-const entitiesHelp = "stock stock_detail trend"
+const entitiesHelp = "stock_detail trend"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

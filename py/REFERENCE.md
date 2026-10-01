@@ -41,10 +41,6 @@ client = RedditStocksSDK.test()
 
 ### Instance Methods
 
-#### `Stock(data=None)`
-
-Create a new `StockEntity` instance. Pass `None` for no initial data.
-
 #### `StockDetail(data=None)`
 
 Create a new `StockDetailEntity` instance. Pass `None` for no initial data.
@@ -85,62 +81,6 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 
 ---
 
-## StockEntity
-
-```python
-stock = client.Stock()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `no_of_comments` | `int` | No | Number of comments mentioning this stock |
-| `sentiment` | `str` | No | Overall sentiment for the stock |
-| `sentiment_score` | `float` | No | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `str` | No | Stock ticker symbol |
-
-### Operations
-
-#### `list(reqmatch=None, ctrl=None) -> list`
-
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
-
-```python
-results = client.Stock().list()
-for stock in results:
-    print(stock)
-```
-
-### Common Methods
-
-#### `data_get() -> dict`
-
-Get the entity data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> dict`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `StockEntity` instance with the same options.
-
-#### `get_name() -> str`
-
-Return the entity name.
-
-
----
-
 ## StockDetailEntity
 
 ```python
@@ -159,6 +99,16 @@ stock_detail = client.StockDetail()
 | `ticker` | `str` | No | Stock ticker symbol |
 
 ### Operations
+
+#### `list(reqmatch=None, ctrl=None) -> list`
+
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+
+```python
+results = client.StockDetail().list()
+for stock_detail in results:
+    print(stock_detail)
+```
 
 #### `load(reqmatch, ctrl=None) -> dict`
 

@@ -2,7 +2,6 @@
 // RedditStocks Ts SDK
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SDK = exports.RedditStocksSDK = exports.RedditStocksEntityBase = exports.BaseFeature = exports.config = exports.stdutil = void 0;
-const StockEntity_1 = require("./entity/StockEntity");
 const StockDetailEntity_1 = require("./entity/StockDetailEntity");
 const TrendEntity_1 = require("./entity/TrendEntity");
 const node_util_1 = require("node:util");
@@ -30,6 +29,11 @@ class RedditStocksSDK {
             shared: new WeakMap()
         });
         this._options = this._utility.makeOptions(this._rootctx);
+        for (const key of ['_options', '_rootctx', '_features']) {
+            Object.defineProperty(this, key, {
+                value: this[key], enumerable: false, writable: true, configurable: true
+            });
+        }
         const struct = this._utility.struct;
         const getpath = struct.getpath;
         if (true === getpath(this._options.feature, 'test.active')) {
@@ -146,7 +150,7 @@ class RedditStocksSDK {
                 return { ok: false, err: ctx.error('direct_no_response', 'response: undefined') };
             }
             else if (fetched instanceof Error) {
-                return { ok: false, err: fetched };
+                return { ok: false, err: utility.clean(ctx, fetched) };
             }
             const status = fetched.status;
             // No body responses (204 No Content, 304 Not Modified) and explicit
@@ -176,7 +180,7 @@ class RedditStocksSDK {
             };
         }
         catch (err) {
-            return { ok: false, err };
+            return { ok: false, err: utility.clean(ctx, err) };
         }
     }
     async graphql(query, variables, ctrl) {
@@ -211,13 +215,6 @@ class RedditStocksSDK {
             return { ok: false, status: res.status, headers: res.headers, err, data: res.data };
         }
         return res;
-    }
-    // Entity access: `client.Stock().list()` / `client.Stock().load({ id })`.
-    // The argument is the entity OPTIONS object (passed to the entity
-    // constructor as entopts), not initial entity data.
-    Stock(entopts) {
-        const self = this;
-        return new StockEntity_1.StockEntity(self, entopts);
     }
     // Entity access: `client.StockDetail().list()` / `client.StockDetail().load({ id })`.
     // The argument is the entity OPTIONS object (passed to the entity

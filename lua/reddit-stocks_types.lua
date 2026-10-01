@@ -6,18 +6,6 @@
 -- @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 -- edit by hand.
 
----@class Stock
----@field no_of_comments? number
----@field sentiment? string
----@field sentiment_score? number
----@field ticker? string
-
----@class StockListMatch
----@field no_of_comments? number
----@field sentiment? string
----@field sentiment_score? number
----@field ticker? string
-
 ---@class StockDetail
 ---@field mentions? number
 ---@field no_of_comments? number
@@ -28,6 +16,14 @@
 
 ---@class StockDetailLoadMatch
 ---@field ticker string
+
+---@class StockDetailListMatch
+---@field mentions? number
+---@field no_of_comments? number
+---@field rank? number
+---@field sentiment? string
+---@field sentiment_score? number
+---@field ticker? string
 
 ---@class Trend
 ---@field no_of_comments? number

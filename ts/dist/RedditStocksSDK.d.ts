@@ -1,4 +1,3 @@
-import { StockEntity } from './entity/StockEntity';
 import { StockDetailEntity } from './entity/StockDetailEntity';
 import { TrendEntity } from './entity/TrendEntity';
 export type * from './RedditStocksTypes';
@@ -21,32 +20,31 @@ declare class RedditStocksSDK {
     prepare(fetchargs?: any): Promise<any>;
     direct(fetchargs?: any): Promise<Error | {
         ok: boolean;
-        status: number;
-        headers: any;
-        data: any;
-        err?: undefined;
-    } | {
-        ok: boolean;
         err: any;
         status?: undefined;
         headers?: undefined;
         data?: undefined;
+    } | {
+        ok: boolean;
+        status: number;
+        headers: any;
+        data: any;
+        err?: undefined;
     }>;
     _rawRequest(fetchargs?: any): Promise<Error | {
         ok: boolean;
-        status: number;
-        headers: any;
-        data: any;
-        err?: undefined;
-    } | {
-        ok: boolean;
         err: any;
         status?: undefined;
         headers?: undefined;
         data?: undefined;
+    } | {
+        ok: boolean;
+        status: number;
+        headers: any;
+        data: any;
+        err?: undefined;
     }>;
     graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
-    Stock(entopts?: Record<string, any>): StockEntity;
     StockDetail(entopts?: Record<string, any>): StockDetailEntity;
     Trend(entopts?: Record<string, any>): TrendEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): RedditStocksSDK;

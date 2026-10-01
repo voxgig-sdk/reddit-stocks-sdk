@@ -5,7 +5,7 @@
 The TypeScript SDK for the RedditStocks API — a type-safe, entity-oriented client with full async/await support.
 
 The API is exposed as capitalised, semantic **Entities** — e.g.
-`client.Stock()` — each with a small set of operations (`list`, `load`)
+`client.StockDetail()` — each with a small set of operations (`list`, `load`)
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
@@ -15,9 +15,13 @@ predictable and low-friction for both humans and AI agents.
 
 ## Install
 This package is not yet published to npm. Install it from the GitHub
-release tag (`ts/vX.Y.Z`):
+release tag (`ts/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases)), or from a
+clone, which carries the compiled `dist/`:
 
-- Releases: [https://github.com/voxgig-sdk/reddit-stocks-sdk/releases](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/reddit-stocks-sdk
+npm install ./reddit-stocks-sdk/ts
+```
 
 
 ## Tutorial: your first API call
@@ -33,17 +37,30 @@ import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks-sdk'
 const client = new RedditStocksSDK()
 ```
 
-### 2. List stock records
+### 2. List stockdetail records
 
-`list()` resolves to an array of Stock ENTITIES — every operation
+`list()` resolves to an array of StockDetail ENTITIES — every operation
 resolves to entities, not raw records. Iterate them directly, and call
 `.data()` on one for the record it holds:
 
 ```ts
-const stocks = await client.Stock().list()
+const stockdetails = await client.StockDetail().list()
 
-for (const stock of stocks) {
-  console.log(stock)
+for (const stockdetail of stockdetails) {
+  console.log(stockdetail)
+}
+```
+
+### 3. Load a stockdetail
+
+`load()` returns the entity directly and throws on failure:
+
+```ts
+try {
+  const stockdetail = await client.StockDetail().load({ ticker: 'example_ticker' })
+  console.log(stockdetail)
+} catch (err) {
+  console.error('load failed:', err)
 }
 ```
 
@@ -54,8 +71,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const trends = await client.Trend().list()
-  console.log(trends)
+  const stockdetails = await client.StockDetail().list()
+  console.log(stockdetails)
 } catch (err) {
   console.error('list failed:', err)
 }
@@ -121,10 +138,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = RedditStocksSDK.test()
 
-const trend = await client.Trend().list()
-// trend is the entity, populated with mock response data
-// — call trend.data() for the record itself
-console.log(trend)
+const stockdetail = await client.StockDetail().list()
+// stockdetail is the entity, populated with mock response data
+// — call stockdetail.data() for the record itself
+console.log(stockdetail)
 ```
 
 You can also use the instance method:
@@ -139,7 +156,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Trend()
+const entity = client.StockDetail()
 
 // First call runs the operation and stores its result
 await entity.list()
@@ -222,7 +239,6 @@ new RedditStocksSDK(options?: {
 | `utility()` | `Utility` | Deep copy of the SDK utility object. |
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
-| `Stock(data?)` | `StockEntity` | Create a Stock entity instance. |
 | `StockDetail(data?)` | `StockDetailEntity` | Create a StockDetail entity instance. |
 | `Trend(data?)` | `TrendEntity` | Create a Trend entity instance. |
 | `tester(testopts?, sdkopts?)` | `RedditStocksSDK` | Create a test-mode client instance. |
@@ -292,19 +308,6 @@ The `prepare()` method returns:
 
 ### Entities
 
-#### Stock
-
-| Field | Description |
-| --- | --- |
-| `no_of_comments` | Number of comments mentioning this stock |
-| `sentiment` | Overall sentiment for the stock |
-| `sentiment_score` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | Stock ticker symbol |
-
-Operations: list.
-
-API path: `/apps/reddit`
-
 #### StockDetail
 
 | Field | Description |
@@ -316,9 +319,9 @@ API path: `/apps/reddit`
 | `sentiment_score` | Sentiment score |
 | `ticker` | Stock ticker symbol |
 
-Operations: load.
+Operations: list, load.
 
-API path: `/apps/reddit/{ticker}`
+API path: `/apps/reddit`
 
 #### Trend
 
@@ -339,32 +342,6 @@ API path: `/apps/reddit/trend`
 ## Entities
 
 
-### Stock
-
-Create an instance: `const stock = client.Stock()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `no_of_comments` | `number` | Number of comments mentioning this stock |
-| `sentiment` | `string` | Overall sentiment for the stock |
-| `sentiment_score` | `number` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `string` | Stock ticker symbol |
-
-#### Example: List
-
-```ts
-const stocks = await client.Stock().list()
-```
-
-
 ### StockDetail
 
 Create an instance: `const stock_detail = client.StockDetail()`
@@ -373,6 +350,7 @@ Create an instance: `const stock_detail = client.StockDetail()`
 
 | Method | Description |
 | --- | --- |
+| `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -390,6 +368,12 @@ Create an instance: `const stock_detail = client.StockDetail()`
 
 ```ts
 const stock_detail = await client.StockDetail().load({ ticker: 'ticker' })
+```
+
+#### Example: List
+
+```ts
+const stock_details = await client.StockDetail().list()
 ```
 
 
@@ -573,11 +557,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const trend = client.Trend()
-await trend.list()
+const stockdetail = client.StockDetail()
+await stockdetail.list()
 
-// trend.data() now returns the trend data from the last `list`
-// trend.match() returns the last match criteria
+// stockdetail.data() now returns the stockdetail data from the last `list`
+// stockdetail.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

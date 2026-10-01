@@ -41,10 +41,6 @@ $client = RedditStocksSDK::test();
 
 ### Instance Methods
 
-#### `Stock($data = null)`
-
-Create a new `StockEntity` instance. Pass `null` for no initial data.
-
 #### `StockDetail($data = null)`
 
 Create a new `StockDetailEntity` instance. Pass `null` for no initial data.
@@ -90,61 +86,6 @@ Prepare a fetch definition without sending the request. Returns the
 
 ---
 
-## StockEntity
-
-```php
-$stock = $client->Stock();
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `no_of_comments` | `int` | No | Number of comments mentioning this stock |
-| `sentiment` | `string` | No | Overall sentiment for the stock |
-| `sentiment_score` | `float` | No | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `string` | No | Stock ticker symbol |
-
-### Operations
-
-#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
-
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
-
-```php
-$results = $client->Stock()->list();
-```
-
-### Common Methods
-
-#### `data_get(): array`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set($data): void`
-
-Set the entity data.
-
-#### `match_get(): array`
-
-Get the entity match criteria.
-
-#### `match_set($match): void`
-
-Set the entity match criteria.
-
-#### `make(): StockEntity`
-
-Create a new `StockEntity` instance with the same client and
-options.
-
-#### `get_name(): string`
-
-Return the entity name.
-
-
----
-
 ## StockDetailEntity
 
 ```php
@@ -163,6 +104,14 @@ $stock_detail = $client->StockDetail();
 | `ticker` | `string` | No | Stock ticker symbol |
 
 ### Operations
+
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
+
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+
+```php
+$results = $client->StockDetail()->list();
+```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 

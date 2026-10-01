@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 RedditStocksUtility::setRegistrar(function (RedditStocksUtility $u): void {
     $u->clean = [RedditStocksClean::class, 'call'];
+    $u->clean_add = [RedditStocksClean::class, 'add'];
+    $u->clean_explain = [RedditStocksDone::class, 'clean_explain'];
     $u->done = [RedditStocksDone::class, 'call'];
     $u->make_error = [RedditStocksMakeError::class, 'call'];
     $u->feature_add = [RedditStocksFeatureAdd::class, 'call'];

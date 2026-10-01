@@ -16,20 +16,6 @@ from __future__ import annotations
 from typing import TypedDict, Any
 
 
-class Stock(TypedDict, total=False):
-    no_of_comments: int
-    sentiment: str
-    sentiment_score: float
-    ticker: str
-
-
-class StockListMatch(TypedDict, total=False):
-    no_of_comments: int
-    sentiment: str
-    sentiment_score: float
-    ticker: str
-
-
 class StockDetail(TypedDict, total=False):
     mentions: int
     no_of_comments: int
@@ -40,6 +26,15 @@ class StockDetail(TypedDict, total=False):
 
 
 class StockDetailLoadMatch(TypedDict):
+    ticker: str
+
+
+class StockDetailListMatch(TypedDict, total=False):
+    mentions: int
+    no_of_comments: int
+    rank: int
+    sentiment: str
+    sentiment_score: float
     ticker: str
 
 

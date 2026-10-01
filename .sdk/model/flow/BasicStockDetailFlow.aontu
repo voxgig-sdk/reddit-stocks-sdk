@@ -7,6 +7,18 @@ main: kit: flow: BasicStockDetailFlow:
   name: "BasicStockDetailFlow",
   step: [
     {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "stock_detail_ref01"
+          }
+        }
+      ]
+    }
+
+    {
       i: {
         ref: "stock_detail_ref01",
         srcdatavar: "stock_detail_ref01_data",

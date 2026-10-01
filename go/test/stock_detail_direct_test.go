@@ -11,6 +11,72 @@ import (
 )
 
 func TestStockDetailDirect(t *testing.T) {
+	t.Run("direct-list-stock_detail", func(t *testing.T) {
+		setup := stock_detailDirectSetup([]any{
+			map[string]any{"id": "direct01"},
+			map[string]any{"id": "direct02"},
+		})
+		_mode := "unit"
+		if setup.live {
+			_mode = "live"
+		}
+		if _shouldSkip, _reason := isControlSkipped("direct", "direct-list-stock_detail", _mode); _shouldSkip {
+			if _reason == "" {
+				_reason = "skipped via sdk-test-control.json"
+			}
+			t.Skip(_reason)
+			return
+		}
+		client := setup.client
+
+
+		result, err := client.Direct(map[string]any{
+			"path":   "apps/reddit",
+			"method": "GET",
+			"params": map[string]any{},
+		})
+		if setup.live {
+			// Live-mode leniency is a model decision
+			// (main.kit.test.live.strict): synthetic IDs 4xx constantly
+			// against an arbitrary public API, so the default SKIPS here.
+			// A project that owns its test server sets strict and FAILS.
+			if err != nil {
+				t.Fatalf("list call failed (likely synthetic IDs against live API): %v", err)
+			}
+			if result["ok"] != true {
+				t.Fatalf("list call not ok (likely synthetic IDs against live API): %v", result)
+			}
+			status := core.ToInt(result["status"])
+			if status < 200 || status >= 300 {
+				t.Fatalf("expected 2xx status, got %v", result["status"])
+			}
+		} else {
+			if err != nil {
+				t.Fatalf("direct failed: %v", err)
+			}
+			if result["ok"] != true {
+				t.Fatalf("expected ok to be true, got %v", result["ok"])
+			}
+			if core.ToInt(result["status"]) != 200 {
+				t.Fatalf("expected status 200, got %v", result["status"])
+			}
+		}
+
+		if !setup.live {
+			if dataList, ok := result["data"].([]any); ok {
+				if len(dataList) != 2 {
+					t.Fatalf("expected 2 items, got %d", len(dataList))
+				}
+			} else {
+				t.Fatalf("expected data to be an array, got %T", result["data"])
+			}
+
+			if len(*setup.calls) != 1 {
+				t.Fatalf("expected 1 call, got %d", len(*setup.calls))
+			}
+		}
+	})
+
 	t.Run("direct-load-stock_detail", func(t *testing.T) {
 		setup := stock_detailDirectSetup(map[string]any{"id": "direct01"})
 		_mode := "unit"

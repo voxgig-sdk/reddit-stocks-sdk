@@ -40,10 +40,6 @@ local client = sdk.test()
 
 ### Instance Methods
 
-#### `Stock(data)`
-
-Create a new `Stock` entity instance. Pass `nil` for no initial data.
-
 #### `StockDetail(data)`
 
 Create a new `StockDetail` entity instance. Pass `nil` for no initial data.
@@ -88,61 +84,6 @@ same parameters as `direct()`.
 
 ---
 
-## StockEntity
-
-```lua
-local stock = client:Stock(nil)
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `no_of_comments` | `number` | No | Number of comments mentioning this stock |
-| `sentiment` | `string` | No | Overall sentiment for the stock |
-| `sentiment_score` | `number` | No | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `string` | No | Stock ticker symbol |
-
-### Operations
-
-#### `list(reqmatch, ctrl) -> any, err`
-
-List entities matching the given criteria. Returns an array.
-
-```lua
-local results, err = client:Stock():list()
-```
-
-### Common Methods
-
-#### `data_get() -> table`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> table`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `StockEntity` instance with the same client and
-options.
-
-#### `get_name() -> string`
-
-Return the entity name.
-
-
----
-
 ## StockDetailEntity
 
 ```lua
@@ -161,6 +102,14 @@ local stock_detail = client:StockDetail(nil)
 | `ticker` | `string` | No | Stock ticker symbol |
 
 ### Operations
+
+#### `list(reqmatch, ctrl) -> any, err`
+
+List entities matching the given criteria. Returns an array.
+
+```lua
+local results, err = client:StockDetail():list()
+```
 
 #### `load(reqmatch, ctrl) -> any, err`
 

@@ -95,6 +95,17 @@ class RedditStocksSDK
     @_rootctx
   end
 
+  # The options and the root context both hold the credential, so the
+  # client's printed form is its name alone; `options_map` is the
+  # documented way to read them back.
+  def to_s
+    "RedditStocks " + VoxgigStruct.jsonify({ "name" => "RedditStocks" })
+  end
+
+  def inspect
+    to_s
+  end
+
   def prepare(fetchargs = {})
     utility = @_utility
     fetchargs ||= {}
@@ -202,7 +213,7 @@ class RedditStocksSDK
     url = fetchdef["url"] || ""
     fetched, fetch_err = utility.fetcher.call(ctx, url, fetchdef)
 
-    return { "ok" => false, "err" => fetch_err } if fetch_err
+    return { "ok" => false, "err" => utility.clean.call(ctx, fetch_err) } if fetch_err
 
     if fetched.nil?
       return {
@@ -286,13 +297,6 @@ class RedditStocksSDK
     end
 
     res
-  end
-
-
-  # Canonical facade: client.Stock.list / client.Stock.load({ "id" => ... })
-  def Stock(data = nil)
-    require_relative 'entity/stock_entity'
-    StockEntity.new(self, data)
   end
 
 

@@ -14,20 +14,20 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
+> **Features:** `ratelimit`, `retry`, `test`, `timeout` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
 ## Entities, not endpoints
 
-This SDK exposes the API as a small set of **semantic entities** — Stock, StockDetail and Trend — that you
+This SDK exposes the API as a small set of **semantic entities** — StockDetail and Trend — that you
 call directly, instead of assembling URL paths and query strings. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
 support (`list`, `load`):
 
 ```ts
 const client = new RedditStocksSDK()
-const items = await client.Stock().list()
+const items = await client.StockDetail().list()
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -46,23 +46,23 @@ network, and no credentials:
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
 const client = RedditStocksSDK.test({
   entity: {
-    trend: {
+    stock_detail: {
       test01: { id: 'test01' },
     },
   },
 })
-const trends = await client.Trend().list()
-// trends is an array of Trend entities, populated with mock data
-// — call trends[0].data() for the record itself
-console.log(trends)
+const stockdetails = await client.StockDetail().list()
+// stockdetails is an array of StockDetail entities, populated with mock data
+// — call stockdetails[0].data() for the record itself
+console.log(stockdetails)
 ```
 
 ### Python
 
 ```python
 client = RedditStocksSDK.test()
-trends = client.Trend().list()
-print(trends)
+stockdetails = client.StockDetail().list()
+print(stockdetails)
 ```
 
 ### PHP
@@ -70,16 +70,16 @@ print(trends)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = RedditStocksSDK::test([
-    "entity" => ["trend" => ["test01" => []]],
+    "entity" => ["stockdetail" => ["test01" => []]],
 ]);
-$trends = $client->Trend()->list();
+$stockdetails = $client->StockDetail()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Trend(nil).List(
+result, err := client.StockDetail(nil).List(
     nil, nil,
 )
 ```
@@ -89,28 +89,28 @@ result, err := client.Trend(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = RedditStocksSDK.test({
-  "entity" => { "trend" => { "test01" => {} } },
+  "entity" => { "stockdetail" => { "test01" => {} } },
 })
-trends = client.Trend.list()
+stockdetails = client.StockDetail.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Trend():list()
+local results, err = client:StockDetail():list()
 ```
 
 ## Packages
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/reddit-stocks-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/tags) |
-| Python | `voxgig-sdk-reddit-stocks-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/tags) |
-| PHP | `voxgig-sdk/reddit-stocks-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/tags) |
+| TypeScript | `@voxgig-sdk/reddit-stocks-sdk` | publish pending — [install from source](ts/README.md#install) |
+| Python | `voxgig-sdk-reddit-stocks-sdk` | publish pending — [install from source](py/README.md#install) |
+| PHP | `voxgig-sdk/reddit-stocks-sdk` | publish pending — [install from source](php/README.md#install) |
 | Golang | `github.com/voxgig-sdk/reddit-stocks-sdk/go` | `go get github.com/voxgig-sdk/reddit-stocks-sdk/go@latest` |
-| Ruby | `voxgig-sdk-reddit-stocks-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/tags) |
-| Lua | `voxgig-sdk-reddit-stocks-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/reddit-stocks-sdk/tags) |
+| Ruby | `voxgig-sdk-reddit-stocks-sdk` | publish pending — [install from source](rb/README.md#install) |
+| Lua | `voxgig-sdk-reddit-stocks-sdk` | publish pending — [install from source](lua/README.md#install) |
 | Go CLI | `github.com/voxgig-sdk/reddit-stocks-sdk/go-cli` | `go install github.com/voxgig-sdk/reddit-stocks-sdk/go-cli/cmd/reddit-stocks@latest` |
 | Go MCP server | `github.com/voxgig-sdk/reddit-stocks-sdk/go-mcp` | `go get github.com/voxgig-sdk/reddit-stocks-sdk/go-mcp@latest` |
 
@@ -123,10 +123,10 @@ import { RedditStocksSDK } from '@voxgig-sdk/reddit-stocks-sdk'
 
 const client = new RedditStocksSDK()
 
-// List all stocks (returns StockEntity[] — .data() for the record)
-const stocks = await client.Stock().list()
-for (const stock of stocks) {
-  console.log(stock)
+// List all stockdetails (returns StockDetailEntity[] — .data() for the record)
+const stockdetails = await client.StockDetail().list()
+for (const stockdetail of stockdetails) {
+  console.log(stockdetail)
 }
 ```
 
@@ -164,12 +164,11 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 
 ## Entities
 
-The API exposes 3 entities:
+The API exposes 2 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Stock** | The Stock entity (list). | `/apps/reddit` |
-| **StockDetail** | The StockDetail entity (load). | `/apps/reddit/{ticker}` |
+| **StockDetail** | The StockDetail entity (list, load). | `/apps/reddit` |
 | **Trend** | The Trend entity (list). | `/apps/reddit/trend` |
 
 The operations available across these entities are **load**, **list** — see each entity's
@@ -184,10 +183,14 @@ from redditstocks_sdk import RedditStocksSDK
 
 client = RedditStocksSDK()
 
-# List all stocks (returns a list, raises on error)
-stocks = client.Stock().list()
-for stock in stocks:
-    print(stock)
+# List all stockdetails (returns a list, raises on error)
+stockdetails = client.StockDetail().list()
+for stockdetail in stockdetails:
+    print(stockdetail)
+
+# Load a specific stockdetail (returns the record, raises on error)
+stockdetail = client.StockDetail().load({"ticker": "example_ticker"})
+print(stockdetail)
 ```
 
 ### PHP
@@ -198,9 +201,13 @@ require_once 'redditstocks_sdk.php';
 
 $client = new RedditStocksSDK();
 
-// List all stocks (returns an array; throws on error)
-$stocks = $client->Stock()->list();
-print_r(array_map(fn($item) => $item->data_get(), $stocks));
+// List all stockdetails (returns an array; throws on error)
+$stockdetails = $client->StockDetail()->list();
+print_r(array_map(fn($item) => $item->data_get(), $stockdetails));
+
+// Load a specific stockdetail (returns the ENTITY; call data_get() for the record; throws on error)
+$stockdetail = $client->StockDetail()->load(["ticker" => "example_ticker"]);
+print_r($stockdetail->data_get());
 ```
 
 ### Golang
@@ -210,12 +217,12 @@ import sdk "github.com/voxgig-sdk/reddit-stocks-sdk/go"
 
 client := sdk.New()
 
-// List all stocks
-stocks, err := client.Stock(nil).List(nil, nil)
+// List all stockdetails
+stockDetails, err := client.StockDetail(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(stocks)
+fmt.Println(stockDetails)
 ```
 
 ### Ruby
@@ -225,9 +232,13 @@ require_relative "RedditStocks_sdk"
 
 client = RedditStocksSDK.new
 
-# List all stocks (returns an Array; raises on error)
-stocks = client.Stock.list
-puts stocks
+# List all stockdetails (returns an Array; raises on error)
+stockdetails = client.StockDetail.list
+puts stockdetails
+
+# Load a specific stockdetail (returns the ENTITY; call data_get for the record)
+stockdetail = client.StockDetail.load({ "ticker" => "example_ticker" })
+puts stockdetail
 ```
 
 ### Lua
@@ -237,9 +248,13 @@ local sdk = require("reddit-stocks_sdk")
 
 local client = sdk.new()
 
--- List all stocks
-local stocks, err = client:Stock():list()
-print(stocks)
+-- List all stockdetails
+local stockdetails, err = client:StockDetail():list()
+print(stockdetails)
+
+-- Load a specific stockdetail
+local stockdetail, err = client:StockDetail():load({ ticker = "example_ticker" })
+print(stockdetail)
 ```
 
 ## Direct and prepare

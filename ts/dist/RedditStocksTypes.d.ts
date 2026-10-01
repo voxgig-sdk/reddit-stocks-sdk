@@ -1,15 +1,3 @@
-export interface Stock {
-    no_of_comments?: number;
-    sentiment?: string;
-    sentiment_score?: number;
-    ticker?: string;
-}
-export interface StockListMatch {
-    no_of_comments?: number;
-    sentiment?: string;
-    sentiment_score?: number;
-    ticker?: string;
-}
 export interface StockDetail {
     mentions?: number;
     no_of_comments?: number;
@@ -20,6 +8,14 @@ export interface StockDetail {
 }
 export interface StockDetailLoadMatch {
     ticker: string;
+}
+export interface StockDetailListMatch {
+    mentions?: number;
+    no_of_comments?: number;
+    rank?: number;
+    sentiment?: string;
+    sentiment_score?: number;
+    ticker?: string;
 }
 export interface Trend {
     no_of_comments?: number;

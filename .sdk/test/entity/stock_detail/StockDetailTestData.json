@@ -43,6 +43,11 @@
     }
   },
   "requests": {
+    "GET /apps/reddit": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
     "GET /apps/reddit/{ticker}": {
       "provenance": "operation-contract",
       "version": 2,

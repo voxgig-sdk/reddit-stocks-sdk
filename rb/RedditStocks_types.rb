@@ -8,48 +8,6 @@
 # @voxgig/apidef VALID_CANON). Ruby types are unenforced; these YARD
 # annotations document the shapes. Do not edit by hand.
 
-# Stock entity data model.
-#
-# @!attribute [rw] no_of_comments
-#   @return [Integer, nil]
-#
-# @!attribute [rw] sentiment
-#   @return [String, nil]
-#
-# @!attribute [rw] sentiment_score
-#   @return [Float, nil]
-#
-# @!attribute [rw] ticker
-#   @return [String, nil]
-Stock = Struct.new(
-  :no_of_comments,
-  :sentiment,
-  :sentiment_score,
-  :ticker,
-  keyword_init: true
-)
-
-# Request payload for Stock#list.
-#
-# @!attribute [rw] no_of_comments
-#   @return [Integer, nil]
-#
-# @!attribute [rw] sentiment
-#   @return [String, nil]
-#
-# @!attribute [rw] sentiment_score
-#   @return [Float, nil]
-#
-# @!attribute [rw] ticker
-#   @return [String, nil]
-StockListMatch = Struct.new(
-  :no_of_comments,
-  :sentiment,
-  :sentiment_score,
-  :ticker,
-  keyword_init: true
-)
-
 # StockDetail entity data model.
 #
 # @!attribute [rw] mentions
@@ -84,6 +42,35 @@ StockDetail = Struct.new(
 # @!attribute [rw] ticker
 #   @return [String]
 StockDetailLoadMatch = Struct.new(
+  :ticker,
+  keyword_init: true
+)
+
+# Request payload for StockDetail#list.
+#
+# @!attribute [rw] mentions
+#   @return [Integer, nil]
+#
+# @!attribute [rw] no_of_comments
+#   @return [Integer, nil]
+#
+# @!attribute [rw] rank
+#   @return [Integer, nil]
+#
+# @!attribute [rw] sentiment
+#   @return [String, nil]
+#
+# @!attribute [rw] sentiment_score
+#   @return [Float, nil]
+#
+# @!attribute [rw] ticker
+#   @return [String, nil]
+StockDetailListMatch = Struct.new(
+  :mentions,
+  :no_of_comments,
+  :rank,
+  :sentiment,
+  :sentiment_score,
   :ticker,
   keyword_init: true
 )

@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 RedditStocksUtility.registrar = ->(u) {
   u.clean = RedditStocksUtilities::Clean
+  u.clean_add = RedditStocksUtilities::CleanAdd
+  u.clean_explain = RedditStocksUtilities::CleanExplain
   u.done = RedditStocksUtilities::Done
   u.make_error = RedditStocksUtilities::MakeError
   u.feature_add = RedditStocksUtilities::FeatureAdd

@@ -19,15 +19,17 @@ make build
 export REDDIT_STOCKS_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
-./reddit-stocks-cli list stock
 ./reddit-stocks-cli list stock_detail
+./reddit-stocks-cli load 1 stock_detail            # {id:1} shorthand
+./reddit-stocks-cli load '{id:1}' stock_detail       # explicit match map
+./reddit-stocks-cli list trend
 
 # 5. Override the API base URL for a single call
-REDDIT_STOCKS_BASE=https://api.example.com ./reddit-stocks-cli list stock
+REDDIT_STOCKS_BASE=https://api.example.com ./reddit-stocks-cli list stock_detail
 
 # 6. No arguments -> interactive REPL
 ./reddit-stocks-cli
-reddit-stocks> list stock
+reddit-stocks> list stock_detail
 reddit-stocks> /quit
 ```
 
@@ -53,7 +55,7 @@ reddit-stocks> /quit
    arguments to open the REPL):
 
    ```sh
-   ./dist/*/reddit-stocks-cli list stock
+   ./dist/*/reddit-stocks-cli list stock_detail
    ```
 
 4. **Go interactive.** Run the binary with no arguments to open the REPL, then
@@ -66,11 +68,21 @@ That is the whole loop: *build → set key → evaluate boru expressions*.
 ### List the records of an entity
 
 ```sh
-./reddit-stocks-cli list stock
+./reddit-stocks-cli list stock_detail
 ```
 
 `list <entity>` returns the first page of records. `<entity>` is a bareword —
 it is auto-quoted as an boru atom, so no quotes are needed.
+
+### Load a single record
+
+```sh
+./reddit-stocks-cli load 1 stock_detail          # scalar shorthand for {id:1}
+./reddit-stocks-cli load '{id:1}' stock_detail     # explicit match map
+```
+
+The query is either a **scalar** (`1`, treated as `{id:1}`) or a **match map**
+(`{id:1}`, `{slug:"acme"}`). Quote the map so your shell passes it through intact.
 
 ### Authenticate and choose an environment
 
@@ -79,7 +91,7 @@ Configuration is read from the environment — nothing is written to disk:
 ```sh
 export REDDIT_STOCKS_APIKEY=sk_live_xxx            # API key
 export REDDIT_STOCKS_BASE=https://api.example.com  # optional: override the API base URL
-./reddit-stocks-cli list stock
+./reddit-stocks-cli list stock_detail
 ```
 
 Both are injectable by a secrets vault, so the key never has to be typed inline.
@@ -91,7 +103,7 @@ evaluated as its own boru expression:
 
 ```text
 $ ./reddit-stocks-cli
-reddit-stocks> list stock
+reddit-stocks> list stock_detail
 reddit-stocks> /help
 reddit-stocks> /quit
 ```
@@ -106,7 +118,7 @@ make build-all   # linux/darwin/windows x amd64/arm64, under dist/<os>-<arch>/
 ### Discover the available entities
 
 `/help` in the REPL prints the full entity list, or see [Entities](#entities)
-below — this SDK exposes 3 entities.
+below — this SDK exposes 2 entities.
 
 ## Reference
 
@@ -119,7 +131,7 @@ The CLI registers these boru words, each bound to the SDK:
 | `list`   | `list <entity>` · `list <query> <entity>`     | First page of records          |
 | `load`   | `load <entity>` · `load <query> <entity>`     | A single record                |
 
-- `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `stock`).
+- `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `stock_detail`).
 - `<query>` is either a **Map** (`{id:1}`) or a **Scalar** (`1`, treated as
   `{id:1}`). A scalar is always wrapped as `{id:<value>}`.
 
@@ -160,9 +172,9 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 ### Entities
 
-The 3 entities this SDK exposes (any is valid as `<entity>`):
+The 2 entities this SDK exposes (any is valid as `<entity>`):
 
-stock stock_detail trend
+stock_detail trend
 
 ## Explanation
 

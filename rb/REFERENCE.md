@@ -41,10 +41,6 @@ client = RedditStocksSDK.test
 
 ### Instance Methods
 
-#### `Stock(data = nil)`
-
-Create a new `Stock` entity instance. Pass `nil` for no initial data.
-
 #### `StockDetail(data = nil)`
 
 Create a new `StockDetail` entity instance. Pass `nil` for no initial data.
@@ -91,61 +87,6 @@ same parameters as `direct()`. Raises on error.
 
 ---
 
-## StockEntity
-
-```ruby
-stock = client.Stock
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `no_of_comments` | `Integer` | No | Number of comments mentioning this stock |
-| `sentiment` | `String` | No | Overall sentiment for the stock |
-| `sentiment_score` | `Float` | No | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `String` | No | Stock ticker symbol |
-
-### Operations
-
-#### `list(reqmatch = nil, ctrl = nil) -> Array`
-
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
-
-```ruby
-results = client.Stock.list
-```
-
-### Common Methods
-
-#### `data_get -> Hash`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get -> Hash`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make -> Entity`
-
-Create a new `StockEntity` instance with the same client and
-options.
-
-#### `get_name -> String`
-
-Return the entity name.
-
-
----
-
 ## StockDetailEntity
 
 ```ruby
@@ -164,6 +105,14 @@ stock_detail = client.StockDetail
 | `ticker` | `String` | No | Stock ticker symbol |
 
 ### Operations
+
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
+
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+
+```ruby
+results = client.StockDetail.list
+```
 
 #### `load(reqmatch, ctrl = nil) -> result`
 

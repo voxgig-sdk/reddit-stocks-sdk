@@ -6,38 +6,25 @@ Get top 50 stocks discussed on Reddit subreddit - Wallstreetbets
 
 This guide introduces the API, the client libraries, and the companion tools in this repository. Start with the API capabilities, choose a client for your application, and use the linked reference when you need exact request and response details.
 
-The selected API surface contains 3 entities and 3 HTTP routes. There are 6 SDK targets and 2 companion tools.
+The selected API surface contains 2 entities and 3 HTTP routes. There are 6 SDK targets and 2 companion tools.
 
 An entity groups related API operations. An operation can have several routes with different inputs or authentication requirements. The SDK exposes the entity and its operations using the conventions of the selected language.
 
 ## What the API provides
 
-### Stock
-
-Results: Successful response with list of top stocks.
-
-SDK operations: `list`.
-
-Key fields to recognise:
-
-- `no_of_comments`: Number of comments mentioning this stock
-- `sentiment`: Overall sentiment for the stock
-- `sentiment_score`: Sentiment score ranging from -1 (most bearish) to 1 (most bullish)
-- `ticker`: Stock ticker symbol
-
 ### StockDetail
 
-Results: Successful response with stock details.
+Results: Successful response with list of top stocks; Successful response with stock details.
 
-SDK operations: `load`.
+SDK operations: `list`, `load`.
 
 Key fields to recognise:
 
 - `mentions`: Number of times mentioned
-- `no_of_comments`: Total number of comments
+- `no_of_comments`: Number of comments mentioning this stock
 - `rank`: Current rank among discussed stocks
-- `sentiment`: Overall sentiment
-- `sentiment_score`: Sentiment score
+- `sentiment`: Overall sentiment for the stock
+- `sentiment_score`: Sentiment score ranging from -1 (most bearish) to 1 (most bullish)
 
 ### Trend
 
@@ -59,7 +46,7 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 
 | Entity | SDK operation | HTTP route | Authentication |
 | --- | --- | --- | --- |
-| Stock | `list` | `GET /apps/reddit` | See reference |
+| StockDetail | `list` | `GET /apps/reddit` | See reference |
 | StockDetail | `load` | `GET /apps/reddit/{ticker}` | See reference |
 | Trend | `list` | `GET /apps/reddit/trend` | See reference |
 
@@ -109,7 +96,7 @@ Use the MCP server to expose supported API operations to an MCP client.
 
 Repository directory: `go-mcp/`. Not published. Build from the go-mcp directory.
 
-- `reddit-stocks_list`: List records for an entity. Supported entities: `stock`, `trend`.
+- `reddit-stocks_list`: List records for an entity. Supported entities: `stock_detail`, `trend`.
 - `reddit-stocks_load`: Load one record for an entity. Supported entities: `stock_detail`.
 
 ## Operational features

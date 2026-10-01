@@ -14,11 +14,15 @@ from redditstocks_sdk.features import _has_feature, _make_feature
 
 
 class RedditStocksSDK:
+    # The options hold the credential. A slot keeps them reachable as
+    # `client.options` and out of `vars(client)` and every attribute dump;
+    # the dict entry keeps the instance open for everything else.
+    __slots__ = ("_options", "__dict__")
 
     def __init__(self, options=None):
         self.mode = "live"
         self.features = []
-        self.options = None
+        self._options = None
 
         utility = RedditStocksUtility()
         self._utility = utility
@@ -86,6 +90,17 @@ class RedditStocksSDK:
         utility.feature_hook(self._rootctx, "PostConstruct")
 
         # #BuildFeatures
+
+    @property
+    def options(self):
+        return self._options
+
+    @options.setter
+    def options(self, value):
+        self._options = value
+
+    def __repr__(self):
+        return "RedditStocksSDK(mode=" + repr(self.mode) + ")"
 
     def options_map(self):
         out = vs.clone(self.options)
@@ -207,7 +222,8 @@ class RedditStocksSDK:
         except Exception as err:
             # direct() is the raw-HTTP escape hatch: it never raises, it
             # returns a result object callers branch on via result["ok"].
-            return {"ok": False, "err": err}
+            # That error never passes through make_error, so it is cleaned.
+            return {"ok": False, "err": utility.clean(self._rootctx, err)}
 
         if fetchargs is None:
             fetchargs = {}
@@ -224,7 +240,7 @@ class RedditStocksSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}
+            return {"ok": False, "err": utility.clean(ctx, fetch_err)}
 
         if fetched is None:
             return {
@@ -307,12 +323,6 @@ class RedditStocksSDK:
         return res
 
 
-    def Stock(self, data=None) -> "StockEntity":
-        """Entity factory: client.Stock().list() / client.Stock().load({"id": ...})."""
-        from redditstocks_sdk.entity.stock_entity import StockEntity
-        return StockEntity(self, data)
-
-
     def StockDetail(self, data=None) -> "StockDetailEntity":
         """Entity factory: client.StockDetail().list() / client.StockDetail().load({"id": ...})."""
         from redditstocks_sdk.entity.stock_detail_entity import StockDetailEntity
@@ -352,6 +362,5 @@ class RedditStocksSDK:
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from redditstocks_sdk.entity.stock_entity import StockEntity
     from redditstocks_sdk.entity.stock_detail_entity import StockDetailEntity
     from redditstocks_sdk.entity.trend_entity import TrendEntity

@@ -4,7 +4,7 @@
 
 The Golang SDK for the RedditStocks API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client.Stock(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.StockDetail(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
@@ -50,14 +50,21 @@ import (
 func main() {
     client := sdk.New()
 
-    // List stock records — the value is the array of records itself.
-    stocks, err := client.Stock(nil).List(nil, nil)
+    // List stockDetail records — the value is the array of records itself.
+    stockDetails, err := client.StockDetail(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-    for _, item := range stocks.([]any) {
+    for _, item := range stockDetails.([]any) {
         fmt.Println(item)
     }
+
+    // Load a single stockDetail — the value is the loaded record.
+    stockDetail, err := client.StockDetail(nil).Load(map[string]any{"ticker": "example_ticker"}, nil)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(stockDetail)
 }
 ```
 
@@ -68,12 +75,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-trends, err := client.Trend(nil).List(nil, nil)
+stockdetails, err := client.StockDetail(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = trends
+_ = stockdetails
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -137,13 +144,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-trend, err := client.Trend(nil).List(
+stockDetail, err := client.StockDetail(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(trend) // the returned mock data
+fmt.Println(stockDetail) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -220,7 +227,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `GetUtility` | `() *Utility` | Copy of the SDK utility object. |
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
-| `Stock` | `(data map[string]any) RedditStocksEntity` | Create a Stock entity instance. |
 | `StockDetail` | `(data map[string]any) RedditStocksEntity` | Create a StockDetail entity instance. |
 | `Trend` | `(data map[string]any) RedditStocksEntity` | Create a Trend entity instance. |
 
@@ -251,27 +257,14 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    stock, err := client.Stock(nil).List(map[string]any{/* fields */}, nil)
+    stockDetail, err := client.StockDetail(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // stock is the returned record
+    // stockDetail is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
-
-#### Stock
-
-| Field | Description |
-| --- | --- |
-| `"no_of_comments"` | Number of comments mentioning this stock |
-| `"sentiment"` | Overall sentiment for the stock |
-| `"sentiment_score"` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `"ticker"` | Stock ticker symbol |
-
-Operations: List.
-
-API path: `/apps/reddit`
 
 #### StockDetail
 
@@ -284,9 +277,9 @@ API path: `/apps/reddit`
 | `"sentiment_score"` | Sentiment score |
 | `"ticker"` | Stock ticker symbol |
 
-Operations: Load.
+Operations: List, Load.
 
-API path: `/apps/reddit/{ticker}`
+API path: `/apps/reddit`
 
 #### Trend
 
@@ -307,36 +300,6 @@ API path: `/apps/reddit/trend`
 ## Entities
 
 
-### Stock
-
-Create an instance: `stock := client.Stock(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `List(match, ctrl)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `no_of_comments` | `int` | Number of comments mentioning this stock |
-| `sentiment` | `string` | Overall sentiment for the stock |
-| `sentiment_score` | `float64` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `string` | Stock ticker symbol |
-
-#### Example: List
-
-```go
-stocks, err := client.Stock(nil).List(nil, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(stocks) // the array of records
-```
-
-
 ### StockDetail
 
 Create an instance: `stockDetail := client.StockDetail(nil)`
@@ -345,6 +308,7 @@ Create an instance: `stockDetail := client.StockDetail(nil)`
 
 | Method | Description |
 | --- | --- |
+| `List(match, ctrl)` | List entities matching the criteria. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -366,6 +330,16 @@ if err != nil {
     panic(err)
 }
 fmt.Println(stockDetail) // the loaded record
+```
+
+#### Example: List
+
+```go
+stockDetails, err := client.StockDetail(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(stockDetails) // the array of records
 ```
 
 
@@ -557,11 +531,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-trend := client.Trend(nil)
-trend.List(nil, nil)
+stockdetail := client.StockDetail(nil)
+stockdetail.List(nil, nil)
 
-// trend.Data() now returns the trend data from the last list
-// trend.Match() returns the last match criteria
+// stockdetail.Data() now returns the stockdetail data from the last list
+// stockdetail.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

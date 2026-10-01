@@ -12,24 +12,6 @@ declare(strict_types=1);
 // registered on the composer classmap autoload. The SDK boundary exchanges
 // assoc-arrays; these classes name the shapes for tooling and typed callers.
 
-/** Stock entity data model. */
-class Stock
-{
-    public ?int $no_of_comments = null;
-    public ?string $sentiment = null;
-    public ?float $sentiment_score = null;
-    public ?string $ticker = null;
-}
-
-/** Request payload for Stock#list. */
-class StockListMatch
-{
-    public ?int $no_of_comments = null;
-    public ?string $sentiment = null;
-    public ?float $sentiment_score = null;
-    public ?string $ticker = null;
-}
-
 /** StockDetail entity data model. */
 class StockDetail
 {
@@ -45,6 +27,17 @@ class StockDetail
 class StockDetailLoadMatch
 {
     public string $ticker;
+}
+
+/** Request payload for StockDetail#list. */
+class StockDetailListMatch
+{
+    public ?int $mentions = null;
+    public ?int $no_of_comments = null;
+    public ?int $rank = null;
+    public ?string $sentiment = null;
+    public ?float $sentiment_score = null;
+    public ?string $ticker = null;
 }
 
 /** Trend entity data model. */

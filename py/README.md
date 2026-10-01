@@ -4,7 +4,7 @@
 
 The Python SDK for the RedditStocks API — an entity-oriented client following Pythonic conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Stock()` — each
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.StockDetail()` — each
 carrying a small, uniform set of operations (`list`, `load`) instead of raw URL
 paths and query strings. You work with named resources and verbs, which
 keeps the cognitive load low.
@@ -36,18 +36,30 @@ from redditstocks_sdk import RedditStocksSDK
 client = RedditStocksSDK()
 ```
 
-### 2. List stock records
+### 2. List stockdetail records
 
 `list()` returns a `list` of records (each a `dict`) and raises on
 error — iterate it directly.
 
 ```python
 try:
-    stocks = client.Stock().list()
-    for stock in stocks:
-        print(stock)
+    stockdetails = client.StockDetail().list()
+    for stockdetail in stockdetails:
+        print(stockdetail)
 except Exception as err:
     print(f"list failed: {err}")
+```
+
+### 3. Load a stockdetail
+
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
+
+```python
+try:
+    stockdetail = client.StockDetail().load({"ticker": "example_ticker"})
+    print(stockdetail)
+except Exception as err:
+    print(f"load failed: {err}")
 ```
 
 
@@ -57,8 +69,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    trends = client.Trend().list()
-    print(trends)
+    stockdetails = client.StockDetail().list()
+    print(stockdetails)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -126,8 +138,8 @@ client = RedditStocksSDK.test()
 
 # Entity ops return the ENTITY and raises on error;
 # call data_get() for the record.
-trend = client.Trend().list()
-# trend contains the mock response record
+stockdetail = client.StockDetail().list()
+# stockdetail contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -203,7 +215,6 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
-| `Stock` | `(data) -> StockEntity` | Create a Stock entity instance. |
 | `StockDetail` | `(data) -> StockDetailEntity` | Create a StockDetail entity instance. |
 | `Trend` | `(data) -> TrendEntity` | Create a Trend entity instance. |
 
@@ -242,19 +253,6 @@ On error, `ok` is `False` and `err` contains the error value.
 
 ### Entities
 
-#### Stock
-
-| Field | Description |
-| --- | --- |
-| `no_of_comments` | Number of comments mentioning this stock |
-| `sentiment` | Overall sentiment for the stock |
-| `sentiment_score` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | Stock ticker symbol |
-
-Operations: List.
-
-API path: `/apps/reddit`
-
 #### StockDetail
 
 | Field | Description |
@@ -266,9 +264,9 @@ API path: `/apps/reddit`
 | `sentiment_score` | Sentiment score |
 | `ticker` | Stock ticker symbol |
 
-Operations: Load.
+Operations: List, Load.
 
-API path: `/apps/reddit/{ticker}`
+API path: `/apps/reddit`
 
 #### Trend
 
@@ -289,32 +287,6 @@ API path: `/apps/reddit/trend`
 ## Entities
 
 
-### Stock
-
-Create an instance: `stock = client.Stock()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `no_of_comments` | `int` | Number of comments mentioning this stock |
-| `sentiment` | `str` | Overall sentiment for the stock |
-| `sentiment_score` | `float` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `str` | Stock ticker symbol |
-
-#### Example: List
-
-```python
-stocks = client.Stock().list()
-```
-
-
 ### StockDetail
 
 Create an instance: `stock_detail = client.StockDetail()`
@@ -323,6 +295,7 @@ Create an instance: `stock_detail = client.StockDetail()`
 
 | Method | Description |
 | --- | --- |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -340,6 +313,12 @@ Create an instance: `stock_detail = client.StockDetail()`
 
 ```python
 stock_detail = client.StockDetail().load({"ticker": "ticker"})
+```
+
+#### Example: List
+
+```python
+stock_details = client.StockDetail().list()
 ```
 
 
@@ -530,11 +509,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-trend = client.Trend()
-trend.list()
+stockdetail = client.StockDetail()
+stockdetail.list()
 
-# trend.data_get() now returns the trend data from the last list
-# trend.match_get() returns the last match criteria
+# stockdetail.data_get() now returns the stockdetail data from the last list
+# stockdetail.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -4,7 +4,7 @@
 
 The Lua SDK for the RedditStocks API — an entity-oriented client using Lua conventions.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client:Stock()` — each with the same small set of operations (`list`, `load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:StockDetail()` — each with the same small set of operations (`list`, `load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -33,18 +33,26 @@ local sdk = require("reddit-stocks_sdk")
 local client = sdk.new()
 ```
 
-### 2. List stock records
+### 2. List stockdetail records
 
 Entity operations return `(value, err)`. For `list`, `value` is the
 array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local stocks, err = client:Stock():list()
+local stockdetails, err = client:StockDetail():list()
 if err then error(err) end
 
-for _, item in ipairs(stocks) do
+for _, item in ipairs(stockdetails) do
   print(item)
 end
+```
+
+### 3. Load a stockdetail
+
+```lua
+local stockdetail, err = client:StockDetail():load({ ticker = "example_ticker" })
+if err then error(err) end
+print(stockdetail)
 ```
 
 
@@ -54,7 +62,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local trends, err = client:Trend():list()
+local stockdetails, err = client:StockDetail():list()
 if err then error(err) end
 ```
 
@@ -112,7 +120,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Trend():list()
+local result, err = client:StockDetail():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -191,7 +199,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
-| `Stock` | `(data) -> StockEntity` | Create a Stock entity instance. |
 | `StockDetail` | `(data) -> StockDetailEntity` | Create a StockDetail entity instance. |
 | `Trend` | `(data) -> TrendEntity` | Create a Trend entity instance. |
 
@@ -231,19 +238,6 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 ### Entities
 
-#### Stock
-
-| Field | Description |
-| --- | --- |
-| `no_of_comments` | Number of comments mentioning this stock |
-| `sentiment` | Overall sentiment for the stock |
-| `sentiment_score` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | Stock ticker symbol |
-
-Operations: List.
-
-API path: `/apps/reddit`
-
 #### StockDetail
 
 | Field | Description |
@@ -255,9 +249,9 @@ API path: `/apps/reddit`
 | `sentiment_score` | Sentiment score |
 | `ticker` | Stock ticker symbol |
 
-Operations: Load.
+Operations: List, Load.
 
-API path: `/apps/reddit/{ticker}`
+API path: `/apps/reddit`
 
 #### Trend
 
@@ -278,32 +272,6 @@ API path: `/apps/reddit/trend`
 ## Entities
 
 
-### Stock
-
-Create an instance: `local stock = client:Stock(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `no_of_comments` | `number` | Number of comments mentioning this stock |
-| `sentiment` | `string` | Overall sentiment for the stock |
-| `sentiment_score` | `number` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `string` | Stock ticker symbol |
-
-#### Example: List
-
-```lua
-local stocks, err = client:Stock():list()
-```
-
-
 ### StockDetail
 
 Create an instance: `local stock_detail = client:StockDetail(nil)`
@@ -312,6 +280,7 @@ Create an instance: `local stock_detail = client:StockDetail(nil)`
 
 | Method | Description |
 | --- | --- |
+| `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -329,6 +298,12 @@ Create an instance: `local stock_detail = client:StockDetail(nil)`
 
 ```lua
 local stock_detail, err = client:StockDetail():load({ ticker = "ticker" })
+```
+
+#### Example: List
+
+```lua
+local stock_details, err = client:StockDetail():list()
 ```
 
 
@@ -520,11 +495,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local trend = client:Trend()
-trend:list()
+local stockdetail = client:StockDetail()
+stockdetail:list()
 
--- trend:data_get() now returns the trend data from the last list
--- trend:match_get() returns the last match criteria
+-- stockdetail:data_get() now returns the stockdetail data from the last list
+-- stockdetail:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

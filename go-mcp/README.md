@@ -27,8 +27,8 @@ Tool-call arguments (what an agent sends):
 
 ```jsonc
 // reddit-stocks_list: first page of records
-{ "entity": "stock" }
-{ "entity": "stock", "query": { } }
+{ "entity": "stock_detail" }
+{ "entity": "stock_detail", "query": { } }
 
 // reddit-stocks_load: one record by id
 { "entity": "stock_detail", "query": { "id": 1 } }
@@ -60,8 +60,8 @@ Tool-call arguments (what an agent sends):
    ```
 
 4. **Restart Claude Code.** The `reddit-stocks_list` and `reddit-stocks_load` tools now appear
-   in new sessions. Ask the agent to *"list stock using reddit-stocks"*
-   and it calls `reddit-stocks_list` with `{"entity":"stock"}`.
+   in new sessions. Ask the agent to *"list stock_detail using reddit-stocks"*
+   and it calls `reddit-stocks_list` with `{"entity":"stock_detail"}`.
 
 ## How-to guides
 
@@ -92,7 +92,7 @@ Args: `entity` (required), `query` (optional filter map). Returns the first
 page of records as JSON:
 
 ```jsonc
-{ "entity": "stock" }
+{ "entity": "stock_detail" }
 ```
 
 ### Call the `reddit-stocks_load` tool
@@ -129,7 +129,7 @@ Both tools take the same argument object:
 
 | Field | Type | Notes |
 |-------|------|-------|
-| `entity` | string | One of the 3 supported entities (see below). |
+| `entity` | string | One of the 2 supported entities (see below). |
 | `query` | object | Optional match map. `{"id":N}` for load; omit or `{}` for list. |
 
 JSON schemas are emitted by the SDK from the `Args` struct's `json` /
@@ -151,9 +151,9 @@ JSON schemas are emitted by the SDK from the `Args` struct's `json` /
 
 ### Entities
 
-The 3 entities valid as the `entity` argument:
+The 2 entities valid as the `entity` argument:
 
-stock | stock_detail | trend
+stock_detail | trend
 
 ### Smoke test via HTTP (raw JSON-RPC)
 

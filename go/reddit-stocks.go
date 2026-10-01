@@ -41,9 +41,6 @@ func init() {
 	core.NewTimeoutFeatureFunc = func() core.Feature {
 		return feature.NewTimeoutFeature()
 	}
-	core.NewStockEntityFunc = func(client *core.RedditStocksSDK, entopts map[string]any) core.RedditStocksEntity {
-		return entity.NewStockEntity(client, entopts)
-	}
 	core.NewStockDetailEntityFunc = func(client *core.RedditStocksSDK, entopts map[string]any) core.RedditStocksEntity {
 		return entity.NewStockDetailEntity(client, entopts)
 	}

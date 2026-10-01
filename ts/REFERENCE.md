@@ -48,18 +48,6 @@ const client = RedditStocksSDK.test()
 
 ### Instance Methods
 
-#### `Stock(data?: object)`
-
-Create a new `Stock` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `StockEntity` instance.
-
 #### `StockDetail(data?: object)`
 
 Create a new `StockDetail` entity instance.
@@ -130,59 +118,6 @@ Alias for `RedditStocksSDK.test()`.
 
 ---
 
-## StockEntity
-
-```ts
-const stock = client.Stock()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `no_of_comments` | `number` | No | Number of comments mentioning this stock |
-| `sentiment` | `string` | No | Overall sentiment for the stock |
-| `sentiment_score` | `number` | No | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `string` | No | Stock ticker symbol |
-
-### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Returns an array.
-
-```ts
-const results = await client.Stock().list()
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `StockEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `RedditStocksSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
 ## StockDetailEntity
 
 ```ts
@@ -201,6 +136,14 @@ const stock_detail = client.StockDetail()
 | `ticker` | `string` | No | Stock ticker symbol |
 
 ### Operations
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Returns an array.
+
+```ts
+const results = await client.StockDetail().list()
+```
 
 #### `load(match: object, ctrl?: object)`
 

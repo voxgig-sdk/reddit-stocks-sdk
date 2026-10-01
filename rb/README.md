@@ -4,7 +4,7 @@
 
 The Ruby SDK for the RedditStocks API — an entity-oriented client using idiomatic Ruby conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Stock` — with named operations (`list`/`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.StockDetail` — with named operations (`list`/`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -12,9 +12,18 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`):
+GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases)), or
+from a clone:
 
-- Releases: [https://github.com/voxgig-sdk/reddit-stocks-sdk/releases](https://github.com/voxgig-sdk/reddit-stocks-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/reddit-stocks-sdk
+```
+
+Then add it to your `Gemfile` by path, and run `bundle install`:
+
+```ruby
+gem "voxgig-sdk-reddit-stocks-sdk", path: "./reddit-stocks-sdk/rb"
+```
 
 
 ## Tutorial: your first API call
@@ -30,17 +39,29 @@ require_relative "RedditStocks_sdk"
 client = RedditStocksSDK.new
 ```
 
-### 2. List stock records
+### 2. List stockdetail records
 
 ```ruby
 begin
-  # list returns an Array of Stock records — iterate directly.
-  stocks = client.Stock.list
-  stocks.each do |item|
-    puts "#{item["no_of_comments"]}"
+  # list returns an Array of StockDetail records — iterate directly.
+  stockdetails = client.StockDetail.list
+  stockdetails.each do |item|
+    puts "#{item["mentions"]}"
   end
 rescue => err
   warn "list failed: #{err}"
+end
+```
+
+### 3. Load a stockdetail
+
+```ruby
+begin
+  # load returns the ENTITY — call data_get for the StockDetail record (raises on error).
+  stockdetail = client.StockDetail.load({ "ticker" => "example_ticker" })
+  puts stockdetail
+rescue => err
+  warn "load failed: #{err}"
 end
 ```
 
@@ -51,7 +72,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  trends = client.Trend.list()
+  stockdetails = client.StockDetail.list()
 rescue => err
   warn "list failed: #{err}"
 end
@@ -121,8 +142,8 @@ client = RedditStocksSDK.test
 
 # Entity ops return the ENTITY (raises on error);
 # call data_get for the mock record.
-trend = client.Trend.list()
-puts trend
+stockdetail = client.StockDetail.list()
+puts stockdetail
 ```
 
 ### Use a custom fetch function
@@ -198,7 +219,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
-| `Stock` | `(data) -> StockEntity` | Create a Stock entity instance. |
 | `StockDetail` | `(data) -> StockDetailEntity` | Create a StockDetail entity instance. |
 | `Trend` | `(data) -> TrendEntity` | Create a Trend entity instance. |
 
@@ -236,19 +256,6 @@ returns a result `Hash` with these keys:
 
 ### Entities
 
-#### Stock
-
-| Field | Description |
-| --- | --- |
-| `no_of_comments` | Number of comments mentioning this stock |
-| `sentiment` | Overall sentiment for the stock |
-| `sentiment_score` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | Stock ticker symbol |
-
-Operations: List.
-
-API path: `/apps/reddit`
-
 #### StockDetail
 
 | Field | Description |
@@ -260,9 +267,9 @@ API path: `/apps/reddit`
 | `sentiment_score` | Sentiment score |
 | `ticker` | Stock ticker symbol |
 
-Operations: Load.
+Operations: List, Load.
 
-API path: `/apps/reddit/{ticker}`
+API path: `/apps/reddit`
 
 #### Trend
 
@@ -283,33 +290,6 @@ API path: `/apps/reddit/trend`
 ## Entities
 
 
-### Stock
-
-Create an instance: `stock = client.Stock`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `no_of_comments` | `Integer` | Number of comments mentioning this stock |
-| `sentiment` | `String` | Overall sentiment for the stock |
-| `sentiment_score` | `Float` | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `String` | Stock ticker symbol |
-
-#### Example: List
-
-```ruby
-# list returns an Array of Stock records (raises on error).
-stocks = client.Stock.list
-```
-
-
 ### StockDetail
 
 Create an instance: `stock_detail = client.StockDetail`
@@ -318,6 +298,7 @@ Create an instance: `stock_detail = client.StockDetail`
 
 | Method | Description |
 | --- | --- |
+| `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -336,6 +317,13 @@ Create an instance: `stock_detail = client.StockDetail`
 ```ruby
 # load returns the ENTITY — call data_get for the StockDetail record (raises on error).
 stock_detail = client.StockDetail.load({ "ticker" => "ticker" })
+```
+
+#### Example: List
+
+```ruby
+# list returns an Array of StockDetail records (raises on error).
+stock_details = client.StockDetail.list
 ```
 
 
@@ -528,11 +516,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-trend = client.Trend
-trend.list()
+stockdetail = client.StockDetail
+stockdetail.list()
 
-# trend.data_get now returns the trend data from the last list
-# trend.match_get returns the last match criteria
+# stockdetail.data_get now returns the stockdetail data from the last list
+# stockdetail.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

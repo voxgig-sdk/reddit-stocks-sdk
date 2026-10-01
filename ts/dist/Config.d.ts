@@ -69,13 +69,12 @@ declare class Config {
             "content-type": string;
         };
         entity: {
-            stock: {};
             stock_detail: {};
             trend: {};
         };
     };
     entity: {
-        stock: {
+        stock_detail: {
             fields: ({
                 name: string;
                 title: string;
@@ -111,27 +110,6 @@ declare class Config {
                         select: {};
                     }[];
                 };
-            };
-            relations: {
-                ancestors: never[];
-            };
-        };
-        stock_detail: {
-            fields: ({
-                name: string;
-                title: string;
-                type: string;
-                short: string;
-                format?: undefined;
-            } | {
-                name: string;
-                title: string;
-                type: string;
-                short: string;
-                format: string;
-            })[];
-            name: string;
-            op: {
                 load: {
                     input: string;
                     name: string;

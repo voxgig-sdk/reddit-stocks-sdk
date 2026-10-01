@@ -52,6 +52,32 @@ main: kit: entity: stock_detail: {
 
   name: "stock_detail"
   op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /apps/reddit"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/apps/reddit"
+          s: [
+            {
+              lit: "apps"
+            }
+            {
+              lit: "reddit"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
     load: {
       name: "load"
       points: [

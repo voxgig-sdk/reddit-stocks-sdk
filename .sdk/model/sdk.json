@@ -91,85 +91,6 @@
         "target": {}
       },
       "entity": {
-        "stock": {
-          "active": true,
-          "alias": {
-            "field": {}
-          },
-          "fields": {
-            "no_of_comments": {
-              "a": true,
-              "h": "No Of Comments",
-              "n": "no_of_comments",
-              "r": false,
-              "sh": "Number of comments mentioning this stock",
-              "t": "`$INTEGER`"
-            },
-            "sentiment": {
-              "a": true,
-              "h": "Sentiment",
-              "n": "sentiment",
-              "r": false,
-              "sh": "Overall sentiment for the stock",
-              "t": "`$STRING`"
-            },
-            "sentiment_score": {
-              "a": true,
-              "fo": "float",
-              "h": "Sentiment Score",
-              "n": "sentiment_score",
-              "r": false,
-              "sh": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
-              "t": "`$NUMBER`"
-            },
-            "ticker": {
-              "a": true,
-              "h": "Ticker",
-              "n": "ticker",
-              "r": false,
-              "sh": "Stock ticker symbol",
-              "t": "`$STRING`"
-            }
-          },
-          "name": "stock",
-          "op": {
-            "list": {
-              "input": "data",
-              "name": "list",
-              "points": [
-                {
-                  "a": true,
-                  "co": {
-                    "id": "GET /apps/reddit",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {},
-                  "k": "http",
-                  "m": "GET",
-                  "o": "/apps/reddit",
-                  "q": {},
-                  "r": {},
-                  "s": [
-                    {
-                      "lit": "apps"
-                    },
-                    {
-                      "lit": "reddit"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                }
-              ]
-            }
-          },
-          "relations": {
-            "ancestors": []
-          }
-        },
         "stock_detail": {
           "active": true,
           "alias": {
@@ -228,6 +149,38 @@
           },
           "name": "stock_detail",
           "op": {
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /apps/reddit",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/apps/reddit",
+                  "q": {},
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "apps"
+                    },
+                    {
+                      "lit": "reddit"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
             "load": {
               "input": "data",
               "name": "load",
@@ -798,6 +751,22 @@
             {
               "a": true,
               "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "stock_detail_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "a": true,
+              "d": {},
               "i": {
                 "ref": "stock_detail_ref01",
                 "srcdatavar": "stock_detail_ref01_data",
@@ -813,32 +782,6 @@
                   "apply": "TextFieldMark",
                   "def": {
                     "mark": "Mark01-stock_detail_ref01"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "BasicStockFlow": {
-          "active": true,
-          "entity": "stock",
-          "key$": "BasicStockFlow",
-          "kind": "basic",
-          "name": "BasicStockFlow",
-          "param": {},
-          "step": [
-            {
-              "a": true,
-              "d": {},
-              "i": {},
-              "m": {},
-              "o": "list",
-              "s": [],
-              "v": [
-                {
-                  "apply": "ItemExists",
-                  "def": {
-                    "ref": "stock_ref01"
                   }
                 }
               ]
@@ -905,7 +848,12 @@
         },
         "base": "http://localhost:8000",
         "clean": {
-          "keys": "key,token,id"
+          "active": true,
+          "hint": "0",
+          "keys": "key,secret,token,password,passwd,authorization,cookie,credential,signature",
+          "mask": "[redacted]",
+          "min": "4",
+          "values": ""
         },
         "entity": {
           "`$CHILD`": {

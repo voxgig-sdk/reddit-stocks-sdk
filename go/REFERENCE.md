@@ -47,10 +47,6 @@ client := sdk.TestSDK(testopts, sdkopts)
 
 ### Instance Methods
 
-#### `Stock(data map[string]any) RedditStocksEntity`
-
-Create a new `Stock` entity instance. Pass `nil` for no initial data.
-
 #### `StockDetail(data map[string]any) RedditStocksEntity`
 
 Create a new `StockDetail` entity instance. Pass `nil` for no initial data.
@@ -95,60 +91,6 @@ same parameters as `Direct()`.
 
 ---
 
-## StockEntity
-
-```go
-stock := client.Stock(nil)
-fmt.Println(stock.GetName()) // "stock"
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `no_of_comments` | `int` | No | Number of comments mentioning this stock |
-| `sentiment` | `string` | No | Overall sentiment for the stock |
-| `sentiment_score` | `float64` | No | Sentiment score ranging from -1 (most bearish) to 1 (most bullish) |
-| `ticker` | `string` | No | Stock ticker symbol |
-
-### Operations
-
-#### `List(reqmatch, ctrl map[string]any) (any, error)`
-
-List entities matching the given criteria. Returns an array.
-
-```go
-results, err := client.Stock(nil).List(nil, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(results)
-```
-
-### Common Methods
-
-#### `Data(args ...any) any`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `Match(args ...any) any`
-
-Get or set the entity match criteria. Works the same as `Data()`.
-
-#### `Make() Entity`
-
-Create a new `StockEntity` instance with the same client and
-options.
-
-#### `GetName() string`
-
-Return the entity name.
-
-
----
-
 ## StockDetailEntity
 
 ```go
@@ -168,6 +110,18 @@ fmt.Println(stockDetail.GetName()) // "stock_detail"
 | `ticker` | `string` | No | Stock ticker symbol |
 
 ### Operations
+
+#### `List(reqmatch, ctrl map[string]any) (any, error)`
+
+List entities matching the given criteria. Returns an array.
+
+```go
+results, err := client.StockDetail(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
+```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
 

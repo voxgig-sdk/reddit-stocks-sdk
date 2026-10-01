@@ -77,8 +77,6 @@ func runOp(client *sdk.RedditStocksSDK, op string, query *eng.Value, entityAtom 
 // emits one `case "<name>":` per entity defined in the SDK model.
 func entityFor(client *sdk.RedditStocksSDK, name string) (sdk.RedditStocksEntity, error) {
 	switch strings.ToLower(name) {
-	case "stock":
-		return client.Stock(nil), nil
 	case "stock_detail":
 		return client.StockDetail(nil), nil
 	case "trend":

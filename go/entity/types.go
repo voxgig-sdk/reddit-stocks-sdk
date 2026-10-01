@@ -12,18 +12,6 @@ import (
 	"github.com/voxgig-sdk/reddit-stocks-sdk/go/core"
 )
 
-// Stock is the typed data model for the stock entity.
-type Stock struct {
-}
-
-// StockListMatch is the typed request payload for Stock.ListTyped.
-type StockListMatch struct {
-	NoOfComments *int `json:"no_of_comments,omitempty"`
-	Sentiment *string `json:"sentiment,omitempty"`
-	SentimentScore *float64 `json:"sentiment_score,omitempty"`
-	Ticker *string `json:"ticker,omitempty"`
-}
-
 // StockDetail is the typed data model for the stock_detail entity.
 type StockDetail struct {
 }
@@ -31,6 +19,16 @@ type StockDetail struct {
 // StockDetailLoadMatch is the typed request payload for StockDetail.LoadTyped.
 type StockDetailLoadMatch struct {
 	Ticker string `json:"ticker"`
+}
+
+// StockDetailListMatch is the typed request payload for StockDetail.ListTyped.
+type StockDetailListMatch struct {
+	Mentions *int `json:"mentions,omitempty"`
+	NoOfComments *int `json:"no_of_comments,omitempty"`
+	Rank *int `json:"rank,omitempty"`
+	Sentiment *string `json:"sentiment,omitempty"`
+	SentimentScore *float64 `json:"sentiment_score,omitempty"`
+	Ticker *string `json:"ticker,omitempty"`
 }
 
 // Trend is the typed data model for the trend entity.

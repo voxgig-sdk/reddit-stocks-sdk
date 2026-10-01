@@ -83,77 +83,11 @@ func MakeConfig() map[string]any {
 				"content-type": "application/json",
 			},
 			"entity": map[string]any{
-				"stock": map[string]any{},
 				"stock_detail": map[string]any{},
 				"trend": map[string]any{},
 			},
 		},
 		"entity": map[string]any{
-			"stock": map[string]any{
-				"fields": []any{
-					map[string]any{
-						"name": "no_of_comments",
-						"title": "No Of Comments",
-						"type": "`$INTEGER`",
-						"short": "Number of comments mentioning this stock",
-					},
-					map[string]any{
-						"name": "sentiment",
-						"title": "Sentiment",
-						"type": "`$STRING`",
-						"short": "Overall sentiment for the stock",
-					},
-					map[string]any{
-						"name": "sentiment_score",
-						"title": "Sentiment Score",
-						"type": "`$NUMBER`",
-						"short": "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
-						"format": "float",
-					},
-					map[string]any{
-						"name": "ticker",
-						"title": "Ticker",
-						"type": "`$STRING`",
-						"short": "Stock ticker symbol",
-					},
-				},
-				"name": "stock",
-				"op": map[string]any{
-					"list": map[string]any{
-						"input": "data",
-						"name": "list",
-						"points": []any{
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/apps/reddit",
-								"segments": []any{
-									map[string]any{
-										"lit": "apps",
-									},
-									map[string]any{
-										"lit": "reddit",
-									},
-								},
-								"parts": []any{
-									"apps",
-									"reddit",
-								},
-								"rename": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{},
-								"select": map[string]any{},
-							},
-						},
-					},
-				},
-				"relations": map[string]any{
-					"ancestors": []any{},
-				},
-			},
 			"stock_detail": map[string]any{
 				"fields": []any{
 					map[string]any{
@@ -196,6 +130,36 @@ func MakeConfig() map[string]any {
 				},
 				"name": "stock_detail",
 				"op": map[string]any{
+					"list": map[string]any{
+						"input": "data",
+						"name": "list",
+						"points": []any{
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/apps/reddit",
+								"segments": []any{
+									map[string]any{
+										"lit": "apps",
+									},
+									map[string]any{
+										"lit": "reddit",
+									},
+								},
+								"parts": []any{
+									"apps",
+									"reddit",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
+							},
+						},
+					},
 					"load": map[string]any{
 						"input": "data",
 						"name": "load",
