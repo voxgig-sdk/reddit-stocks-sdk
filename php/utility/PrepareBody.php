@@ -3,11 +3,16 @@ declare(strict_types=1);
 
 // RedditStocks SDK utility: prepare_body
 
+require_once __DIR__ . '/Media.php';
+
 class RedditStocksPrepareBody
 {
     public static function call(RedditStocksContext $ctx): mixed
     {
         if ($ctx->op->input === 'data') {
+            if (RedditStocksMedia::isRawRequest($ctx->point)) {
+                return RedditStocksMedia::rawBody($ctx->reqdata);
+            }
             $body = ($ctx->utility->transform_request)($ctx);
             // PHP cannot tell an empty map from an empty list, and this
             // vendored struct answers [] where the canonical transform

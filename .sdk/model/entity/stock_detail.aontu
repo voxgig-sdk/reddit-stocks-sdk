@@ -63,6 +63,10 @@ main: kit: entity: stock_detail: {
           }
           m: "GET"
           o: "/apps/reddit"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "apps"
@@ -105,6 +109,10 @@ main: kit: entity: stock_detail: {
             exist: [
               "ticker"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

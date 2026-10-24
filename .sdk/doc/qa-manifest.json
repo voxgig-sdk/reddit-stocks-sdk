@@ -3,5 +3,22 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Current rank among discussed stocks",
+      "Get top 50 stocks discussed on Reddit subreddit - Wallstreetbets",
+      "Number of comments mentioning this stock",
+      "Number of times mentioned",
+      "Overall sentiment for the stock",
+      "Production server",
+      "Sentiment score",
+      "Sentiment score ranging from -1 (most bearish) to 1 (most bullish)",
+      "Stock ticker symbol",
+      "Successful response with list of top stocks",
+      "Successful response with stock details",
+      "Successful response with trending stocks",
+      "Trending momentum score"
+    ]
+  }
 }

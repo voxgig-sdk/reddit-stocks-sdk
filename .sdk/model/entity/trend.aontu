@@ -57,6 +57,10 @@ main: kit: entity: trend: {
           }
           m: "GET"
           o: "/apps/reddit/trend"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "apps"

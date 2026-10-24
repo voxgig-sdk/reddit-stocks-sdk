@@ -9,8 +9,39 @@ require_once __DIR__ . '/Runner.php';
 use PHPUnit\Framework\TestCase;
 use Voxgig\Struct\Struct as Vs;
 
+class StockDetailEntityTestFailHook extends RedditStocksBaseFeature
+{
+    public int $unexpected = 0;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->name = 'failhook';
+    }
+
+    public function init(RedditStocksContext $ctx, array $options): void
+    {
+    }
+
+    public function PreSpec(RedditStocksContext $ctx): void
+    {
+        throw new \RuntimeException('stock_detail hook failed');
+    }
+
+    public function PreUnexpected(RedditStocksContext $ctx): void
+    {
+        $this->unexpected++;
+    }
+}
+
 class StockDetailEntityTest extends TestCase
 {
+    // main.kit.test.live.strict is true (the default is true): a live
+    // request that fails, or a live test missing an input it needs,
+    // fails the test.
+    // An account with no record for a test to read skips it either way.
+    private const LIVE_STRICT = true;
+
     public function test_create_instance(): void
     {
         $testsdk = RedditStocksSDK::test(null, null);
@@ -57,23 +88,136 @@ class StockDetailEntityTest extends TestCase
         }
     }
 
+    public function test_stream_error(): void
+    {
+        $offline = ["net" => ["offline" => true]];
+        $streamerr = null;
+        try {
+            iterator_to_array(RedditStocksSDK::test($offline, null)->StockDetail(null)
+                ->stream("list", null, null), false);
+        } catch (\Throwable $e) {
+            $streamerr = $e;
+        }
+        $this->assertNotNull($streamerr, 'the stream should raise the transport failure');
+        $this->assertStringContainsString('offline', $streamerr->getMessage());
+
+        iterator_to_array(RedditStocksSDK::test($offline, null)->StockDetail(null)
+            ->stream("list", null, ["ctrl" => ["throw" => false]]), false);
+
+        $cfg = RedditStocksConfig::shared_config();
+        if (isset($cfg["feature"]["rbac"])) {
+            $denied = RedditStocksSDK::test(null, ["feature" => ["rbac" => ["active" => true, "deny" => true]]]);
+            $denyerr = null;
+            try {
+                iterator_to_array($denied->StockDetail(null)->stream("list", null, null), false);
+            } catch (\Throwable $e) {
+                $denyerr = $e;
+            }
+            $this->assertSame('rbac_denied', $denyerr->sdk_code ?? null);
+        }
+    }
+
+    public function test_stream_ctrl(): void
+    {
+        $ctrl = ["explain" => []];
+        iterator_to_array(RedditStocksSDK::test(null, null)->StockDetail(null)
+            ->stream("list", null, ["ctrl" => $ctrl]), false);
+        $this->assertSame(["explain"], array_keys($ctrl));
+    }
+
+    public function test_unexpected(): void
+    {
+        $hook = new StockDetailEntityTestFailHook();
+        $client = new RedditStocksSDK(["feature" => ["test" => ["active" => true]], "extend" => [$hook]]);
+
+        $err = null;
+        try {
+            $client->StockDetail(null)->list(null, null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertNotNull($err, 'the throwing hook should fail the operation');
+        $this->assertStringContainsString('hook failed', $err->getMessage());
+        $this->assertGreaterThan(0, $hook->unexpected, 'PreUnexpected did not fire');
+
+        $fired = $hook->unexpected;
+        $this->assertNull($client->StockDetail(null)->list(null, ["throw" => false]));
+        $this->assertGreaterThan($fired, $hook->unexpected, 'PreUnexpected did not fire');
+    }
+
+    public function test_cost_commits_a_throwing_transport(): void
+    {
+        $cfg = RedditStocksConfig::shared_config();
+        if (!isset($cfg["feature"]["cost"])) {
+            $this->markTestSkipped('feature not present in this SDK: cost');
+        }
+        $client = new RedditStocksSDK([
+            "test" => ["active" => true],
+            "feature" => ["cost" => ["active" => true, "unit" => 1]],
+            "utility" => ["fetcher" => function ($ctx, $url, $fetchdef) {
+                throw new \RuntimeException('stock_detail transport failed');
+            }],
+        ]);
+
+        $err = null;
+        try {
+            $client->StockDetail(null)->list(null, null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertInstanceOf(RedditStocksError::class, $err);
+        $this->assertStringContainsString('transport failed', $err->getMessage());
+
+        $client->StockDetail(null)->list(null, ["throw" => false]);
+        $this->assertSame(2, $client->_cost["total"]["calls"]);
+        $this->assertSame(2, $client->_cost["total"]["attempts"]);
+    }
+
+    public function test_validate_list_response(): void
+    {
+        $cfg = RedditStocksConfig::shared_config();
+        if (!isset($cfg["feature"]["validate"])) {
+            $this->markTestSkipped('feature not present in this SDK: validate');
+        }
+        $opts = ["feature" => ["validate" => ["active" => true, "request" => false, "response" => true]]];
+        $listed = RedditStocksSDK::test(['entity' => ['stock_detail' => ['v1' => []]]], $opts)->StockDetail(null)->list(null, null);
+        $this->assertSame(['v1'], array_map(fn($ent) => $ent->data_get()['id'] ?? null, $listed));
+        $err = null;
+        try {
+            RedditStocksSDK::test(['entity' => ['stock_detail' => ['v1' => ['mentions' => 'x']]]], $opts)->StockDetail(null)->list(null, null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertSame('validate_failed', $err->sdk_code ?? null);
+    }
+
+    public function test_validate(): void
+    {
+        $cfg = RedditStocksConfig::shared_config();
+        if (!isset($cfg["feature"]["validate"])) {
+            $this->markTestSkipped('feature not present in this SDK: validate');
+        }
+        $client = RedditStocksSDK::test(null, ["feature" => ["validate" => ["active" => true]]]);
+        $err = null;
+        try {
+            $client->StockDetail(null)->list(["mentions" => 'x'], null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertSame('validate_failed', $err->sdk_code ?? null);
+    }
+
     public function test_basic_flow(): void
     {
         $setup = stock_detail_basic_setup(null);
         // Per-op sdk-test-control.json skip.
         $_live = !empty($setup["live"]);
-        foreach (["list", "load"] as $_op) {
+        foreach (["list"] as $_op) {
             [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "stock_detail." . $_op, $_live ? "live" : "unit");
             if ($_shouldSkip) {
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
                 return;
             }
-        }
-        // The basic flow consumes synthetic IDs from the fixture. In live mode
-        // without an *_ENTID env override, those IDs hit the live API and 4xx.
-        if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set REDDIT_STOCKS_TEST_STOCK_DETAIL_ENTID JSON to run live");
-            return;
         }
         $client = $setup["client"];
 
@@ -91,11 +235,6 @@ class StockDetailEntityTest extends TestCase
 
         $stock_detail_ref01_list_result = $stock_detail_ref01_ent->list($stock_detail_ref01_match, null);
         $this->assertIsArray($stock_detail_ref01_list_result);
-
-        // LOAD
-        $stock_detail_ref01_match_dt0 = [];
-        $stock_detail_ref01_data_dt0_loaded = $stock_detail_ref01_ent->load($stock_detail_ref01_match_dt0, null);
-        $this->assertNotNull($stock_detail_ref01_data_dt0_loaded);
 
     }
 }
@@ -119,9 +258,8 @@ function stock_detail_basic_setup($extra)
         $idmap[$k] = strtoupper($k);
     }
 
-    // Detect ENTID env override before envOverride consumes it. When live
-    // mode is on without a real override, the basic test runs against synthetic
-    // IDs from the fixture and 4xx's. Surface this so the test can skip.
+    // Whether *_ENTID supplied the idmap, read before env_override consumes
+    // it: without it, the ids a live flow binds are the fixture's synthetic ones.
     $entid_env_raw = getenv("REDDIT_STOCKS_TEST_STOCK_DETAIL_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
